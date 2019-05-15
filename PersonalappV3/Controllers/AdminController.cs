@@ -18,7 +18,7 @@ namespace PersonalappV3.Controllers
             return View();
         }
 
-        public IActionResult InloggenAdmin(UserInlog user)
+        public IActionResult InloggenAdmin(UserIngame user)
         {
             admin.user_id = user.user_id;
             adminlogic.InloggenAdmin(admin);

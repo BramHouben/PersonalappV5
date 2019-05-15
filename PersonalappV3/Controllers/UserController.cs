@@ -54,7 +54,7 @@ namespace PersonalappV3.Controllers
 
                 if (AdminLogic.IsAdmin2(IngameUser.user_id))
                 {
-                    return RedirectToAction("InloggenAdmin", "Admin", new { IngameUser });
+                    return RedirectToAction("InloggenAdmin", "Admin", new { IngameUser.user_id });
 
                 }
                 else
