@@ -1,0 +1,76 @@
+﻿@{
+        ViewData["Title"] = "Map";
+    }
+<head>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.mapding').maphilight();
+
+        });</script>
+</head>
+<style>
+    .body-content {
+        position: fixed;
+    }
+
+    .image-container {
+        position: fixed;
+    }
+
+    body {
+        background-color: black;
+    }
+
+    .alert {
+        display: inline-block;
+        /*position: fixed;*/
+        z-index: 1;
+        float: right;
+    }
+</style>
+
+<body>
+    @if (TempData["BorgBetaald"] != null)
+    {
+        <div id="message">
+            <div style="        padding: 5px;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p>@TempData["BorgBetaald"]</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        TempData.Remove("BorgBetaald");
+    }
+    else if (TempData["MisdaadGelukt"] != null)
+    {
+
+        <div id="message">
+            <div style="        padding: 5px;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p>@TempData["MisdaadGelukt"]</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+          TempData.Remove("MisdaadGelukt");
+    }
+    <div class="image-container container-fluid">
+        <img id="Image-Maps-Com-image-maps-2019-04-09-035729" src="~/images/map.png" usemap="#image-maps-2019-04-09-035729" alt="Map" class="mapding" />
+        <map name="image-maps-2019-04-09-035729" id="ImageMapsCom-image-maps-2019-04-09-035729">
+            <area alt="kerk" title="Kerk" href=@Url.Action("MisdaadPlegen", "Game") shape="rect" coords="650,375,753,455" style="        outline: none;" target="_self" onclick="" />
+            <area alt="Politie" title="Politie" href=@Url.Action("Gevangenis", "Game") shape="rect" coords="1386,485,1440,551" style="        outline: none;" target="_self" onclick="politie" />
+            <area alt="Winkel" title="winkel" href=@Url.Action("Winkel", "Game") shape="rect" coords="751,156,829,205" style="        outline: none;" target="_self" onclick="winkel" />
+            <area alt="berichtenbord" title="berichtenbord" href="http://www.image-maps.com/" shape="rect" coords="1018,111,1122,187" style="        outline: none;" target="_self" onclick="berichtenbord" />
+            <area alt="misdaad" title="misdaad" href="http://www.image-maps.com/" shape="rect" coords="1594,134,1766,265" style="        outline: none;" target="_self" onclick="misdaad" />
+            <area alt="reward" title="reward" href="http://www.image-maps.com/" shape="rect" coords="219,150,340,232" style="        outline: none;" target="_self" onclick="reward" />
+            <area shape="rect" coords="1864,788,1866,790" alt="Image Map" style="        outline: none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_0" />
+        </map>
+    </div>
+</body>

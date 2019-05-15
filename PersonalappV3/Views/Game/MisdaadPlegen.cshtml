@@ -1,0 +1,58 @@
+﻿@model PersonalappV3.Models.MisdaadView
+@*@using Models
+    @model List<Misdaad>*@
+@{
+    ViewData["Title"] = "MisdaadPlegen";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<h2>MisdaadPlegen</h2>
+
+<hr />
+
+<form asp-controller="Game" asp-action="PlegenMisdaad" method="post" class="form-horizontal" role="form">
+    <div class="container">
+        <div class="row col-md-auto">
+            <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+
+            <select name="misdaden" id="misdaden" class="form-control" required>
+                <option disabled value="" selected hidden>Selecteer een misdaad</option>
+                @{
+                    foreach (var Item in Model.MisdadenList)
+                    {
+
+                        <option value="@Item.Misdaad_id"
+                                data-desc="@Item.Misdaad_beschrijving" data-moeilijk="@Item.Misdaad_moeilijkheidsgraad">
+                            @Item.Misdaad_naam
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+        <br />
+        <div class="row col-md-auto">
+            <p id="Info"></p>
+        </div>
+        <div class="row col-md-auto">
+            <p id="Info2"></p>
+        </div>
+        <div class="row col-md-auto">
+            <input type="submit" value="Pleeg Misdaad!" class="btn btn-light" asp-controller="Game" asp-action="PlegenMisdaad" />
+        </div>
+    </div>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#misdaden").change(function () {
+
+            var GeselecteerdeItem = $("#misdaden option:selected").attr("data-desc");
+            var GeselecteerdeItem2 = $("#misdaden option:selected").attr("data-moeilijk");
+            var testint = parseInt(GeselecteerdeItem2 * 16);
+            $("#Info").text(GeselecteerdeItem);
+            $("#Info2").text(testint + " % kans");
+        });
+
+    });
+</script>

@@ -1,0 +1,66 @@
+﻿@model Models.UserIngame
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ingameGeld)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ingameGeld)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.level)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.level)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.xp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.xp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.levens)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.levens)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.user_id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.user_id)
+        </dd>*@
+        @*<dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ww)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ww)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Delete", "Delete", "User", new {  id = Model.user_id  }) |
+
+</div>

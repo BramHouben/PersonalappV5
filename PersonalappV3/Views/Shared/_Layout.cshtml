@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LimboFun</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap_thema.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"*@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap_thema.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    </environment>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">LimboFun</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav mr-auto ">
+                @if (Context.Session.GetString("Username") == null)
+                {
+                    <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Registratie" class="nav-link">Registratie</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Login" class="nav-link">Login</a></li>
+                }
+                else if (Context.Session.GetInt32("Admin") != null)
+                {
+                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminIndex" class="nav-link">Registratie</a></li>
+
+                }
+
+                else
+                {
+                    <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Details" class="nav-link">Welkom @Context.Session.GetString("Username")</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Game" asp-action="index" class="nav-link">map</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Uitloggen" class="nav-link">Uitloggen</a></li>
+                }
+                @*<li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
+        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="About"class="nav-link">About</a></li>
+        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Contact"class="nav-link">Contact</a></li>*@
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+
+        @RenderBody()
+
+        <hr />
+        <footer class="fixed-bottom">
+            <p>&copy; 2019 - Bram</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="~/js/jquery.maphilight.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+        </script>
+
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
