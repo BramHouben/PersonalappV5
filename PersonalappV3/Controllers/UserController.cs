@@ -60,6 +60,7 @@ namespace PersonalappV3.Controllers
                 else
                 {
                     userlogic.KijkVoorDagelijkseReward(IngameUser.user_id);
+
                     return RedirectToAction("index", "Game");
                 }
             }

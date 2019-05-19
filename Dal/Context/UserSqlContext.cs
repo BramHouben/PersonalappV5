@@ -241,6 +241,7 @@ namespace DAL.Context
                         command2.Parameters.Add(new SqlParameter("tijd", DateTime.Now));
                         command2.ExecuteNonQuery();
                     }
+
                 }
             }
             catch (SqlException error)
