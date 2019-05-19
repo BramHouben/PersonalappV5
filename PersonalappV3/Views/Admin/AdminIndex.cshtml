@@ -12,19 +12,23 @@
             <table class="table table-responsive-sm table-dark">
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">Borg</th>
-                    <th scope="col">Tijd vast</th>
-                    <th scope="col">Betalen</th>
+                    <th scope="col">email</th>
+                    <th scope="col">username</th>
+                    <th scope="col">level</th>
+                    <th scope="col">Verwijderen</th>
                 </tr>
 
-                @*<tr>
-                    <th scope="row"></th>
-                    <td>@User.</td>
-                    <td>@Model.Tijd_vast</td>
-                    <td>@Html.ActionLink("VerwijderUser", "VerwijderUser", "Admin", new { geld = Model.Borg }, new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
-                </tr>*@
+                @foreach (UserIngame Ui in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@Ui.email</td>
+                        <td>@Ui.username</td>
+                        <td>@Ui.level</td>
+                        <td>@Html.ActionLink("Verwijderen", "VerwijderUser","Admin", new {id=Ui.user_id },new {onclick="return confirm('Weet je zeker dat u deze user wilt verwijderen');" })</td>
+                    </tr>
+                }
             </table>
-
         </div>
     </div>
 </div>
