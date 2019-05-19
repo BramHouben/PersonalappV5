@@ -133,5 +133,49 @@ namespace Dal.Context
                 return false;
             }
         }
+
+        public List<UserIngame> KrijgAlleUsers()
+        {
+            var Users = new List<UserIngame>();
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection con = new SqlConnection(conn.ConnectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd =
+                        new SqlCommand("select t1.user_id, t1.username, t1.email_user, t2.user_level, t2.user_xp, t2.user_geld, t2.user_level, t2.clan_id from UserInlog t1 inner join UserGegevens t2 on t1.user_id = t2.user_id", con)
+                    )
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var User = new UserIngame
+                                {
+                                    user_id = (int)reader["user_id"],
+                                    username = (string)reader["username"],
+                                    email = (string)reader["email_user"],
+                                    ingameGeld = (int)reader["user_geld"],
+                                    level = (int)reader["user_level"],
+                                    xp = (int)reader["user_xp"],
+                                    // clan moet nog komen
+                                };
+
+                                Users.Add(User);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+
+            return Users;
+
+        }
     }
+    
 }

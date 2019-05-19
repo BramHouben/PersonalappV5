@@ -14,7 +14,7 @@ namespace Dal.Repo
         {
             inUser = new UserSqlContext();
         }
-
+        
         public void KrijgenData(UserIngame User) => inUser.KrijgenData(User);
 
         public void KijkVoorDagelijkseReward(int user_id) => inUser.KijkVoorDagelijkseReward(user_id);

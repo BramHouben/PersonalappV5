@@ -1,20 +1,30 @@
-﻿
+﻿@using Models
+@model List<UserIngame>
 @{
-    ViewData["Title"] = "AdminIndex";
+    ViewData["Title"] = "AdminPagina";
 }
 
-<h2>AdminIndex</h2>
+<h2>AdminPagina</h2>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
+        <div class="col-3 text-center">
+            <table class="table table-responsive-sm table-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Borg</th>
+                    <th scope="col">Tijd vast</th>
+                    <th scope="col">Betalen</th>
+                </tr>
+
+                @*<tr>
+                    <th scope="row"></th>
+                    <td>@User.</td>
+                    <td>@Model.Tijd_vast</td>
+                    <td>@Html.ActionLink("VerwijderUser", "VerwijderUser", "Admin", new { geld = Model.Borg }, new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
+                </tr>*@
+            </table>
+
         </div>
     </div>
 </div>

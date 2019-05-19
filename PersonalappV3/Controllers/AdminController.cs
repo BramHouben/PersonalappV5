@@ -15,7 +15,8 @@ namespace PersonalappV3.Controllers
         private AdminLogic adminlogic = new AdminLogic();
         public IActionResult AdminIndex()
         {
-            return View();
+            
+            return View(adminlogic.KrijgAlleUsers());
         }
 
         public IActionResult InloggenAdmin(UserIngame user)
@@ -24,8 +25,11 @@ namespace PersonalappV3.Controllers
             adminlogic.InloggenAdmin(admin);
 
             HttpContext.Session.SetInt32("user_id", admin.user_id);
-            return View("AdminIndex");
+            return RedirectToAction("AdminIndex");
         }
-
+     public List<UserIngame> alledata()
+        {
+         return   adminlogic.KrijgAlleUsers();
+        }
     }
 }

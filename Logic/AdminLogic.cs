@@ -9,7 +9,7 @@ namespace Logic
 {
     public class AdminLogic
     {
-
+        //private UserInlog UserInlog;
         private AdminRepo AdminRepo = new AdminRepo();
         //public bool IsAdmin(int user_id, Admin admin)
         //{
@@ -19,6 +19,11 @@ namespace Logic
         public bool IsAdmin2(int userid)
         {
             return AdminRepo.IsAdmin2(userid);
+        }
+
+        public List<UserIngame> KrijgAlleUsers()
+        {
+            return AdminRepo.KrijgAlleUsers;
         }
 
         public void InloggenAdmin(Admin admin)

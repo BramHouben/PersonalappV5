@@ -14,6 +14,7 @@ namespace Dal.Repo
         {
             IAanpassenGegevensUser = new AdminContext();
         }
+        public List<UserIngame> KrijgAlleUsers => IAanpassenGegevensUser.KrijgAlleUsers();
 
         public void IsAdmin(Admin admin) => IAanpassenGegevensUser.IsAdmin(admin);
 
