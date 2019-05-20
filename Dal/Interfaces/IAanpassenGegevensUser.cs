@@ -10,5 +10,6 @@ namespace Dal.Interfaces
         void IsAdmin(Admin admin);
         bool IsAdmin2(int userid);
         List<UserIngame> KrijgAlleUsers();
+        void VerwijderUser(int user_id);
     }
 }

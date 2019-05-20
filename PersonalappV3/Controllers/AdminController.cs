@@ -27,7 +27,11 @@ namespace PersonalappV3.Controllers
             HttpContext.Session.SetInt32("user_id", admin.user_id);
             return RedirectToAction("AdminIndex");
         }
-     public List<UserIngame> alledata()
+        public IActionResult VerwijderUser(int user_id)
+        {
+            adminlogic.VerwijderUser(user_id);
+        }
+        public List<UserIngame> alledata()
         {
          return   adminlogic.KrijgAlleUsers();
         }

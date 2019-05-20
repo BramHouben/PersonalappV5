@@ -30,5 +30,10 @@ namespace Logic
         {
             AdminRepo.IsAdmin(admin);
         }
+
+        public void VerwijderUser(int user_id)
+        {
+            AdminRepo.VerwijderUser(user_id);
+        }
     }
 }

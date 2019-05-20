@@ -176,6 +176,27 @@ namespace Dal.Context
             return Users;
 
         }
+        public void VerwijderUser(int user_id)
+        {
+            try
+            {
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("delete * from Userinlog where user_id = @user_id", connectie))
+                    {
+
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.ExecuteNonQuery();
+
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            }
     }
     
 }

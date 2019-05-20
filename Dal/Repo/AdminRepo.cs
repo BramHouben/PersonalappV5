@@ -19,5 +19,7 @@ namespace Dal.Repo
         public void IsAdmin(Admin admin) => IAanpassenGegevensUser.IsAdmin(admin);
 
         public bool IsAdmin2(int userid) => IAanpassenGegevensUser.IsAdmin2(userid);
+
+        public void VerwijderUser(int user_id) => IAanpassenGegevensUser.VerwijderUser(user_id);
     }
 }
