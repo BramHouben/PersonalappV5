@@ -3,32 +3,34 @@
 @{
     ViewData["Title"] = "AdminPagina";
 }
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
 
 <h2>AdminPagina</h2>
 
 <div class="container">
     <div class="row">
-        <div class="col-3 text-center">
-            <table class="table table-responsive-sm table-dark">
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">email</th>
-                    <th scope="col">username</th>
-                    <th scope="col">level</th>
-                    <th scope="col">Verwijderen</th>
-                </tr>
+        @*<div class="col-3 text-center">*@
+        <table class="table table-bordered ">
+            <tr>
+                @*<th scope="col"></th>*@
+                <th scope="col">Email</th>
+                <th scope="col">Gebruikersnaam</th>
+                <th scope="col">Geld</th>
+                <th scope="col"><i class="fas fa-trash-alt"></i></th>
+            </tr>
 
-                @foreach (UserIngame Ui in Model)
-                {
-                    <tr>
-                        <td></td>
-                        <td>@Ui.email</td>
-                        <td>@Ui.username</td>
-                        <td>@Ui.level</td>
-                        <td>@Html.ActionLink("Verwijderen", "VerwijderUser","Admin", new {id=Ui.user_id },new {onclick="return confirm('Weet je zeker dat u deze user wilt verwijderen');" })</td>
-                    </tr>
-                }
-            </table>
-        </div>
+            @foreach (UserIngame Ui in Model)
+            {
+                <tr>
+                    @*<td></td>*@
+                    <td>@Ui.email</td>
+                    <td>@Ui.username</td>
+                    <td>@Ui.ingameGeld</td>
+                    <td>@Html.ActionLink("Verwijderen", "VerwijderUser", "Admin", new { id = Ui.user_id }, new { onclick = "return confirm('Weet je zeker dat u deze user wilt verwijderen');" })</td>
+                </tr>
+            }
+        </table>
     </div>
+    @*</div>*@
 </div>

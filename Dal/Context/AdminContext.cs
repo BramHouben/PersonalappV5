@@ -180,10 +180,11 @@ namespace Dal.Context
         {
             try
             {
+                conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
                     connectie.Open();
-                    using (SqlCommand command = new SqlCommand("delete * from Userinlog where user_id = @user_id", connectie))
+                    using (SqlCommand command = new SqlCommand("delete from Userinlog where user_id = @user_id", connectie))
                     {
 
                         command.Parameters.AddWithValue("@user_id", user_id);
@@ -196,7 +197,7 @@ namespace Dal.Context
             {
                 Console.WriteLine(fout.Message);
             }
-            }
+        }
     }
     
 }

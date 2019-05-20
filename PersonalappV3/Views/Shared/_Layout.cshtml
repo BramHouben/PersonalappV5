@@ -13,7 +13,7 @@
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"*@
+        @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />*@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap_thema.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     </environment>
@@ -34,7 +34,8 @@
                 }
                 else if (Context.Session.GetInt32("Admin") != null)
                 {
-                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminIndex" class="nav-link">Registratie</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminIndex" class="nav-link">admin</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Uitloggen" class="nav-link">Uitloggen</a></li>
 
                 }
 
@@ -44,9 +45,6 @@
                     <li class="nav-item"><a asp-area="" asp-controller="Game" asp-action="index" class="nav-link">map</a></li>
                     <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Uitloggen" class="nav-link">Uitloggen</a></li>
                 }
-                @*<li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
-        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="About"class="nav-link">About</a></li>
-        <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Contact"class="nav-link">Contact</a></li>*@
             </ul>
         </div>
     </nav>

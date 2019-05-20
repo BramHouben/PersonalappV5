@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using System;
 
 namespace PersonalappV3.Controllers
 {
@@ -55,7 +54,6 @@ namespace PersonalappV3.Controllers
                 if (AdminLogic.IsAdmin2(IngameUser.user_id))
                 {
                     return RedirectToAction("InloggenAdmin", "Admin", new { IngameUser.user_id });
-
                 }
                 else
                 {
@@ -68,10 +66,9 @@ namespace PersonalappV3.Controllers
             {
                 return View();
             }
-            
         }
 
-            public ActionResult Uitloggen(UserInlog User)
+        public ActionResult Uitloggen(UserInlog User)
         {
             HttpContext.Session.Clear();
 

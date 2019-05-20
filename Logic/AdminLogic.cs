@@ -28,12 +28,12 @@ namespace Logic
 
         public void InloggenAdmin(Admin admin)
         {
-            AdminRepo.IsAdmin(admin);
+          AdminRepo.IsAdmin(admin);
         }
 
         public void VerwijderUser(int user_id)
         {
-            AdminRepo.VerwijderUser(user_id);
+        AdminRepo.VerwijderUser(user_id);
         }
     }
 }
