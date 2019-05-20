@@ -198,6 +198,42 @@ namespace Dal.Context
                 Console.WriteLine(fout.Message);
             }
         }
+
+        public UserIngame AanpassenUser(int id)
+        {
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select t1.user_id, t1.username, t1.email_user, t2.user_level, t2.user_xp, t2.user_geld, t2.user_level, t2.clan_id from UserInlog t1 inner join UserGegevens t2 on t1.user_id = t2.user_id", connectie))
+                    {
+
+                        command.Parameters.AddWithValue("@user_id", id);
+                        var reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            var team = new UserIngame
+                            {
+                                user_id = (int)reader["TeamID"],
+                               // username = (string)reader["TeamLeiderID"],
+                               //level  = (int)reader["CurriculumEigenaarID"]
+                            };
+
+                        }
+
+                    }
+                }
+                
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return AanpassenUser(id);
+        }
     }
     
 }

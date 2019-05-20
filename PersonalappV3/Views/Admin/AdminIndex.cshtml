@@ -9,7 +9,12 @@
 <h2>AdminPagina</h2>
 
 <div class="container">
+
     <div class="row">
+        <div class="row">
+            @Model.Count.ToString() Gebruikers
+
+        </div>
         @*<div class="col-3 text-center">*@
         <table class="table table-bordered ">
             <tr>
@@ -18,19 +23,21 @@
                 <th scope="col">Gebruikersnaam</th>
                 <th scope="col">Geld</th>
                 <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                <th scope="col"><i class="fas fa-edit"></i></th>
             </tr>
 
             @foreach (UserIngame Ui in Model)
             {
-                <tr>
-                    @*<td></td>*@
-                    <td>@Ui.email</td>
-                    <td>@Ui.username</td>
-                    <td>@Ui.ingameGeld</td>
-                    <td>@Html.ActionLink("Verwijderen", "VerwijderUser", "Admin", new { id = Ui.user_id }, new { onclick = "return confirm('Weet je zeker dat u deze user wilt verwijderen');" })</td>
-                </tr>
+        <tr>
+            @*<td></td>*@
+            <td>@Ui.email</td>
+            <td>@Ui.username</td>
+            <td>@Ui.ingameGeld</td>
+            <td>@Html.ActionLink("Verwijderen", "VerwijderUser", "Admin", new { id = Ui.user_id }, new { onclick = "return confirm('Weet je zeker dat u deze user wilt verwijderen');" })</td>
+            <td>@Html.ActionLink("Aanpassen", "EditUser", "Admin", new { id = Ui.user_id }, new { onclick = "return confirm('Weet je zeker dat u deze user wilt wijzigen');" })</td>
+        </tr>
             }
         </table>
     </div>
-    @*</div>*@
+        @*</div>*@
 </div>

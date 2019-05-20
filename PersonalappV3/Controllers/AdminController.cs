@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Logic;
+﻿using Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PersonalappV3.Controllers
 {
@@ -13,9 +11,9 @@ namespace PersonalappV3.Controllers
     {
         private Admin admin = new Admin();
         private AdminLogic adminlogic = new AdminLogic();
+
         public IActionResult AdminIndex()
         {
-            
             return View(adminlogic.KrijgAlleUsers());
         }
 
@@ -28,14 +26,23 @@ namespace PersonalappV3.Controllers
             HttpContext.Session.SetInt32("Admin", admin.user_id);
             return RedirectToAction("AdminIndex");
         }
+
         public IActionResult VerwijderUser(int id)
         {
-           adminlogic.VerwijderUser(id);
+            adminlogic.VerwijderUser(id);
             return RedirectToAction("AdminIndex");
         }
+
         public List<UserIngame> alledata()
         {
-         return   adminlogic.KrijgAlleUsers();
+            return adminlogic.KrijgAlleUsers();
+        }
+
+        public IActionResult EditUser(int id)
+        {
+            //UserIngame GeselecteerdeUser = adminlogic.AanpassenUser(id);
+            UserIngame test = alledata().Where(s => s.user_id == id).FirstOrDefault();
+            return View(test);
         }
     }
 }

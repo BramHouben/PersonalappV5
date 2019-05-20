@@ -35,5 +35,10 @@ namespace Logic
         {
         AdminRepo.VerwijderUser(user_id);
         }
+
+        public UserIngame AanpassenUser(int id)
+        {
+          return AdminRepo.AanpassenUser(id);
+        }
     }
 }

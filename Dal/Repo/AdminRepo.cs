@@ -21,5 +21,7 @@ namespace Dal.Repo
         public bool IsAdmin2(int userid) => IAanpassenGegevensUser.IsAdmin2(userid);
 
         public void VerwijderUser(int user_id) => IAanpassenGegevensUser.VerwijderUser(user_id);
+
+        public UserIngame AanpassenUser(int id) => IAanpassenGegevensUser.AanpassenUser(id);
     }
 }
