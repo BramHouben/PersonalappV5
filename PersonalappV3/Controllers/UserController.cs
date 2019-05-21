@@ -93,7 +93,7 @@ namespace PersonalappV3.Controllers
         // GET: User/Delete/5
         public IActionResult Delete(int id)
         {
-            userlogic.DeleUser(id);
+            userlogic.DeleteUser(id);
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }

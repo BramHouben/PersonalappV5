@@ -74,7 +74,7 @@ namespace Logic
             UserRepo.KrijgenData(IngameUser);
         }
 
-        public void DeleUser(int id)
+        public void DeleteUser(int id)
         {
             UserSqlContext.DeleteUser(id);
         }
