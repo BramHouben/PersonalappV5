@@ -1,4 +1,5 @@
 ﻿using Dal.Context;
+using Dal.Repo;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -7,16 +8,17 @@ namespace Logic
 {
     public class MisdaadLogic
     {
+        private MisdaadRepo MisdaadRepo = new MisdaadRepo();
         private MisdaadContext MisdaadContext = new MisdaadContext();
 
         public List<Misdaad> VulList()
         {
-            return MisdaadContext.VulListMisdaden();
+            return MisdaadRepo.VulListMisdaden();
         }
 
         public bool PlegenMisdaad(int id)
         {
-            int kans = MisdaadContext.MisdaadPlegen(id);
+            int kans = MisdaadRepo.MisdaadPlegen(id);
             if (KansBerekenen(kans) == true)
             {
                 return true;
@@ -45,17 +47,17 @@ namespace Logic
 
         public void ZetInGevangenis(int id, int user_id)
         {
-            MisdaadContext.ZetInGevangenis(id, user_id);
+            MisdaadRepo.ZetInGevangenis(id, user_id);
         }
 
         public void GeefReward(int id, int user_id)
         {
-            MisdaadContext.GeefReward(id, user_id);
+            MisdaadRepo.GeefReward(id, user_id);
         }
 
         public void ZetInDatabase(int id, int user_id)
         {
-            MisdaadContext.ZetInDatabase(id, user_id);
+            MisdaadRepo.ZetInDatabase(id, user_id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Dal.Interfaces;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Dal.Context
 {
-    public class MisdaadContext
+    public class MisdaadContext : IMisdaad
     {
         private DbConn db = new DbConn();
         private SqlConnection conn;
