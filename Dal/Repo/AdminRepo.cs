@@ -22,6 +22,8 @@ namespace Dal.Repo
 
         public void VerwijderUser(int user_id) => IAanpassenGegevensUser.VerwijderUser(user_id);
 
-        public UserIngame AanpassenUser(int id) => IAanpassenGegevensUser.AanpassenUser(id);
+        //public UserIngame AanpassenUser(int id) => IAanpassenGegevensUser.AanpassenUser(id);
+
+        public void EditUser(UserIngame user) => IAanpassenGegevensUser.EditUser(user);
     }
 }

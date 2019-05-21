@@ -41,8 +41,14 @@ namespace PersonalappV3.Controllers
         public IActionResult EditUser(int id)
         {
             //UserIngame GeselecteerdeUser = adminlogic.AanpassenUser(id);
-            UserIngame test = alledata().Where(s => s.user_id == id).FirstOrDefault();
-            return View(test);
+            UserIngame User = alledata().Where(s => s.user_id == id).FirstOrDefault();
+            return View(User);
+        }
+        [HttpPost]
+        public IActionResult EditUser(UserIngame User)
+        {
+            adminlogic.EditUser(User);
+            return RedirectToAction("AdminIndex");
         }
     }
 }

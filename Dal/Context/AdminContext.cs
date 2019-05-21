@@ -199,7 +199,7 @@ namespace Dal.Context
             }
         }
 
-        public UserIngame AanpassenUser(int id)
+        public void EditUser(UserIngame User)
         {
             try
             {
@@ -207,33 +207,27 @@ namespace Dal.Context
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
                     connectie.Open();
-                    using (SqlCommand command = new SqlCommand("select t1.user_id, t1.username, t1.email_user, t2.user_level, t2.user_xp, t2.user_geld, t2.user_level, t2.clan_id from UserInlog t1 inner join UserGegevens t2 on t1.user_id = t2.user_id", connectie))
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_geld = @geld ,user_leven = @leven, user_xp= @xp where user_id=@user_id", connectie))
                     {
 
-                        command.Parameters.AddWithValue("@user_id", id);
-                        var reader = command.ExecuteReader();
+                        command.Parameters.AddWithValue("@user_id", User.user_id);
+                        command.Parameters.AddWithValue("@geld", User.ingameGeld);
+                        command.Parameters.AddWithValue("@leven", User.levens);
+                        command.Parameters.AddWithValue("@xp", User.xp);
+                        command.ExecuteNonQuery();
 
-                        while (reader.Read())
-                        {
-                            var team = new UserIngame
-                            {
-                                user_id = (int)reader["TeamID"],
-                               // username = (string)reader["TeamLeiderID"],
-                               //level  = (int)reader["CurriculumEigenaarID"]
-                            };
 
-                        }
 
                     }
+
                 }
-                
             }
+
+
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
             }
-            return AanpassenUser(id);
         }
     }
-    
 }
