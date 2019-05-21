@@ -17,7 +17,14 @@ namespace PersonalappV3.Controllers
 
         public ActionResult Index()
         {
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            if (GevangenisLogic.MagUserVrij(user_id) == false)
+            {
+                return View("Gevangenis");
+            }
+            else { 
             return View();
+        }
         }
 
         //public ActionResult Gevangenis()

@@ -29,6 +29,11 @@ namespace Logic
             }
         }
 
+        public bool MagUserVrij(int user_id)
+        {
+            return GevangenisContext.MagUserVrij(user_id);
+        }
+
         public bool CheckUserVast(int user_id)
         {
           return GevangenisContext.CheckUserVast(user_id);

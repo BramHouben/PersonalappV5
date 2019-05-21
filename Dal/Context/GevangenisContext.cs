@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Models;
+using System;
 using System.Data.SqlClient;
-using System.Text;
-using Models;
 
 namespace Dal.Context
 {
@@ -15,7 +13,6 @@ namespace Dal.Context
         {
             try
             {
-               
                 conn = db.returnconn();
                 conn.Open();
                 var command = conn.CreateCommand();
@@ -28,8 +25,6 @@ namespace Dal.Context
                     gevangenis.Borg = (int)reader["Borg"];
                     gevangenis.Tijd_vast = (DateTime)reader["tijd_gevangen"];
                     gevangenis.Gevangenis_id = (int)reader["gevangenis_id"];
-
-
                 }
             }
             catch (SqlException fout)
@@ -42,14 +37,51 @@ namespace Dal.Context
             }
         }
 
+        public bool MagUserVrij(int user_id)
+        {
+            try
+            {
+                DateTime TijdNu = DateTime.Now;
+              
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    DateTime tijdvast;
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("Select tijd_gevangen from Gevangenis where User_id = @user_id", connectie))
+                    {
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
+                        if (command.ExecuteScalar() == null)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            tijdvast = (DateTime)command.ExecuteScalar();
+                            if (TijdNu > tijdvast)
+                            {
+                                DeleteUserGevangenis(user_id);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+            return false;
+        }
+
         public bool CheckUserVast(int user_id)
         {
             try
             {
-              conn=  db.returnconn();
+                conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-
                     connectie.Open();
 
                     using (SqlCommand command = new SqlCommand("Select count(@user_id) from Gevangenis where User_id = @user_id"))
@@ -57,8 +89,8 @@ namespace Dal.Context
                         int aantal;
                         command.Connection = connectie;
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
-                      aantal=  (int)command.ExecuteScalar();
-                        if(aantal == 0)
+                        aantal = (int)command.ExecuteScalar();
+                        if (aantal == 0)
                         {
                             return false;
                         }
@@ -66,7 +98,6 @@ namespace Dal.Context
                         {
                             return true;
                         }
-
                     }
                 }
             }
@@ -79,17 +110,15 @@ namespace Dal.Context
 
         public int CheckGeldUser(int user_id)
         {
-            int geld= 0;
+            int geld = 0;
             try
             {
-                
                 conn = db.returnconn();
                 conn.Open();
                 var command = conn.CreateCommand();
                 command.Parameters.AddWithValue("@User_id", user_id);
                 command.CommandText = "Select user_geld from UserGegevens where user_id= @user_id";
-                geld=   (int)command.ExecuteScalar();
-              
+                geld = (int)command.ExecuteScalar();
             }
             catch (SqlException fout)
             {
@@ -98,16 +127,35 @@ namespace Dal.Context
             finally
             {
                 conn.Close();
-
             }
             return geld;
+        }
+        private void DeleteUserGevangenis(int user_id)
+        {
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("Delete from Gevangenis where user_id= @user_id",connectie))
+                    {
+                        command.Parameters.AddWithValue("@User_id", user_id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException error)
+            {
+                Console.WriteLine(error.Message);
+            }
         }
 
         public void BetalenBorg(int bedrag, int user_id)
         {
             try
             {
-
                 conn = db.returnconn();
                 conn.Open();
                 var command = conn.CreateCommand();
@@ -116,10 +164,11 @@ namespace Dal.Context
                 command.CommandText = "update UserGegevens set user_geld=@Geld where user_id= @user_id";
                 command.ExecuteNonQuery();
 
-                var command2 = conn.CreateCommand();
-                command2.Parameters.AddWithValue("@User_id", user_id);
-                command2.CommandText = "Delete from Gevangenis where user_id= @user_id";
-                command2.ExecuteNonQuery();
+                DeleteUserGevangenis(user_id);
+                //var command2 = conn.CreateCommand();
+                //command2.Parameters.AddWithValue("@User_id", user_id);
+                //command2.CommandText = "Delete from Gevangenis where user_id= @user_id";
+                //command2.ExecuteNonQuery();
             }
             catch (SqlException fout)
             {
@@ -130,6 +179,7 @@ namespace Dal.Context
                 conn.Close();
             }
         }
+
         //public List<Gevangenis> VulLijststMisdaden()
         //{
         //    List<Gevangenis> Gevangenis = new List<Gevangenis>();
@@ -137,7 +187,6 @@ namespace Dal.Context
         //    {
         //        conn = db.returnconn();
         //        conn.Open();
-
 
         //        var cmd = new SqlCommand("select * From Gevangenis", conn);
         //        var reader = cmd.ExecuteReader();
@@ -153,7 +202,6 @@ namespace Dal.Context
 
         //        }
 
-
         //    }
 
         //    catch (SqlException fout)
@@ -167,6 +215,5 @@ namespace Dal.Context
         //    }
         //    return Gevangenis;
         //}
-
     }
 }
