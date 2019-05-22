@@ -19,14 +19,16 @@
         @foreach (var item in Model.ItemList)
         {
             <div class="col-sm-3">
-                <figure class="imghvr-fade ">
+                <figure class="imghvr-fade">
                     <img src="~/images/gun.jpeg" />
+
                     <figcaption>
                         <h3> @Html.DisplayFor(model => item.Item_naam)</h3>
                         <p> @Html.DisplayFor(model => item.Item_beschrijving)</p>
                     </figcaption>
-                    @Html.ActionLink("Betaal Item", "Itemkopen", "Game", new { Prijs = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
+                    @Html.ActionLink("Kopen", "Itemkopen", "Game", new { Prijs = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
                 </figure>
+
             </div>
         }
     </div>

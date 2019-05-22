@@ -1,11 +1,13 @@
 ﻿using Model;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
     public class UserIngame : UserInlog
     {
         //private int user_id { get; set; }
+        [Display( Name = "Geld")]
         public int ingameGeld { get; set; }
 
         public int level { get; set; }

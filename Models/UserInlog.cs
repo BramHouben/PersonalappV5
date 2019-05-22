@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Models
@@ -8,6 +9,7 @@ namespace Models
     {
         public int user_id { get; set; }
         public string email { get; set; }
+        [Display(Name = "Gebruikersnaam")]
         public string username { get; set; }
      
         public string ww { get; set; }
