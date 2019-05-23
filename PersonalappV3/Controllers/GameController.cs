@@ -113,5 +113,19 @@ namespace PersonalappV3.Controllers
             winkel.ItemList = winkelLogic.Vullist();
             return View(winkel);
         }
+
+        public IActionResult ItemKopen(int item_id)
+        {
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+
+            if (winkelLogic.KanItemKopen(item_id, user_id) == true)
+            {
+                winkelLogic.KoopItem(item_id);
+            }
+            else
+            {
+                return RedirectToAction("Winkel");
+            }
+        }
     }
 }
