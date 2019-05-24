@@ -17,7 +17,7 @@ namespace Dal.Context
             conn = db.returnconn();
             List<Item> Ilist = new List<Item>();
             db.openconn();
-            var cmd = new SqlCommand("select * From Item", conn);
+            var cmd = new SqlCommand("select * From ItemShop inner join Item On ItemShop.item_id = Item.item_id", conn);
             var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -29,6 +29,10 @@ namespace Dal.Context
                 item.Item_beschrijving = (string)reader["item_beschrijving"];
                 item.Item_Soort = (string)reader["item_soort"];
                 item.Item_reputatie = (string)reader["item_reputatie"];
+                item.Item_prijs = (int)reader["item_prijs"];
+                item.Item_min_level = (int)reader["item_min_level"];
+                item.Vervaldatum = (DateTime)reader["vervaldatum"];
+                item.Status = (bool)reader["status"];
                 Ilist.Add(item);
             }
             db.closeconn();

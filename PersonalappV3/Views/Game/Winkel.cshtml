@@ -15,7 +15,7 @@
 
 <div>
     <div class="row">
-
+      
         @foreach (var item in Model.ItemList)
         {
             <div class="col-sm-3">
@@ -25,8 +25,9 @@
                     <figcaption>
                         <h3> @Html.DisplayFor(model => item.Item_naam)</h3>
                         <p> @Html.DisplayFor(model => item.Item_beschrijving)</p>
+                        <p>@Html.DisplayFor(model =>item.Item_prijs)</p>
                     </figcaption>
-                    @Html.ActionLink("Kopen", "ItemKopen", "Game", new { id = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
+                    @Html.ActionLink("Kopen", "ItemKopen", "Game", new { item_id = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
                 </figure>
 
             </div>

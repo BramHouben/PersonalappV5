@@ -47,14 +47,13 @@
                 </dl>
             </div>
             <div class="col-sm">
+                <h4>Items</h4>
                 <dl class="dl-horizontal">
+
                     @foreach (var item in Model.itemlist)
                     {
                         <dd>
                             @Html.DisplayFor(model => item.Item_naam)
-                        </dd>
-                        <dd>
-                            @Html.DisplayFor(model =>item.Item_reputatie)
                         </dd>
                     }
                 </dl>

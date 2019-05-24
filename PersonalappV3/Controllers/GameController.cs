@@ -111,6 +111,8 @@ namespace PersonalappV3.Controllers
         {
             WinkelView winkel = new WinkelView();
             winkel.ItemList = winkelLogic.Vullist();
+            winkel.Geld = 500;
+       
             return View(winkel);
         }
 
@@ -120,7 +122,8 @@ namespace PersonalappV3.Controllers
 
             if (winkelLogic.KanItemKopen(item_id, user_id) == true)
             {
-                winkelLogic.KoopItem(item_id);
+                //winkelLogic.KoopItem(item_id);
+                return RedirectToAction("Winkel");
             }
             else
             {

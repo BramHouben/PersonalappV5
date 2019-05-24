@@ -8,15 +8,9 @@ namespace PersonalappV3.Models
 {
     public class WinkelView
     {
-        public List<Item> ItemList;
+        public List<Item> ItemList { get; set; }
 
-        public int Item_prijs;
-
-        public int Item_min_level;
-
-        public DateTime Vervaldatum;
-
-        public bool Status;
-
+        
+        public int Geld { get; set; } 
     }
 }

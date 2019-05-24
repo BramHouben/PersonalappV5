@@ -20,5 +20,10 @@ namespace Logic
         {
             return itemRepo.KanItemKopen(item_id, user_id);
         }
+
+        //public void KoopItem(int item_id)
+        //{
+        //    return itemRepo.KoopItem(item_id);
+        //}
     }
 }

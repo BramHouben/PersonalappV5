@@ -12,6 +12,7 @@ namespace Models
 
         public int level { get; set; }
         public int xp { get; set; }
+
         public List<Item> itemlist { get; set; }
 
         public int levens { get; set; }
