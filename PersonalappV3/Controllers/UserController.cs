@@ -136,21 +136,24 @@ namespace PersonalappV3.Controllers
        
         public IActionResult BerichtPosten()
         {
+      
             return View();
         }
 
-        [HttpPost]
-        public IActionResult BerichtPosten(FormCollection test)
+       [HttpPost]
+        public IActionResult InvoegenBericht(BerichtView Niewbericht)
         {
             Bericht bericht = new Bericht();
 
-            
-            bericht.Bericht_inhoud = HttpContext.Request.Form["Bericht_titel"];
+
+            bericht.Bericht_inhoud = Niewbericht.Bericht_inhoud;
+            bericht.Belangrijk_bericht = Niewbericht.Belangrijk_bericht;
+            bericht.Bericht_titel = Niewbericht.Bericht_titel;
             //bericht.Belangrijk_bericht = HttpContext.Request.Form["Belangrijk_bericht"];
             int Clan_id = (int)HttpContext.Session.GetInt32("Clan_id");
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            userlogic.BerichtPosten(Clan_id, user_id);
-            return RedirectToAction("Clan_info");
+            userlogic.BerichtPosten(Clan_id, user_id, bericht);
+            return RedirectToAction("Clan_info", "User");
         }
     }
 }

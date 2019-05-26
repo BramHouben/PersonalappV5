@@ -101,9 +101,9 @@ namespace Logic
             return UserRepo.AantalClanLeden(clan_id);
         }
 
-        public void BerichtPosten(int clan_id, int user_id)
+        public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
         {
-            UserRepo.BerichtPosten(clan_id, user_id);
+            UserRepo.BerichtPosten(clan_id, user_id, bericht);
         }
 
         //public void checkregisteruser(UserInlog User)

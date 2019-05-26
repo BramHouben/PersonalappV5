@@ -457,9 +457,34 @@ namespace DAL.Context
             return leden;
         }
 
-        public void BerichtPosten(int clan_id, int user_id)
+        public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
         {
-            throw new NotImplementedException();
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("insert into Berichtenbord Values(@berichtTitel,@berichtInhoud,@Status,@tijd,@user_id,@clan_id) ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@clan_id", clan_id);
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.Parameters.AddWithValue("@berichtTitel", bericht.Bericht_titel);
+                        command.Parameters.AddWithValue("@berichtInhoud", bericht.Bericht_inhoud);
+                        command.Parameters.AddWithValue("@Status", bericht.Belangrijk_bericht);
+                        command.Parameters.AddWithValue("@tijd", DateTime.Now);
+
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+            }
+
+
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
         }
     }
 }

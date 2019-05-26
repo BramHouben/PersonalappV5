@@ -18,6 +18,6 @@ namespace PersonalappV3.Models
         [Display(Name = "Belangrijk bericht?")]
         public bool Belangrijk_bericht { get; set; }
 
-        public int clan_id { get; set; }
+        //public int clan_id { get; set; }
     }
 }

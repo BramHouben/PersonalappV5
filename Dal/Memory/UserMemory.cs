@@ -21,6 +21,11 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
+        public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool bestaatuser(UserInlog User)
         {
             throw new NotImplementedException();

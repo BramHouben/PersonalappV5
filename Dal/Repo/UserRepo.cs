@@ -27,6 +27,6 @@ namespace Dal.Repo
 
         public int AantalClanLeden(int clan_id) => inUser.AantalClanLeden(clan_id);
 
-        public void BerichtPosten(int clan_id, int user_id) => inUser.BerichtPosten(clan_id,user_id);
+        public void BerichtPosten(int clan_id, int user_id, Bericht bericht) => inUser.BerichtPosten(clan_id,user_id, bericht);
     }
 }
