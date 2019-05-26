@@ -28,19 +28,13 @@
                     </label>
                 </div>
             </div>
-            @*<div class="form-group">
-                <label asp-for="clan_id" class="control-label"></label>
-                <input asp-for="clan_id" class="form-control" />
-                <span asp-validation-for="clan_id" class="text-danger"></span>
-            </div>*@
+
             <div class="form-group">
                 <input type="submit" value="Bericht Posten" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

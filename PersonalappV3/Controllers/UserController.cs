@@ -9,8 +9,10 @@ namespace PersonalappV3.Controllers
     public class UserController : Controller
     {
         private UserLogic userlogic = new UserLogic();
+
         //private UserInlog userinlog = new UserInlog();
         private UserIngame IngameUser = new UserIngame();
+
         private AdminLogic AdminLogic = new AdminLogic();
 
         // GET: User
@@ -98,11 +100,12 @@ namespace PersonalappV3.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Clan()
         {
             ClanView clans = new ClanView();
             IngameUser.username = HttpContext.Session.GetString("Username");
-           
+
             userlogic.Krijgendata(IngameUser);
             if (IngameUser.clan_id == 0)
             {
@@ -116,6 +119,7 @@ namespace PersonalappV3.Controllers
                 return RedirectToAction("Clan_info", "User");
             }
         }
+
         public IActionResult Clan_info()
         {
             int Clan_id = (int)HttpContext.Session.GetInt32("Clan_id");
@@ -125,26 +129,23 @@ namespace PersonalappV3.Controllers
             return View(clans);
         }
 
-
         [HttpPost]
         public IActionResult InvoerenClan(int Clan)
         {
-           int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
             userlogic.InvoerenClan(Clan, user_id);
             return RedirectToAction("Clan");
         }
-       
+
         public IActionResult BerichtPosten()
         {
-      
             return View();
         }
 
-       [HttpPost]
+        [HttpPost]
         public IActionResult InvoegenBericht(BerichtView Niewbericht)
         {
             Bericht bericht = new Bericht();
-
 
             bericht.Bericht_inhoud = Niewbericht.Bericht_inhoud;
             bericht.Belangrijk_bericht = Niewbericht.Belangrijk_bericht;

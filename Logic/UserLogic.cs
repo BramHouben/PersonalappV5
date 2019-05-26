@@ -105,12 +105,5 @@ namespace Logic
         {
             UserRepo.BerichtPosten(clan_id, user_id, bericht);
         }
-
-        //public void checkregisteruser(UserInlog User)
-        //{
-        //    bool bestaataccount;
-
-        //}
-        //
     }
 }
