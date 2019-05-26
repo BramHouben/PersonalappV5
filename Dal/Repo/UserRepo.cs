@@ -22,5 +22,11 @@ namespace Dal.Repo
         public List<Clan> KrijgenClans(List<Clan> clanLijst) => inUser.KrijgenClans(clanLijst);
 
         public void InvoerenClan(int clan_id, int user_id) => inUser.InvoerenClan(clan_id, user_id);
+
+        public List<Bericht> KrijgenBerichten(int clan_id) => inUser.KrijgenBerichten(clan_id);
+
+        public int AantalClanLeden(int clan_id) => inUser.AantalClanLeden(clan_id);
+
+        public void BerichtPosten(int clan_id, int user_id) => inUser.BerichtPosten(clan_id,user_id);
     }
 }

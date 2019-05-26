@@ -1,0 +1,44 @@
+﻿@model PersonalappV3.Models.ClanView
+
+@{
+    ViewData["Title"] = "Clan_info";
+}
+
+<h2>Clan Info</h2>
+@Html.ActionLink("Post een bericht ", "BerichtPosten", "User")
+<div>
+
+    <hr />
+    <div class="container">
+        <div class="row">Aantal leden in deze clan:  @Model.AantalClanLeden </div>
+        <div class="justify-content-sm-center">
+            <div class="row">
+
+                @foreach (var item in Model.BerichtenLijst)
+                {
+                    if (item.Belangrijk_bericht == true)
+                    {
+                        <div class="card text-white bg-danger " style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Bericht_titel</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@item.Bericht_tijd</h6>
+                                <p class="card-text">@item.Bericht_inhoud</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Bericht_titel</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@item.Bericht_tijd</h6>
+                                <p class="card-text">@item.Bericht_inhoud</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

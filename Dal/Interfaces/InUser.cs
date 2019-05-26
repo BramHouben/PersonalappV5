@@ -22,5 +22,8 @@ namespace Dal.Interfaces
         void KijkVoorDagelijkseReward(int user_id);
         List<Clan> KrijgenClans(List<Clan> clanLijst);
         void InvoerenClan(int clan_id, int user_id);
+        List<Bericht> KrijgenBerichten(int clan_id);
+        int AantalClanLeden(int clan_id);
+        void BerichtPosten(int clan_id, int user_id);
     }
 }

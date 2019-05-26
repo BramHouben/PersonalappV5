@@ -391,5 +391,75 @@ namespace DAL.Context
                 Console.WriteLine(fout.Message);
             }
         }
+
+        public List<Bericht> KrijgenBerichten(int clan_id)
+        {
+            var Berichten = new List<Bericht>();
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select * from Berichtenbord Where clan_id=@clan_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@clan_id", clan_id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var Item = new Bericht
+                                {
+                                    Bericht_id = (int)reader["bericht_id"],
+                                    Bericht_inhoud = (string)reader["bericht_omschrijving"],
+                                    Bericht_tijd = (DateTime)reader["bericht_datum"],
+                                    Belangrijk_bericht = (bool)reader["belangrijk_bericht"],
+                                    Bericht_titel = (string)reader["Bericht_titel"],
+                                };
+                                Berichten.Add(Item);
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return Berichten;
+        }
+
+        public int AantalClanLeden(int clan_id)
+        {
+            int leden =0;
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(clan_id)FROM UserGegevens WHERE clan_id = @clan_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@clan_id", clan_id);
+                        leden= (int) command.ExecuteScalar();
+                    }
+
+                }
+            }
+
+
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return leden;
+        }
+
+        public void BerichtPosten(int clan_id, int user_id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -91,6 +91,21 @@ namespace Logic
             UserRepo.InvoerenClan(clan_id, user_id);
         }
 
+        public List<Bericht> KrijgenBerichten(int clan_id)
+        {
+          return  UserRepo.KrijgenBerichten(clan_id);
+        }
+
+        public int AantalClanLeden(int clan_id)
+        {
+            return UserRepo.AantalClanLeden(clan_id);
+        }
+
+        public void BerichtPosten(int clan_id, int user_id)
+        {
+            UserRepo.BerichtPosten(clan_id, user_id);
+        }
+
         //public void checkregisteruser(UserInlog User)
         //{
         //    bool bestaataccount;

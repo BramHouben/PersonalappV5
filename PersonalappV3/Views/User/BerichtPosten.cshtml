@@ -1,0 +1,45 @@
+﻿@model BerichtView
+
+@{
+    ViewData["Title"] = "BerichtPosten";
+}
+
+<h2>BerichtPosten</h2>
+
+<h4>Bericht</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="User" asp-action="BerichtPosten" method="post" class="form-horizontal" role="form"  >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+   
+            <div class="form-group">
+                <label asp-for="Bericht_inhoud" class="control-label"></label>
+                <input asp-for="Bericht_inhoud" class="form-control" />
+                <span asp-validation-for="Bericht_inhoud" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Bericht_titel" class="control-label"></label>
+                <input asp-for="Bericht_titel" class="form-control" />
+                <span asp-validation-for="Bericht_titel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Belangrijk_bericht" /> @Html.DisplayNameFor(model => model.Belangrijk_bericht)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Post bericht" class="btn btn-default" form="post" asp-controller="User" asp-action="BerichtPosten"  />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

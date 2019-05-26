@@ -11,6 +11,16 @@ namespace Dal.Memory
     {
         UserSqlContext usersqlcontext = new UserSqlContext();
 
+        public int AantalClanLeden(int clan_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BerichtPosten(int clan_id, int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool bestaatuser(UserInlog User)
         {
             throw new NotImplementedException();
@@ -36,7 +46,17 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
+        public void InvoerenClan(int clan_id, int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void KijkVoorDagelijkseReward(int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Bericht> KrijgenBerichten(int clan_id)
         {
             throw new NotImplementedException();
         }

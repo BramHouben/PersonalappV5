@@ -13,7 +13,8 @@ namespace PersonalappV3.Models
         [Display(Name = "Clans")]
         public List<Clan> ClanLijst { get; set; }
 
+        public List<Bericht> BerichtenLijst { get; set; }
 
-
+        public int AantalClanLeden { get; set; }
     }
 }

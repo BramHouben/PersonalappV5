@@ -9,7 +9,7 @@ namespace PersonalappV3.Controllers
     public class UserController : Controller
     {
         private UserLogic userlogic = new UserLogic();
-        private UserInlog userinlog = new UserInlog();
+        //private UserInlog userinlog = new UserInlog();
         private UserIngame IngameUser = new UserIngame();
         private AdminLogic AdminLogic = new AdminLogic();
 
@@ -112,15 +112,45 @@ namespace PersonalappV3.Controllers
             }
             else
             {
-                return RedirectToAction("User","Clan_info");
+                HttpContext.Session.SetInt32("Clan_id", IngameUser.clan_id);
+                return RedirectToAction("Clan_info", "User");
             }
         }
+        public IActionResult Clan_info()
+        {
+            int Clan_id = (int)HttpContext.Session.GetInt32("Clan_id");
+            ClanView clans = new ClanView();
+            clans.AantalClanLeden = userlogic.AantalClanLeden(Clan_id);
+            clans.BerichtenLijst = userlogic.KrijgenBerichten(Clan_id);
+            return View(clans);
+        }
+
+
         [HttpPost]
         public IActionResult InvoerenClan(int Clan)
         {
            int user_id = (int)HttpContext.Session.GetInt32("user_id");
             userlogic.InvoerenClan(Clan, user_id);
             return RedirectToAction("Clan");
+        }
+       
+        public IActionResult BerichtPosten()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BerichtPosten(FormCollection test)
+        {
+            Bericht bericht = new Bericht();
+
+            
+            bericht.Bericht_inhoud = HttpContext.Request.Form["Bericht_titel"];
+            //bericht.Belangrijk_bericht = HttpContext.Request.Form["Belangrijk_bericht"];
+            int Clan_id = (int)HttpContext.Session.GetInt32("Clan_id");
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            userlogic.BerichtPosten(Clan_id, user_id);
+            return RedirectToAction("Clan_info");
         }
     }
 }
