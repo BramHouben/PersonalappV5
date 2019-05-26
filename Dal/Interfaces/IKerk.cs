@@ -8,5 +8,6 @@ namespace Dal.Interfaces
     public interface IKerk
     {
         void GeefInfoVoorKerk(int user_id, Kerk kerk);
+        void LevensToevoegen(int kerkid, int user_id);
     }
 }

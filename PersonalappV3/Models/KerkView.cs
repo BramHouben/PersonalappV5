@@ -8,6 +8,7 @@ namespace PersonalappV3.Models
 {
     public class KerkView
     {
+        public int Kerk_id { get; set; }
 
         [Display(Name = "Tijd herstel")]
         public int Kerk_tijd { get; set; }

@@ -118,7 +118,15 @@ namespace PersonalappV3.Controllers
             var result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
             KerkVW.Kerk_tijd = result;
             KerkVW.Levens_user = kerk.User_levens;
+            KerkVW.Kerk_id = kerk.Kerk_id;
             return View(KerkVW);
+        }
+
+        public IActionResult LevensToevoegen(int kerkid)
+        {
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            kerklogic.LevensToevoegen(kerkid,user_id);
+            return RedirectToAction("Kerk", "User");
         }
         public ActionResult Winkel()
         {

@@ -39,5 +39,35 @@ namespace Dal.Context
                 Console.WriteLine(error.Message);
             }
         }
+
+        public void LevensToevoegen(int kerkid, int user_id)
+        {
+            conn = db.returnconn();
+            try
+            {
+                int user_leven;
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select user_leven from UserGegevens where user_id=@user_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        user_leven = (int)command.ExecuteScalar();
+                    }
+
+                        using (SqlCommand command = new SqlCommand("update UserGegevens set user_leven= @levens where user_id=@user_id " , connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.Parameters.AddWithValue("@levens", user_leven+10);
+                        command.ExecuteNonQuery();
+                    }
+                        //todo update de kerktabel
+                }
+            }
+            catch (SqlException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+        }
     }
 }
