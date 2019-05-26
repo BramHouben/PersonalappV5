@@ -1,4 +1,6 @@
-﻿using Dal.Repo;
+﻿using System;
+using System.Collections.Generic;
+using Dal.Repo;
 using DAL.Context;
 using Models;
 
@@ -77,6 +79,16 @@ namespace Logic
         public void DeleteUser(int id)
         {
             UserSqlContext.DeleteUser(id);
+        }
+
+        public List<Clan> KrijgenClans(List<Clan> clanLijst)
+        {
+         return   UserRepo.KrijgenClans(clanLijst);
+        }
+
+        public void InvoerenClan(int clan_id, int user_id)
+        {
+            UserRepo.InvoerenClan(clan_id, user_id);
         }
 
         //public void checkregisteruser(UserInlog User)

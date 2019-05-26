@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using PersonalappV3.Models;
 
 namespace PersonalappV3.Controllers
 {
@@ -96,6 +97,30 @@ namespace PersonalappV3.Controllers
             userlogic.DeleteUser(id);
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult Clan()
+        {
+            ClanView clans = new ClanView();
+            IngameUser.username = HttpContext.Session.GetString("Username");
+           
+            userlogic.Krijgendata(IngameUser);
+            if (IngameUser.clan_id == 0)
+            {
+                clans.ClanLijst = userlogic.KrijgenClans(clans.ClanLijst);
+                //userlogic.KrijgenClans(clans.ClanLijst);
+                return View(clans);
+            }
+            else
+            {
+                return RedirectToAction("User","Clan_info");
+            }
+        }
+        [HttpPost]
+        public IActionResult InvoerenClan(int Clan)
+        {
+           int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            userlogic.InvoerenClan(Clan, user_id);
+            return RedirectToAction("Clan");
         }
     }
 }

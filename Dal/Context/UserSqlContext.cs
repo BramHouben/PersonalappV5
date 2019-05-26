@@ -131,6 +131,7 @@ namespace DAL.Context
                     userIngame.level = (int)reader["user_leven"];
                     userIngame.xp = (int)reader["user_xp"];
                     userIngame.levens = (int)reader["user_leven"];
+                    userIngame.clan_id = (int)reader["clan_id"];
 
                     KijkvoorItems(userIngame);
 
@@ -158,7 +159,7 @@ namespace DAL.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * from UserAankopen inner join Item on UserAankopen.item_id = item.item_id and user_id = @user_id", connectie))
                     {
-                        
+
                         command.Parameters.AddWithValue("@user_id", userIngame.user_id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -329,6 +330,66 @@ namespace DAL.Context
                 Console.WriteLine(fout.Message);
             }
             return DagGeleden(user_id);
+        }
+
+        public List<Clan> KrijgenClans(List<Clan> clanLijst)
+        {
+            clanLijst = new List<Clan>();
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select * from clan", connectie))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var Clan = new Clan
+                                {
+                                    Clan_id = (int)reader["clan_id"],
+                                    Clan_naam = (string)reader["clan_naam"],
+                                };
+                                clanLijst.Add(Clan);
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return clanLijst;
+        }
+
+        public void InvoerenClan(int clan_id, int user_id)
+        {
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens Set clan_id=@clan_id Where user_id = @user_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@clan_id", clan_id);
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+            }
+            
+    
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
         }
     }
 }

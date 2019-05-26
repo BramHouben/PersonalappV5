@@ -41,6 +41,11 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
+        public List<Clan> KrijgenClans(List<Clan> clanLijst)
+        {
+            throw new NotImplementedException();
+        }
+
         public void KrijgenData(UserIngame userIngame)
         {
             throw new NotImplementedException();

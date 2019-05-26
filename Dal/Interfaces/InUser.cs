@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using System.Collections.Generic;
+using Models;
 
 namespace Dal.Interfaces
 {
@@ -19,5 +20,7 @@ namespace Dal.Interfaces
 
         string GetHash(string username);
         void KijkVoorDagelijkseReward(int user_id);
+        List<Clan> KrijgenClans(List<Clan> clanLijst);
+        void InvoerenClan(int clan_id, int user_id);
     }
 }

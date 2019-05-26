@@ -16,12 +16,13 @@ namespace Models
         public List<Item> itemlist { get; set; }
 
         public int levens { get; set; }
+        public int clan_id { get; set; }
 
         public UserIngame()
         {
         }
 
-        public UserIngame(int User_id, double IngameGeld, int Level, int Xp, List<Item> Itemlist)
+        public UserIngame(int User_id, double IngameGeld, int Level, int Xp, List<Item> Itemlist, int clan_id)
         {
         }
     }
