@@ -113,8 +113,10 @@ namespace PersonalappV3.Controllers
             KerkView KerkVW = new KerkView();
             Kerk kerk = new Kerk();
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-         kerklogic.GetInfoVoorKerk(user_id, kerk);
-            KerkVW.Kerk_tijd = kerk.Kerk_tijd;
+            kerklogic.GetInfoVoorKerk(user_id, kerk);
+            DateTime tijdnu = DateTime.Now;
+            var result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
+            KerkVW.Kerk_tijd = result;
             KerkVW.Levens_user = kerk.User_levens;
             return View(KerkVW);
         }

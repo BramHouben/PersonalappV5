@@ -10,7 +10,7 @@ namespace PersonalappV3.Models
     {
 
         [Display(Name = "Tijd herstel")]
-        public DateTime Kerk_tijd { get; set; }
+        public int Kerk_tijd { get; set; }
         [Display(Name = "Levens")]
         public int Levens_user { get; set; }
 
