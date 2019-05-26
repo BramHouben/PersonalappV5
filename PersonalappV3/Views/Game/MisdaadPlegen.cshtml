@@ -5,7 +5,7 @@
     ViewData["Title"] = "MisdaadPlegen";
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<h2>MisdaadPlegen</h2>
+<h2>Pleeg een Misdaad</h2>
 
 <hr />
 
@@ -15,7 +15,7 @@
             <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
 
             <select name="misdaden" id="misdaden" class="form-control" required>
-                <option disabled value="" selected hidden>Selecteer een misdaad</option>
+                <option disabled value="" selected hidden>Selecteer een misdaad:</option>
                 @{
                     foreach (var Item in Model.MisdadenList)
                     {
@@ -52,11 +52,11 @@
 
             var GeselecteerdeItem = $("#misdaden option:selected").attr("data-desc");
             var GeselecteerdeItem2 = $("#misdaden option:selected").attr("data-moeilijk");
-            var testint = parseInt(GeselecteerdeItem2 * 16);
+            var Kans = parseInt(GeselecteerdeItem2 * 16);
        
             $("#Info").text(GeselecteerdeItem);
-            $("#Info2").text(testint + " % kans");
-            $('#progressbar').attr('aria-valuenow', testint+ "%").css('width', testint + "%");
+            $("#Info2").text(Kans + " % kans");
+            $('#progressbar').attr('aria-valuenow', Kans+ "%").css('width', Kans + "%");
         });
 
     });

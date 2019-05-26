@@ -9,6 +9,7 @@ namespace PersonalappV3.Controllers
 {
     public class GameController : Controller
     {
+     private   KerkLogic kerklogic = new KerkLogic();
         private GevangenisView gevangenisVM;
         private WinkelLogic winkelLogic = new WinkelLogic();
         private GevangenisLogic GevangenisLogic = new GevangenisLogic();
@@ -107,6 +108,16 @@ namespace PersonalappV3.Controllers
             }
         }
 
+        public IActionResult Kerk()
+        {
+            KerkView KerkVW = new KerkView();
+            Kerk kerk = new Kerk();
+            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+         kerklogic.GetInfoVoorKerk(user_id, kerk);
+            KerkVW.Kerk_tijd = kerk.Kerk_tijd;
+            KerkVW.Levens_user = kerk.User_levens;
+            return View(KerkVW);
+        }
         public ActionResult Winkel()
         {
             WinkelView winkel = new WinkelView();
