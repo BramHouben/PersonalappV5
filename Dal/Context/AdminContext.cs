@@ -159,7 +159,6 @@ namespace Dal.Context
                                     ingameGeld = (int)reader["user_geld"],
                                     level = (int)reader["user_level"],
                                     xp = (int)reader["user_xp"],
-                                    // clan moet nog komen
                                 };
 
                                 Users.Add(User);
@@ -215,9 +214,6 @@ namespace Dal.Context
                         command.Parameters.AddWithValue("@leven", User.levens);
                         command.Parameters.AddWithValue("@xp", User.xp);
                         command.ExecuteNonQuery();
-
-
-
                     }
 
                 }

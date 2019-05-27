@@ -461,6 +461,10 @@ namespace DAL.Context
         {
             try
             {
+                DateTime tijdnu = DateTime.Now;
+               
+               
+
                 conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
@@ -472,7 +476,7 @@ namespace DAL.Context
                         command.Parameters.AddWithValue("@berichtTitel", bericht.Bericht_titel);
                         command.Parameters.AddWithValue("@berichtInhoud", bericht.Bericht_inhoud);
                         command.Parameters.AddWithValue("@Status", bericht.Belangrijk_bericht);
-                        command.Parameters.AddWithValue("@tijd", DateTime.Now);
+                        command.Parameters.AddWithValue("@tijd", tijdnu);
 
                         command.ExecuteNonQuery();
                     }

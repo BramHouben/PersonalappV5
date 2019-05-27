@@ -125,10 +125,21 @@ namespace PersonalappV3.Controllers
         public IActionResult LevensToevoegen(int kerkid)
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            kerklogic.LevensToevoegen(kerkid,user_id);
-            return RedirectToAction("Kerk", "User");
+            if(kerklogic.MagLevensToevoegen(kerkid) == true)
+            {
+                kerklogic.LevensToevoegen(kerkid, user_id);
+                TempData.Remove("GeentijdZiekenhuis");
+                return RedirectToAction("Kerk", "Game");
+                
+            }
+            else
+            {
+                TempData["GeentijdZiekenhuis"] = "Wacht tot de timer is afgelopen!";
+                return RedirectToAction("Kerk", "Game");
+            }
+            
         }
-        public ActionResult Winkel()
+        public IActionResult Winkel()
         {
             WinkelView winkel = new WinkelView();
             winkel.ItemList = winkelLogic.Vullist();

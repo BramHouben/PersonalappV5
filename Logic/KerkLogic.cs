@@ -18,5 +18,21 @@ namespace Logic
         {
             KerkRepo.LevensToevoegen(kerkid, user_id);
         }
+
+
+
+        public bool MagLevensToevoegen(int kerkid)
+        {
+            DateTime tijdnu = DateTime.Now;
+          DateTime tijdVast = KerkRepo.KrijgTijd(kerkid);
+            if(tijdVast <= tijdnu)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

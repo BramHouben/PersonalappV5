@@ -9,5 +9,6 @@ namespace Dal.Interfaces
     {
         void GeefInfoVoorKerk(int user_id, Kerk kerk);
         void LevensToevoegen(int kerkid, int user_id);
+        DateTime KrijgTijd(int kerkid);
     }
 }

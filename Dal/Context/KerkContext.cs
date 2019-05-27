@@ -19,7 +19,7 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    using (SqlCommand command = new SqlCommand("Select  user_leven, kerk_id, kerk_tijd from Kerk inner join UserGegevens on Kerk.user_id = UserGegevens.user_id where UserGegevens.user_id=@user_id",connectie))
+                    using (SqlCommand command = new SqlCommand("Select  user_leven, kerk_id, kerk_tijd from Kerk inner join UserGegevens on Kerk.user_id = UserGegevens.user_id where UserGegevens.user_id=@user_id", connectie))
                     {
                         command.Parameters.AddWithValue("@user_id", user_id);
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -40,6 +40,30 @@ namespace Dal.Context
             }
         }
 
+        public DateTime KrijgTijd(int kerkid)
+        {
+            DateTime TijdUser = DateTime.Now;
+            conn = db.returnconn();
+            try
+            {
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("Select kerk_tijd from Kerk where kerk_id=@kerk_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@kerk_id", kerkid);
+                        TijdUser = (DateTime)command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+            return TijdUser;
+        }
+
         public void LevensToevoegen(int kerkid, int user_id)
         {
             conn = db.returnconn();
@@ -54,14 +78,32 @@ namespace Dal.Context
                         command.Parameters.AddWithValue("@user_id", user_id);
                         user_leven = (int)command.ExecuteScalar();
                     }
-
-                        using (SqlCommand command = new SqlCommand("update UserGegevens set user_leven= @levens where user_id=@user_id " , connectie))
+                    if (user_leven >= 100)
                     {
-                        command.Parameters.AddWithValue("@user_id", user_id);
-                        command.Parameters.AddWithValue("@levens", user_leven+10);
-                        command.ExecuteNonQuery();
+                        using (SqlCommand command = new SqlCommand("Delete from Kerk where user_id=@user_id ", connectie))
+                        {
+                            command.Parameters.AddWithValue("@user_id", user_id);
+                            command.ExecuteScalar();
+                        }
                     }
-                        //todo update de kerktabel
+                    else
+                    {
+                        using (SqlCommand command = new SqlCommand("update UserGegevens set user_leven= @levens where user_id=@user_id ", connectie))
+                        {
+                            command.Parameters.AddWithValue("@user_id", user_id);
+                            command.Parameters.AddWithValue("@levens", user_leven + 10);
+                            command.ExecuteNonQuery();
+                        }
+                        using (SqlCommand command = new SqlCommand("update Kerk set kerk_tijd= @Tijd where user_id=@user_id ", connectie))
+                        {
+                            DateTime Tijdnu = DateTime.Now;
+                            DateTime tijdwachten = Tijdnu.AddMinutes(180);
+                            command.Parameters.AddWithValue("@user_id", user_id);
+                            command.Parameters.AddWithValue("@tijd", tijdwachten);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    //todo update de kerktabel
                 }
             }
             catch (SqlException error)
