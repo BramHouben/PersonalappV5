@@ -19,23 +19,23 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@username", User.username);
-                command.Parameters.AddWithValue("@email", User.email);
-                command.Parameters.AddWithValue("@hash_ww", User.ww);
-                command.Parameters.AddWithValue("@tijd", DateTime.Now);
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("insert into UserInlog (username, email_user,hash_ww,DagelijkseInlog) Values(@username, @email, @hash_ww, @tijd)", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", User.username);
+                        command.Parameters.AddWithValue("@email", User.email);
+                        command.Parameters.AddWithValue("@hash_ww", User.ww);
+                        command.Parameters.AddWithValue("@tijd", DateTime.Now);
 
-                command.CommandText = "insert into UserInlog (username, email_user,hash_ww,DagelijkseInlog) Values(@username, @email, @hash_ww, @tijd)";
-                command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                    }
+                }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -44,29 +44,30 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@username", User.username);
-                command.Parameters.AddWithValue("@email", User.email);
-                command.CommandText = "Select count(*) from UserInlog where Username= @Username or email_user = @email";
-                int result = (int)command.ExecuteScalar();
-                if (result > 0)
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-                    return false;
-                }
-                else
-                {
-                    return true;
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username or email_user = @email", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", User.username);
+                        command.Parameters.AddWithValue("@email", User.email);
+                        int result = (int)command.ExecuteScalar();
+                        if (result > 0)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
+
             return bestaatuser(User);
         }
 
@@ -75,19 +76,19 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@user_id", id);
-                command.CommandText = "Delete from userInlog where User_id=@user_id";
-                command.ExecuteNonQuery();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Delete from userInlog where User_id=@user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", id);
+                        command.ExecuteNonQuery();
+                    }
+                }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -96,20 +97,22 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@username", User.username);
-                command.CommandText = "Select user_id from UserInlog where username= @username";
-                User.user_id = (int)command.ExecuteScalar();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select user_id from UserInlog where username= @username", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", User.username);
+
+                        User.user_id = (int)command.ExecuteScalar();
+                    }
+                }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
+
             return User.user_id;
         }
 
@@ -119,32 +122,31 @@ namespace DAL.Context
             {
                 Krijgen_id(userIngame);
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@user_id", userIngame.user_id);
-                command.CommandText = "Select *from UserGegevens where user_id= @user_id";
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-                    reader.Read();
-                    userIngame.ingameGeld = (int)reader["user_geld"];
-                    userIngame.level = (int)reader["user_leven"];
-                    userIngame.xp = (int)reader["user_xp"];
-                    userIngame.levens = (int)reader["user_leven"];
-                    userIngame.clan_id = (int)reader["clan_id"];
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select *from UserGegevens where user_id= @user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", userIngame.user_id);
 
-                    KijkvoorItems(userIngame);
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            userIngame.ingameGeld = (int)reader["user_geld"];
+                            userIngame.level = (int)reader["user_leven"];
+                            userIngame.xp = (int)reader["user_xp"];
+                            userIngame.levens = (int)reader["user_leven"];
+                            userIngame.clan_id = (int)reader["clan_id"];
 
-
+                            KijkvoorItems(userIngame);
+                        }
+                    }
                 }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
-            }
-            finally
-            {
-                conn.Close();
             }
         }
 
@@ -159,7 +161,6 @@ namespace DAL.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * from UserAankopen inner join Item on UserAankopen.item_id = item.item_id and user_id = @user_id", connectie))
                     {
-
                         command.Parameters.AddWithValue("@user_id", userIngame.user_id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -175,9 +176,7 @@ namespace DAL.Context
                                 };
                                 userIngame.itemlist.Add(Item);
                             }
-
                         }
-
                     }
                 }
             }
@@ -193,28 +192,30 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@username", username);
-                command.CommandText = "Select count(*) from UserInlog where Username= @Username";
-                int result = (int)command.ExecuteScalar();
-                if (result > 0)
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-                    return false;
-                }
-                else
-                {
-                    return true;
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+
+                        int result = (int)command.ExecuteScalar();
+                        if (result > 0)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
+
             return Inloggen(username, ww);
         }
 
@@ -223,20 +224,22 @@ namespace DAL.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@username", username);
-                command.CommandText = "Select hash_ww from UserInlog where Username= @Username";
-                hash = (string)command.ExecuteScalar();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select hash_ww from UserInlog where Username= @Username", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+
+                        hash = (string)command.ExecuteScalar();
+                    }
+                }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
+
             return hash;
         }
 
@@ -288,7 +291,6 @@ namespace DAL.Context
                         command2.Parameters.Add(new SqlParameter("tijd", DateTime.Now));
                         command2.ExecuteNonQuery();
                     }
-
                 }
             }
             catch (SqlException error)
@@ -354,9 +356,7 @@ namespace DAL.Context
                                 };
                                 clanLijst.Add(Clan);
                             }
-
                         }
-
                     }
                 }
             }
@@ -381,11 +381,8 @@ namespace DAL.Context
                         command.Parameters.AddWithValue("@user_id", user_id);
                         command.ExecuteNonQuery();
                     }
-
                 }
             }
-            
-    
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
@@ -418,9 +415,7 @@ namespace DAL.Context
                                 };
                                 Berichten.Add(Item);
                             }
-
                         }
-
                     }
                 }
             }
@@ -433,7 +428,7 @@ namespace DAL.Context
 
         public int AantalClanLeden(int clan_id)
         {
-            int leden =0;
+            int leden = 0;
             try
             {
                 conn = db.returnconn();
@@ -443,13 +438,10 @@ namespace DAL.Context
                     using (SqlCommand command = new SqlCommand("SELECT COUNT(clan_id)FROM UserGegevens WHERE clan_id = @clan_id ", connectie))
                     {
                         command.Parameters.AddWithValue("@clan_id", clan_id);
-                        leden= (int) command.ExecuteScalar();
+                        leden = (int)command.ExecuteScalar();
                     }
-
                 }
             }
-
-
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
@@ -462,8 +454,6 @@ namespace DAL.Context
             try
             {
                 DateTime tijdnu = DateTime.Now;
-               
-               
 
                 conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
@@ -480,11 +470,8 @@ namespace DAL.Context
 
                         command.ExecuteNonQuery();
                     }
-
                 }
             }
-
-
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);

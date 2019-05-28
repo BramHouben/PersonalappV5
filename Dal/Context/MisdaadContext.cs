@@ -15,14 +15,11 @@ namespace Dal.Context
         public List<Misdaad> VulListMisdaden()
         {
             List<Misdaad> misdaad = new List<Misdaad>();
-            //try
-            //{
-            conn = db.returnconn();
-            //    conn.Open();
 
-            //    var cmd = new SqlCommand("select * From Misdaad", conn);
-            //    var reader = cmd.ExecuteReader();
-            try {
+            conn = db.returnconn();
+
+            try
+            {
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
                     connectie.Open();
@@ -43,13 +40,11 @@ namespace Dal.Context
                                 item.Misdaad_moeilijkheidsgraad = (int)reader["misdaad_moeilijkheidsgraad"];
                                 misdaad.Add(item);
                             }
-
                         }
                     }
-
-                   
                 }
-            }catch(SqlException error)
+            }
+            catch (SqlException error)
             {
                 Console.WriteLine(error.Message);
             }
@@ -58,40 +53,37 @@ namespace Dal.Context
 
         public void ZetInDatabase(int id, int user_id)
         {
+            conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-
                     connectie.Open();
 
-                    using (SqlCommand command = new SqlCommand("insert into UserMisdaadGeschiedenis values(@misdaad, @user_id, @tijd)"))
+                    using (SqlCommand command = new SqlCommand("insert into UserMisdaadGeschiedenis values(@misdaad, @user_id, @tijd)",connectie))
                     {
-                        command.Connection = connectie;
+                     
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
                         command.Parameters.Add(new SqlParameter("misdaad", id));
                         command.Parameters.Add(new SqlParameter("tijd", DateTime.Now));
                         command.ExecuteNonQuery();
-
                     }
                 }
-            }catch(SqlException error)
+            }
+            catch (SqlException error)
             {
                 Console.WriteLine(error.Message);
             }
-            }
+        }
 
         public void GeefReward(int id, int user_id)
         {
-
-
+            conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
                 {
-
                     connectie.Open();
-
 
                     var UserGeld = connectie.CreateCommand();
                     UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + user_id + "'";
@@ -108,27 +100,25 @@ namespace Dal.Context
                     int geld = (int)ResultGeld + (int)MisdaadResult * 100;
                     int xp = (int)ResultXp + (int)MisdaadResult * 10;
 
-                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_xp =@xp, user_geld= @geld where user_id = @user_id"))
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_xp =@xp, user_geld= @geld where user_id = @user_id",connectie))
                     {
-                        command.Connection = connectie;
+                      
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
                         command.Parameters.Add(new SqlParameter("xp", xp));
                         command.Parameters.Add(new SqlParameter("geld", geld));
                         command.ExecuteNonQuery();
-
                     }
-
-
                 }
-            }catch(SqlException error)
+            }
+            catch (SqlException error)
             {
                 Console.WriteLine(error.Message);
             }
-
         }
-       
+
         public void ZetInGevangenis(int id, int user_id)
         {
+            conn = db.returnconn();
             //string Connstring = db.returnconn().ToString();
             using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
             {
@@ -137,9 +127,9 @@ namespace Dal.Context
 
                 connectie.Open();
 
-                using (SqlCommand command = new SqlCommand("Insert into Gevangenis Values (@tijd_gevangen, @Uid, @borg, @id)"))
+                using (SqlCommand command = new SqlCommand("Insert into Gevangenis Values (@tijd_gevangen, @Uid, @borg, @id)",connectie))
                 {
-                    command.Connection = connectie;
+             
                     command.Parameters.Add(new SqlParameter("tijd_gevangen", TijdGevangen));
                     command.Parameters.Add(new SqlParameter("Uid", user_id));
                     command.Parameters.Add(new SqlParameter("borg", 500));
@@ -154,20 +144,22 @@ namespace Dal.Context
             try
             {
                 conn = db.returnconn();
-                conn.Open();
-                var command = conn.CreateCommand();
-                command.Parameters.AddWithValue("@id", id);
-                command.CommandText = "Select misdaad_moeilijkheidsgraad from Misdaad where misdaad_id=  @id";
-                id = (int)command.ExecuteScalar();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select misdaad_moeilijkheidsgraad from Misdaad where misdaad_id=  @id",connectie))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+
+                        id = (int)command.ExecuteScalar();
+                    }
+                }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout);
             }
-            finally
-            {
-                conn.Close();
-            }
+
             return id;
         }
     }
