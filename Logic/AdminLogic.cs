@@ -26,6 +26,11 @@ namespace Logic
             return AdminRepo.KrijgAlleUsers;
         }
 
+        public List<UserIngame> KrijgAlleUsersItems()
+        {
+            return AdminRepo.KrijgAlleUsersItems();
+        }
+
         public void InloggenAdmin(Admin admin)
         {
           AdminRepo.IsAdmin(admin);

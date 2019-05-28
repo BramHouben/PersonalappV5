@@ -34,7 +34,8 @@
                 }
                 else if (Context.Session.GetInt32("Admin") != null)
                 {
-                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminIndex" class="nav-link">admin</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminIndex" class="nav-link">UsersInfo</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Admin" asp-action="AdminItems" class="nav-link">UserItems</a></li>
                     <li class="nav-item"><a asp-area="" asp-controller="User" asp-action="Uitloggen" class="nav-link">Uitloggen</a></li>
                 }
                 else

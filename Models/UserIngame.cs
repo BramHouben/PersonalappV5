@@ -14,7 +14,7 @@ namespace Models
         public int xp { get; set; }
 
         public List<Item> itemlist { get; set; }
-
+        
         public int levens { get; set; }
         public int clan_id { get; set; }
 

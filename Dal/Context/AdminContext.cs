@@ -1,4 +1,5 @@
 ﻿using Dal.Interfaces;
+using Model;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -224,6 +225,64 @@ namespace Dal.Context
             {
                 Console.WriteLine(fout.Message);
             }
+        }
+
+        public List<UserIngame> KrijgAlleUsersItems()
+        {
+            var Users = new List<UserIngame>();
+            
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection con = new SqlConnection(conn.ConnectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd =
+                        new SqlCommand("select t1.user_id, t1.username, t2.item_id, COUNT(t2.item_id)aantal ,t3.item_naam from UserInlog t1 left outer join UserAankopen t2 on t1.user_id = t2.user_id left outer join Item t3 on t2.item_id = t3.item_id group by t1.user_id, t1.username, t2.item_id, item_naam order by username", con)
+                    )
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+
+                                var User = new UserIngame
+                                {
+                                    user_id = (int)reader["user_id"],
+                                    username = (string)reader["username"],
+
+                                };
+                                User.itemlist = new List<Item>();
+                                var item = new Item();
+                                if (reader["item_id"]==DBNull.Value)
+                                {
+                                    item.Item_id = 0;
+                                    item.Item_naam = DBNull.Value.ToString();
+                                }
+                                else
+                                {
+                                    item.Item_id = (int)reader["item_id"];
+                                    item.Item_naam = (string)reader["item_naam"];
+                                    User.itemlist.Add(item);
+                                }
+                                //voor alle items binnen te krijgen
+                             
+                          
+                       
+                          
+                                Users.Add(User);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+
+            return Users;
         }
     }
 }

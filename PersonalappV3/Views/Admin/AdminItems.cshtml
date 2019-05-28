@@ -1,0 +1,41 @@
+﻿@using Models
+@model List<UserIngame>
+
+@{
+    ViewData["Title"] = "AdminItems";
+}
+
+<h2>AdminItems</h2>
+<hr>
+<div class="container">
+
+    <div class="row">
+        <div class="row">
+        </div>
+        @*<div class="col-3 text-center">*@
+        <table class="table table-bordered ">
+            <tr>
+                @*<th scope="col"></th>*@
+
+                <th scope="col">Gebruikersnaam</th>
+                <th scope="col">AantalWapens</th>
+            </tr>
+
+            @foreach (UserIngame Ui in Model)
+            {
+                <tr>
+                    @*<td></td>*@
+                    <td>@Ui.username</td>
+                    <td>
+                        @foreach (var item in Ui.itemlist)
+                        {
+                            
+                            @item.Item_naam;
+                    }
+               </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @*</div>*@
+</div>

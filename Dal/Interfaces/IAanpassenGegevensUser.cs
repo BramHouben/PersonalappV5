@@ -13,5 +13,6 @@ namespace Dal.Interfaces
         void VerwijderUser(int user_id);
         //UserIngame AanpassenUser(int id);
         void EditUser(UserIngame user);
+        List<UserIngame> KrijgAlleUsersItems();
     }
 }
