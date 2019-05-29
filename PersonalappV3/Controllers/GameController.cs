@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -7,9 +8,10 @@ using System;
 
 namespace PersonalappV3.Controllers
 {
+
     public class GameController : Controller
     {
-     private   KerkLogic kerklogic = new KerkLogic();
+        private   KerkLogic kerklogic = new KerkLogic();
         private GevangenisView gevangenisVM;
         private WinkelLogic winkelLogic = new WinkelLogic();
         private GevangenisLogic GevangenisLogic = new GevangenisLogic();

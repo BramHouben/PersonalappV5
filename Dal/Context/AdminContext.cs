@@ -4,11 +4,10 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace Dal.Context
 {
-    class AdminContext : IAanpassenGegevensUser
+    internal class AdminContext : IAanpassenGegevensUser
     {
         private DbConn db = new DbConn();
         private SqlConnection conn;
@@ -24,7 +23,6 @@ namespace Dal.Context
         //            connectie.Open();
         //            using (SqlCommand command = new SqlCommand("Select count(*) from Admin where User_id= @user_id", connectie))
         //            {
-
         //                command.Parameters.AddWithValue("@user_id", user_id);
         //                aantal = (int)command.ExecuteScalar();
         //                if (aantal >= 1)
@@ -80,16 +78,12 @@ namespace Dal.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select * from Admin where User_id= @user_id", connectie))
                     {
-
                         command.Parameters.AddWithValue("@user_id", admin.user_id);
                         SqlDataReader reader = command.ExecuteReader();
 
                         if (reader.HasRows)
                         {
-
-
                             while (reader.Read())
-
 
                             {
                                 admin.admin_id = (int)reader["admin_id"];
@@ -115,7 +109,6 @@ namespace Dal.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select * from Admin where User_id= @user_id", connectie))
                     {
-
                         command.Parameters.AddWithValue("@user_id", user_id);
                         SqlDataReader reader = command.ExecuteReader();
 
@@ -174,8 +167,8 @@ namespace Dal.Context
             }
 
             return Users;
-
         }
+
         public void VerwijderUser(int user_id)
         {
             try
@@ -186,10 +179,8 @@ namespace Dal.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("delete from Userinlog where user_id = @user_id", connectie))
                     {
-
                         command.Parameters.AddWithValue("@user_id", user_id);
                         command.ExecuteNonQuery();
-
                     }
                 }
             }
@@ -209,18 +200,14 @@ namespace Dal.Context
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Update UserGegevens set user_geld = @geld ,user_leven = @leven, user_xp= @xp where user_id=@user_id", connectie))
                     {
-
                         command.Parameters.AddWithValue("@user_id", User.user_id);
                         command.Parameters.AddWithValue("@geld", User.ingameGeld);
                         command.Parameters.AddWithValue("@leven", User.levens);
                         command.Parameters.AddWithValue("@xp", User.xp);
                         command.ExecuteNonQuery();
                     }
-
                 }
             }
-
-
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
@@ -230,7 +217,7 @@ namespace Dal.Context
         public List<UserIngame> KrijgAlleUsersItems()
         {
             var Users = new List<UserIngame>();
-            
+
             try
             {
                 conn = db.returnconn();
@@ -243,20 +230,21 @@ namespace Dal.Context
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-
                             while (reader.Read())
                             {
-
                                 var User = new UserIngame
                                 {
                                     user_id = (int)reader["user_id"],
                                     username = (string)reader["username"],
-
                                 };
+
+                                //voor alle items binnen te krijgen
+
                                 User.itemlist = new List<Item>();
                                 var item = new Item();
-                                if (reader["item_id"]==DBNull.Value)
+                                if (reader["item_id"] == DBNull.Value)
                                 {
+                                    // geefnull values aan de personen die geen items hebben
                                     item.Item_id = 0;
                                     item.Item_naam = DBNull.Value.ToString();
                                 }
@@ -264,13 +252,10 @@ namespace Dal.Context
                                 {
                                     item.Item_id = (int)reader["item_id"];
                                     item.Item_naam = (string)reader["item_naam"];
+                                    // als user item heeft stuur het naar de lijst
                                     User.itemlist.Add(item);
                                 }
-                                //voor alle items binnen te krijgen
-                             
-                          
-                       
-                          
+
                                 Users.Add(User);
                             }
                         }
