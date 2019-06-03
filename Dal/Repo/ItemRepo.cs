@@ -26,6 +26,11 @@ namespace Dal.Repo
             return inItem.Itemsophalen();
         }
 
+        public void KoopItem(int item_id, int user_id)
+        {
+             iwinkel.KoopItem(item_id, user_id);
+        }
+
         //public void KoopItem(int item_id)
         //{
         //    return iwinkel.KoopItem(item_id);

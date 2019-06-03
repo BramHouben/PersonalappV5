@@ -28,7 +28,7 @@ namespace Dal.Context
 
                     if(Kosten <= ResultGeld)
                     {
-                        KoopItem(item_id, user_id);
+                       
                         return true;
                     }
                 }

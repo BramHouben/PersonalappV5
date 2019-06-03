@@ -18,7 +18,16 @@ namespace Logic
 
         public bool KanItemKopen(int item_id, int user_id)
         {
-            return itemRepo.KanItemKopen(item_id, user_id);
+
+            if(itemRepo.KanItemKopen(item_id, user_id) == true)
+            {
+                itemRepo.KoopItem(item_id, user_id);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //public void KoopItem(int item_id)

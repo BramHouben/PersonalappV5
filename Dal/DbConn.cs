@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
 using System.Text;
+using System.Web.Http;
 
 namespace Dal
 {
@@ -12,7 +14,7 @@ namespace Dal
 
         public DbConn()
         {
-            conn.ConnectionString = "Data Source=DESKTOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            conn.ConnectionString = "Data Source=DESKTsOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             //conn = new SqlConnection(conn.ConnectionString);
         }
 
@@ -33,7 +35,16 @@ namespace Dal
 
         public void openconn()
         {
-            conn.Open();
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception fout)
+            {
+                Console.WriteLine(fout.Message);
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
         }
         public void closeconn()
         {
