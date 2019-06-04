@@ -243,22 +243,22 @@ namespace DAL.Context
             return hash;
         }
 
-        public void KijkVoorDagelijkseReward(int user_id)
-        {
-            try
-            {
-                if (DagGeleden(user_id) == true)
-                {
-                    GeefRewardDagelijksInloggen(user_id);
-                }
-            }
-            catch (SqlException fout)
-            {
-                Console.WriteLine(fout.Message);
-            }
-        }
+        //public void DagGeleden(int user_id)
+        //{
+        //    try
+        //    {
+        //        if (DagGeleden(user_id) == true)
+        //        {
+        //            GeefRewardDagelijksInloggen(user_id);
+        //        }
+        //    }
+        //    catch (SqlException fout)
+        //    {
+        //        Console.WriteLine(fout.Message);
+        //    }
+        //}
 
-        private void GeefRewardDagelijksInloggen(int id)
+        public void GeefRewardDagelijksInloggen(int user_id)
         {
             try
             {
@@ -267,10 +267,10 @@ namespace DAL.Context
                     connectie.Open();
 
                     var UserGeld = connectie.CreateCommand();
-                    UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + id + "'";
+                    UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + user_id + "'";
                     var ResultGeld = UserGeld.ExecuteScalar();
                     var UserXp = connectie.CreateCommand();
-                    UserXp.CommandText = "SELECT user_xp FROM UserGegevens WHERE user_id = '" + id + "'";
+                    UserXp.CommandText = "SELECT user_xp FROM UserGegevens WHERE user_id = '" + user_id + "'";
                     var ResultXp = UserGeld.ExecuteScalar();
 
                     int geld = (int)ResultGeld + 100;
@@ -279,7 +279,7 @@ namespace DAL.Context
                     using (SqlCommand command = new SqlCommand("Update UserGegevens set user_xp =@xp, user_geld= @geld where user_id = @user_id", connectie))
                     {
                         command.Connection = connectie;
-                        command.Parameters.Add(new SqlParameter("user_id", id));
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
                         command.Parameters.Add(new SqlParameter("xp", xp));
                         command.Parameters.Add(new SqlParameter("geld", geld));
 
@@ -287,7 +287,7 @@ namespace DAL.Context
                     }
                     using (SqlCommand command2 = new SqlCommand("Update Userinlog set DagelijkseInlog =@tijd where user_id = @user_id", connectie))
                     {
-                        command2.Parameters.Add(new SqlParameter("user_id", id));
+                        command2.Parameters.Add(new SqlParameter("user_id", user_id));
                         command2.Parameters.Add(new SqlParameter("tijd", DateTime.Now));
                         command2.ExecuteNonQuery();
                     }
@@ -299,7 +299,7 @@ namespace DAL.Context
             }
         }
 
-        private bool DagGeleden(int user_id)
+        public bool DagGeleden(int user_id)
         {
             DateTime tijd = DateTime.Now;
             DateTime TijdDagGeleden;

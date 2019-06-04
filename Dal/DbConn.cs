@@ -14,7 +14,7 @@ namespace Dal
 
         public DbConn()
         {
-            conn.ConnectionString = "Data Source=DESKTsOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            conn.ConnectionString = "Data Source=DESKTOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             //conn = new SqlConnection(conn.ConnectionString);
         }
 

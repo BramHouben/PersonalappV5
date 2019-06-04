@@ -1,6 +1,7 @@
 ﻿using Dal.Interfaces;
 using DAL.Context;
 using Models;
+using System;
 using System.Collections.Generic;
 
 namespace Dal.Repo
@@ -16,7 +17,7 @@ namespace Dal.Repo
 
         public void KrijgenData(UserIngame User) => inUser.KrijgenData(User);
 
-        public void KijkVoorDagelijkseReward(int user_id) => inUser.KijkVoorDagelijkseReward(user_id);
+        public bool DagGeleden(int user_id) => inUser.DagGeleden(user_id);
 
         public List<Clan> KrijgenClans(List<Clan> clanLijst) => inUser.KrijgenClans(clanLijst);
 
@@ -27,5 +28,7 @@ namespace Dal.Repo
         public int AantalClanLeden(int clan_id) => inUser.AantalClanLeden(clan_id);
 
         public void BerichtPosten(int clan_id, int user_id, Bericht bericht) => inUser.BerichtPosten(clan_id, user_id, bericht);
+
+        public void GeefRewardDagelijksInloggen(int user_id) => inUser.GeefRewardDagelijksInloggen(user_id);
     }
 }

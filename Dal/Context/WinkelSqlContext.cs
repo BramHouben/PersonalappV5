@@ -28,8 +28,7 @@ namespace Dal.Context
 
                     if(Kosten <= ResultGeld)
                     {
-                       
-                        return true;
+                       return true;
                     }
                 }
             }

@@ -3,12 +3,17 @@ using DAL.Context;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
+
 
 namespace Dal.Memory
 {
    public class UserMemory : InUser
     {
+        SqlConnection conn;
+        DbConn db = new DbConn();
+
         UserSqlContext usersqlcontext = new UserSqlContext();
 
         public int AantalClanLeden(int clan_id)
@@ -33,7 +38,7 @@ namespace Dal.Memory
 
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            id = 0;
         }
 
         public string GetHash(string username)
@@ -48,7 +53,34 @@ namespace Dal.Memory
 
         public void InsertenUser(UserInlog User)
         {
-            throw new NotImplementedException();
+            User.email = "MemoryUser@test.com";
+            User.username = "UserMemory";
+            User.user_id = 0;
+            User.ww = "";
+            try
+            {
+                conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("insert into UserInlog (username, email_user,hash_ww,DagelijkseInlog) Values(@username, @email, @hash_ww, @tijd)", connectie))
+                    {
+                   
+                        command.Parameters.AddWithValue("@username", User.username);
+                        command.Parameters.AddWithValue("@email", User.email);
+                        command.Parameters.AddWithValue("@hash_ww", User.ww);
+                        command.Parameters.AddWithValue("@tijd", DateTime.Now);
+
+                        command.ExecuteNonQuery();
+                        
+                    }
+                }
+            }catch(SqlException fout)
+            {
+              
+                Console.WriteLine(fout.Message);
+                
+            }
         }
 
         public void InvoerenClan(int clan_id, int user_id)
@@ -56,7 +88,7 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
-        public void KijkVoorDagelijkseReward(int user_id)
+        public void DagGeleden(int user_id)
         {
             throw new NotImplementedException();
         }
@@ -77,6 +109,16 @@ namespace Dal.Memory
         }
 
         public int Krijgen_id(UserIngame User)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool InUser.DagGeleden(int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GeefRewardDagelijksInloggen(int user_id)
         {
             throw new NotImplementedException();
         }

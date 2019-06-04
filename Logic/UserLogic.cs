@@ -68,7 +68,14 @@ namespace Logic
 
         public void KijkVoorDagelijkseReward(int user_id)
         {
-            UserRepo.KijkVoorDagelijkseReward(user_id);
+           if(UserRepo.DagGeleden(user_id) == true)
+            {
+                UserRepo.GeefRewardDagelijksInloggen(user_id);
+            }
+            else
+            {
+
+            }
         }
 
         public void Krijgendata(UserIngame IngameUser)
