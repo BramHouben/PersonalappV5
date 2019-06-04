@@ -12,14 +12,38 @@ namespace Unittesten
         private UserMemory usermemory = new UserMemory();
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
-    "lege value mag niet.")]
-        public void aanmakenUser()
+        public void aanmakenUserFout()
         {
+            try
+            {
+                newuser.email = "";
+                newuser.username = "UserMemory";
+                newuser.user_id = 0;
+                newuser.ww = "test";
+                usermemory.InsertenUser(newuser);
+            }
+            catch (ArgumentException fout)
+            {
+                Assert.AreEqual("lege value mag niet", fout.Message);
+            }
+        }
+        [TestMethod]
+        public void aanmakenUsergoed()
+        {
+            
+                newuser.email = "UserMemory@test.com";
+                newuser.username = "UserMemory";
+                newuser.ww = "test";
+                usermemory.InsertenUser(newuser);
+                Assert.IsTrue()
 
-            usermemory.InsertenUser(newuser);
-          
 
+        }
+        [TestMethod]
+        public void DeleteUser()
+        {
+            string naam = "UserMemory";
+            usermemory.DeleteUser();
         }
     }
 }

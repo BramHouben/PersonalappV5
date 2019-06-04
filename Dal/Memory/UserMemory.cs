@@ -53,10 +53,7 @@ namespace Dal.Memory
 
         public void InsertenUser(UserInlog User)
         {
-            User.email = "MemoryUser@test.com";
-            User.username = "UserMemory";
-            User.user_id = 0;
-            User.ww = "";
+         
             try
             {
                 conn = db.returnconn();
