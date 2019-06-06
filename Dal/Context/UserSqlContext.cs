@@ -49,8 +49,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username or email_user = @email", connectie))
