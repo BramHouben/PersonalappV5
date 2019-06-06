@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using Dal.Interfaces;
+using Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -8,13 +9,16 @@ namespace PersonalappV3.Controllers
 {
     public class UserController : Controller
     {
-        private UserLogic userlogic = new UserLogic();
+        private UserLogic userlogic;
 
         //private UserInlog userinlog = new UserInlog();
         private UserIngame IngameUser = new UserIngame();
 
         private AdminLogic AdminLogic = new AdminLogic();
-
+        public UserController(InUser inuser)
+        {
+            userlogic = new UserLogic(inuser);
+        }
         // GET: User
         [HttpGet]
         public ActionResult Registratie()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dal.Context;
 using Dal.Interfaces;
+using DAL.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace PersonalappV3
             //});
             services.AddScoped<IKerk, KerkContext>();
             services.AddScoped<IMisdaad, MisdaadContext>();
+            services.AddScoped<InUser, UserSqlContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

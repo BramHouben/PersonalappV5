@@ -10,9 +10,14 @@ namespace Dal.Repo
     {
         private readonly InUser inUser;
 
-        public UserRepo()
+        //public UserRepo()
+        //{
+        //    inUser = new UserSqlContext();
+        //}
+
+        public UserRepo(InUser inUser)
         {
-            inUser = new UserSqlContext();
+            this.inUser = inUser;
         }
 
         public void KrijgenData(UserIngame User) => inUser.KrijgenData(User);
@@ -27,8 +32,17 @@ namespace Dal.Repo
 
         public int AantalClanLeden(int clan_id) => inUser.AantalClanLeden(clan_id);
 
+        public string GetHash(string username) => inUser.GetHash(username);
+
+        public bool bestaatuser(UserInlog user) => inUser.bestaatuser(user);
+        public void InsertenUser(UserInlog user) => inUser.InsertenUser(user);
+
         public void BerichtPosten(int clan_id, int user_id, Bericht bericht) => inUser.BerichtPosten(clan_id, user_id, bericht);
 
         public void GeefRewardDagelijksInloggen(int user_id) => inUser.GeefRewardDagelijksInloggen(user_id);
+
+        public void DeleteUser(int id) => inUser.DeleteUser(id);
+
+        public bool Inloggen(string username, string ww) => inUser.Inloggen(username, ww);
     }
 }

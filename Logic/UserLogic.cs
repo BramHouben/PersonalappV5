@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dal.Interfaces;
 using Dal.Repo;
 using DAL.Context;
 using Models;
@@ -8,9 +9,13 @@ namespace Logic
 {
     public class UserLogic
     {
-        private UserSqlContext UserSqlContext = new UserSqlContext();
-        private UserRepo UserRepo = new UserRepo();
+        //private UserSqlContext UserSqlContext = new UserSqlContext();
+        private UserRepo UserRepo;
 
+        public UserLogic(InUser inUser)
+        {
+            UserRepo = new UserRepo(inUser);
+        }
         private string Krijgensalt()
         {
             return BCrypt.Net.BCrypt.GenerateSalt(12);
@@ -29,26 +34,26 @@ namespace Logic
         public string gethash(string username)
         {
             string hash;
-            hash = UserSqlContext.GetHash(username);
+            hash = UserRepo.GetHash(username);
             return hash;
         }
 
         public bool InsertenUser(UserInlog User)
         {
-            if (UserSqlContext.bestaatuser(User) == false)
+            if (UserRepo.bestaatuser(User) == false)
             {
                 return false;
             }
             else
             {
-                UserSqlContext.InsertenUser(User);
+                UserRepo.InsertenUser(User);
             }
             return true;
         }
 
         public bool Inloggen(UserInlog User)
         {
-            if (UserSqlContext.Inloggen(User.username, User.ww) == true)
+            if (UserRepo.Inloggen(User.username, User.ww) == true)
             {
                 return false;
             }
@@ -85,7 +90,7 @@ namespace Logic
 
         public void DeleteUser(int id)
         {
-            UserSqlContext.DeleteUser(id);
+            UserRepo.DeleteUser(id);
         }
 
         public List<Clan> KrijgenClans(List<Clan> clanLijst)
