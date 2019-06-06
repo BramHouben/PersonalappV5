@@ -11,10 +11,18 @@ namespace Dal.Memory
 {
    public class UserMemory : InUser
     {
-        SqlConnection conn;
-        DbConn db = new DbConn();
+        //SqlConnection conn;
+        //DbConn db = new DbConn();
+        private readonly DbConn db;
 
-        UserSqlContext usersqlcontext = new UserSqlContext();
+        public UserMemory(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
+        private SqlConnection conn;
+
+        //UserSqlContext usersqlcontext = new UserSqlContext();
 
         public int AantalClanLeden(int clan_id)
         {

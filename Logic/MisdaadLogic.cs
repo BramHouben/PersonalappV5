@@ -15,7 +15,7 @@ namespace Logic
             MisdaadRepo = new MisdaadRepo(imisdaad);
         }
        
-        private MisdaadContext MisdaadContext = new MisdaadContext();
+        //private MisdaadContext MisdaadContext = new MisdaadContext();
 
         public List<Misdaad> VulList()
         {

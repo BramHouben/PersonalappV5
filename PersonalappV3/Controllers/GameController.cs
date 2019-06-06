@@ -14,13 +14,14 @@ namespace PersonalappV3.Controllers
     {
         private KerkLogic kerklogic;
         private GevangenisView gevangenisVM;
-        private WinkelLogic winkelLogic = new WinkelLogic();
-        private GevangenisLogic GevangenisLogic = new GevangenisLogic();
+        //private WinkelLogic winkelLogic = new WinkelLogic();
+        private GevangenisLogic GevangenisLogic;
         private Gevangenis GevangenisModel = new Gevangenis();
         private MisdaadLogic misdaadlogic;
 
-        public GameController(IMisdaad inMisdaad, IKerk inKerk)
+        public GameController(IMisdaad inMisdaad, IKerk inKerk ,IGevangenis inGevangenis)
         {
+            GevangenisLogic = new GevangenisLogic(inGevangenis);
             kerklogic = new KerkLogic(inKerk);
             misdaadlogic = new MisdaadLogic(inMisdaad);
         }
@@ -148,29 +149,29 @@ namespace PersonalappV3.Controllers
             }
             
         }
-        public IActionResult Winkel()
-        {
-            WinkelView winkel = new WinkelView();
-            winkel.ItemList = winkelLogic.Vullist();
-            winkel.Geld = 500;
+        //public IActionResult Winkel()
+        //{
+        //    WinkelView winkel = new WinkelView();
+        //    winkel.ItemList = winkelLogic.Vullist();
+        //    winkel.Geld = 500;
        
-            return View(winkel);
-        }
+        //    return View(winkel);
+        //}
 
-        public IActionResult ItemKopen(int item_id)
-        {
-            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+        //public IActionResult ItemKopen(int item_id)
+        //{
+        //    int user_id = (int)HttpContext.Session.GetInt32("user_id");
 
-            if (winkelLogic.KanItemKopen(item_id, user_id) == true)
-            {
-                //winkelLogic.KoopItem(item_id);
-                return RedirectToAction("Winkel");
-            }
-            else
-            {
-                return RedirectToAction("Winkel");
-            }
-        }
+        //    if (winkelLogic.KanItemKopen(item_id, user_id) == true)
+        //    {
+        //        //winkelLogic.KoopItem(item_id);
+        //        return RedirectToAction("Winkel");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Winkel");
+        //    }
+        //}
     
     }
 }

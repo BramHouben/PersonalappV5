@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using Dal.Interfaces;
+using Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -10,8 +11,12 @@ namespace PersonalappV3.Controllers
     public class AdminController : Controller
     {
         private Admin admin = new Admin();
-        private AdminLogic adminlogic = new AdminLogic();
+        private AdminLogic adminlogic;
 
+        public AdminController(IAanpassenGegevensUser Iuser)
+        {
+            adminlogic = new AdminLogic(Iuser);
+        }
         public IActionResult AdminIndex()
         {
             return View(adminlogic.KrijgAlleUsers());

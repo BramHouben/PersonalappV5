@@ -9,9 +9,16 @@ namespace Dal.Context
 {
     public class MisdaadContext : IMisdaad
     {
-        private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private DbConn db = new DbConn();
+        //private SqlConnection conn;
+        private readonly DbConn db;
 
+        public MisdaadContext(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
+        private SqlConnection conn;
         public List<Misdaad> VulListMisdaden()
         {
             List<Misdaad> misdaad = new List<Misdaad>();

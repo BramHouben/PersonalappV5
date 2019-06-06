@@ -8,26 +8,28 @@ using System.Web.Http;
 
 namespace Dal
 {
-    class DbConn
+   public class DbConn
     {
-        private SqlConnection conn = new SqlConnection();
+        //private SqlConnection conn = new SqlConnection();
 
-        public DbConn()
+        public DbConn(string connectionString)
         {
-            conn.ConnectionString = "Data Source=DESKTOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            SqlConnection = new SqlConnection(connectionString);
+            //conn.ConnectionString = "Data Source=DESKTOP-11PH9I5;Initial Catalog=Killerapp;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             //conn = new SqlConnection(conn.ConnectionString);
         }
+        internal SqlConnection SqlConnection { get; }
 
         public SqlConnection returnconn()
         {
-            return conn;
+            return SqlConnection;
         }
 
         public bool checkconn()
         {
-            if (conn != null && conn.State == ConnectionState.Closed)
+            if (SqlConnection != null && SqlConnection.State == ConnectionState.Closed)
             {
-                conn.Open();
+                SqlConnection.Open();
                 return false;
             }
             return checkconn();
@@ -37,7 +39,7 @@ namespace Dal
         {
             try
             {
-                conn.Open();
+                SqlConnection.Open();
             }
             catch (Exception fout)
             {
@@ -48,7 +50,7 @@ namespace Dal
         }
         public void closeconn()
         {
-            conn.Close();
+            SqlConnection.Close();
         }
 
         public override string ToString()

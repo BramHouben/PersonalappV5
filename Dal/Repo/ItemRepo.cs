@@ -11,11 +11,18 @@ namespace Dal.Repo
     {
         private readonly InItem inItem;
         private readonly IWinkel iwinkel;
-        public ItemRepo()
+
+        //public ItemRepo()
+        //{
+        //    iwinkel = new WinkelSqlContext();
+        //    inItem = new ItemSqlContext();
+        //}
+
+        public ItemRepo(IWinkel inWinkel)
         {
-            iwinkel = new WinkelSqlContext();
-            inItem = new ItemSqlContext();
+            iwinkel = inWinkel;
         }
+
         public bool KanItemKopen(int item_id, int user_id)
         {
             return iwinkel.KanItemKopen(item_id, user_id);

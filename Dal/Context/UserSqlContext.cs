@@ -10,7 +10,13 @@ namespace DAL.Context
 {
     public class UserSqlContext : InUser
     {
-        private DbConn db = new DbConn();
+        private readonly DbConn db;
+
+        public UserSqlContext(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
         private SqlConnection conn;
         private string hash;
 

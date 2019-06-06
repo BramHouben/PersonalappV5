@@ -7,9 +7,16 @@ namespace Dal.Context
 {
     public class KerkContext : IKerk
     {
-        private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private DbConn db = new DbConn();
+        //private SqlConnection conn;
+        private readonly DbConn db;
 
+        public KerkContext(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
+        private SqlConnection conn;
         public void GeefInfoVoorKerk(int user_id, Kerk kerk)
         {
             conn = db.returnconn();

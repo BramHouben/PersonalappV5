@@ -1,14 +1,22 @@
-﻿using Models;
+﻿using Dal.Interfaces;
+using Models;
 using System;
 using System.Data.SqlClient;
 
 namespace Dal.Context
 {
-    public class GevangenisContext
+    public class GevangenisContext : IGevangenis
     {
-        private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private DbConn db = new DbConn();
+        //private SqlConnection conn;
+        private readonly DbConn db;
 
+        public GevangenisContext(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
+        private SqlConnection conn;
         public void KrijgGegevens(Gevangenis gevangenis)
         {
             try

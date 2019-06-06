@@ -7,11 +7,18 @@ using System.Data.SqlClient;
 
 namespace Dal.Context
 {
-    internal class AdminContext : IAanpassenGegevensUser
+    public class AdminContext : IAanpassenGegevensUser
     {
-        private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private DbConn db = new DbConn();
+        //private SqlConnection conn;
+        private readonly DbConn db;
 
+        public AdminContext(DbConn connection)
+        {
+            this.db = connection;
+        }
+        //private DbConn db = new DbConn();
+        private SqlConnection conn;
         //public bool IsAdmin(int user_id, Admin admin)
         //{
         //    conn = db.returnconn();

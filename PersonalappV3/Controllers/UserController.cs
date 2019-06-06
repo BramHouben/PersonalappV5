@@ -14,9 +14,10 @@ namespace PersonalappV3.Controllers
         //private UserInlog userinlog = new UserInlog();
         private UserIngame IngameUser = new UserIngame();
 
-        private AdminLogic AdminLogic = new AdminLogic();
-        public UserController(InUser inuser)
+        private AdminLogic AdminLogic;
+        public UserController(InUser inuser, IAanpassenGegevensUser Iadmin)
         {
+            AdminLogic = new AdminLogic(Iadmin);
             userlogic = new UserLogic(inuser);
         }
         // GET: User

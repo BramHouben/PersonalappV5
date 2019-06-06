@@ -10,7 +10,14 @@ namespace Logic
     public class AdminLogic
     {
         //private UserInlog UserInlog;
-        private AdminRepo AdminRepo = new AdminRepo();
+        private AdminRepo AdminRepo;
+      
+
+        public AdminLogic(IAanpassenGegevensUser iuser)
+        {
+            AdminRepo = new AdminRepo(iuser);
+        }
+
         //public bool IsAdmin(int user_id, Admin admin)
         //{
         //    return AdminRepo.IsAdmin(user_id,  admin);

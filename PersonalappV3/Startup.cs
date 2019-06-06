@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dal;
 using Dal.Context;
 using Dal.Interfaces;
 using DAL.Context;
@@ -41,11 +42,14 @@ namespace PersonalappV3
             //    options.LoginPath = "/User/Login"; // auth redirect
             //    options.ExpireTimeSpan = new TimeSpan(1, 0, 0, 0);
             //});
+            services.AddScoped<IGevangenis, GevangenisContext>();
+            services.AddScoped<IAanpassenGegevensUser, AdminContext>();
             services.AddScoped<IKerk, KerkContext>();
             services.AddScoped<IMisdaad, MisdaadContext>();
             services.AddScoped<InUser, UserSqlContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient(_ => new DbConn(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

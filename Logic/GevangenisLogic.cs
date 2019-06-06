@@ -3,24 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Dal.Context;
+using Dal.Interfaces;
+using Dal.Repo;
+
 namespace Logic
 {
   public  class GevangenisLogic
     {
-        GevangenisContext GevangenisContext = new GevangenisContext();
+        GevangenisRepo gevangenisRepo;
+        //GevangenisContext GevangenisContext = new GevangenisContext();
+        
+
+        public GevangenisLogic(IGevangenis inGevangenis)
+        {
+            gevangenisRepo = new GevangenisRepo(inGevangenis);
+        }
 
         public void KrijgenGegevens(Gevangenis gevangenis)
         {
-             GevangenisContext.KrijgGegevens(gevangenis);
+            gevangenisRepo.KrijgGegevens(gevangenis);
         }
 
         public bool BetalenBorg(int user_id, int borg)
         {
-            int geld = GevangenisContext.CheckGeldUser(user_id);
+            int geld = gevangenisRepo.CheckGeldUser(user_id);
             int BedragOver = geld - borg;
             if(geld >= borg)
             {
-                GevangenisContext.BetalenBorg(BedragOver ,user_id);
+                gevangenisRepo.BetalenBorg(BedragOver ,user_id);
                 return true;
             }
             else
@@ -31,12 +41,12 @@ namespace Logic
 
         public bool MagUserVrij(int user_id)
         {
-            return GevangenisContext.MagUserVrij(user_id);
+            return gevangenisRepo.MagUserVrij(user_id);
         }
 
         public bool CheckUserVast(int user_id)
         {
-          return GevangenisContext.CheckUserVast(user_id);
+          return gevangenisRepo.CheckUserVast(user_id);
         }
         //public List<Gevangenis> VullenLijst()
         //{

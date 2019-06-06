@@ -10,10 +10,17 @@ namespace Dal.Repo
     public class AdminRepo
     {
         private readonly IAanpassenGegevensUser IAanpassenGegevensUser;
-        public AdminRepo()
+
+        //public AdminRepo()
+        //{
+        //    IAanpassenGegevensUser = new AdminContext();
+        //}
+
+        public AdminRepo(IAanpassenGegevensUser iuser)
         {
-            IAanpassenGegevensUser = new AdminContext();
+            IAanpassenGegevensUser = iuser;
         }
+
         public List<UserIngame> KrijgAlleUsers => IAanpassenGegevensUser.KrijgAlleUsers();
 
         public void IsAdmin(Admin admin) => IAanpassenGegevensUser.IsAdmin(admin);
