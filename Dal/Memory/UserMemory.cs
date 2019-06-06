@@ -12,15 +12,11 @@ namespace Dal.Memory
    public class UserMemory : InUser
     {
         //SqlConnection conn;
-        //DbConn db = new DbConn();
-        private readonly DbConn db;
+        DbConn db = new DbConn("Data Source=mssql.fhict.local;User ID=dbi410994_limbofun;Password=mtbRqAp9rB3L27bfcW5g;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
-        public UserMemory(DbConn connection)
-        {
-            this.db = connection;
-        }
+
         //private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private SqlConnection conn = "";
 
         //UserSqlContext usersqlcontext = new UserSqlContext();
 
@@ -46,7 +42,27 @@ namespace Dal.Memory
 
         public void DeleteUser(int id)
         {
-            id = 0;
+            try
+            {
+
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("delete from UserInlog where user_id= @user_id", connectie))
+                    {
+
+                        command.Parameters.AddWithValue("@user_id", id);
+             command.ExecuteNonQuery();
+
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+
+                Console.WriteLine(fout.Message);
+
+            }
         }
 
         public string GetHash(string username)
@@ -64,8 +80,8 @@ namespace Dal.Memory
          
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("insert into UserInlog (username, email_user,hash_ww,DagelijkseInlog) Values(@username, @email, @hash_ww, @tijd)", connectie))

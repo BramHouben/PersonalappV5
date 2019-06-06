@@ -1,7 +1,9 @@
+using Dal;
 using Dal.Memory;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using System;
+using System.Data.SqlClient;
 
 namespace Unittesten
 {
@@ -35,15 +37,24 @@ namespace Unittesten
                 newuser.username = "UserMemory";
                 newuser.ww = "test";
                 usermemory.InsertenUser(newuser);
-            Assert.IsTrue();
+            Assert.IsTrue(true);
 
 
         }
         [TestMethod]
-        public void DeleteUser()
+        public void DeleteUserfout()
         {
-            string naam = "UserMemory";
-            usermemory.DeleteUser();
+            try
+            {
+         
+               newuser.user_id = 0;
+      
+                usermemory.DeleteUser(newuser.user_id);
+            }
+            catch (ArgumentException fout)
+            {
+                Assert.AreEqual("User bestaat niet", fout.Message);
+            }
         }
     }
 }

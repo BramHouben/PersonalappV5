@@ -18,7 +18,7 @@ namespace Dal.Context
             this.db = connection;
         }
         //private DbConn db = new DbConn();
-        private SqlConnection conn;
+        //private SqlConnection conn;
         //public bool IsAdmin(int user_id, Admin admin)
         //{
         //    conn = db.returnconn();
