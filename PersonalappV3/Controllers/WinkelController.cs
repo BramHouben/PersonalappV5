@@ -10,12 +10,12 @@ using PersonalappV3.Models;
 
 namespace PersonalappV3.Controllers
 {
-    public class ItemController : Controller
+    public class WinkelController : Controller
     {
         private WinkelLogic winkelLogic;
-        public ItemController(IWinkel inWinkel)
+        public WinkelController(IWinkel inWinkel/*, InItem inItem*/)
         {
-            winkelLogic = new WinkelLogic(inWinkel);
+            winkelLogic = new WinkelLogic(inWinkel/*, inItem*/);
         }
         public IActionResult Index()
         {
@@ -25,7 +25,6 @@ namespace PersonalappV3.Controllers
         {
             WinkelView winkel = new WinkelView();
             winkel.ItemList = winkelLogic.Vullist();
-            winkel.Geld = 500;
 
             return View(winkel);
         }

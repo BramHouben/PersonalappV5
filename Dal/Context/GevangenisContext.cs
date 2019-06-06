@@ -21,9 +21,9 @@ namespace Dal.Context
         {
             try
             {
-                using (SqlConnection connectie = db.returnconn())
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
-                    conn.Open();
+                    connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select *from Gevangenis where user_id= @user_id", connectie))
                     {
 
@@ -59,8 +59,8 @@ namespace Dal.Context
             {
                 DateTime TijdNu = DateTime.Now;
               
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     DateTime tijdvast;
                     connectie.Open();
@@ -95,8 +95,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -129,8 +129,8 @@ namespace Dal.Context
             int geld = 0;
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -154,8 +154,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -176,9 +176,9 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
+                //conn = db.returnconn();
 
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 

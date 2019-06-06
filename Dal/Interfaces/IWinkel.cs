@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model;
 
 namespace Dal.Interfaces
 {
@@ -8,5 +9,6 @@ namespace Dal.Interfaces
     {
         bool KanItemKopen(int item_id, int user_id);
         void KoopItem(int item_id, int user_id);
+        List<Item> Itemsophalen();
     }
 }

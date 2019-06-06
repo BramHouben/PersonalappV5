@@ -22,12 +22,13 @@ namespace Dal.Context
 
         public List<Item> Itemsophalen()
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             List<Item> Ilist = new List<Item>();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
+                    connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * From ItemShop inner join Item On ItemShop.item_id = Item.item_id", connectie))
                     {
 
@@ -65,8 +66,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                    
@@ -94,9 +95,9 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
+                //conn = db.returnconn();
 
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 

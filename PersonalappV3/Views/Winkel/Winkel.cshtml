@@ -27,7 +27,7 @@
                         <p> @Html.DisplayFor(model => item.Item_beschrijving)</p>
                         <p>@Html.DisplayFor(model =>item.Item_prijs)</p>
                     </figcaption>
-                    @Html.ActionLink("Kopen", "ItemKopen", "Game", new { item_id = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
+                    @Html.ActionLink("Kopen", "ItemKopen", "Winkel", new { item_id = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
                 </figure>
 
             </div>

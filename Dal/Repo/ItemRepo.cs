@@ -9,7 +9,7 @@ namespace Dal.Repo
 {
     public class ItemRepo
     {
-        private readonly InItem inItem;
+        //private readonly InItem inItem;
         private readonly IWinkel iwinkel;
 
         //public ItemRepo()
@@ -18,8 +18,9 @@ namespace Dal.Repo
         //    inItem = new ItemSqlContext();
         //}
 
-        public ItemRepo(IWinkel inWinkel)
+        public ItemRepo(IWinkel inWinkel/*, InItem iItem*/)
         {
+            //inItem = iItem;
             iwinkel = inWinkel;
         }
 
@@ -30,7 +31,7 @@ namespace Dal.Repo
 
         public List<Item> Itemsophalen()
         {
-            return inItem.Itemsophalen();
+            return iwinkel.Itemsophalen();
         }
 
         public void KoopItem(int item_id, int user_id)

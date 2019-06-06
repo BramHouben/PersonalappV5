@@ -23,11 +23,11 @@ namespace Dal.Context
         {
             List<Misdaad> misdaad = new List<Misdaad>();
 
-            conn = db.returnconn();
+            //conn = db.returnconn();
 
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (var command = new SqlCommand("SelecteerMisdaden", connectie)
@@ -60,10 +60,10 @@ namespace Dal.Context
 
         public void ZetInDatabase(int id, int user_id)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -85,10 +85,10 @@ namespace Dal.Context
 
         public void GeefReward(int id, int user_id)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -125,9 +125,9 @@ namespace Dal.Context
 
         public void ZetInGevangenis(int id, int user_id)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             //string Connstring = db.returnconn().ToString();
-            using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+            using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
             {
                 DateTime tijdnu = DateTime.Now;
                 DateTime TijdGevangen = tijdnu.AddMinutes(30);
@@ -150,8 +150,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select misdaad_moeilijkheidsgraad from Misdaad where misdaad_id=  @id",connectie))

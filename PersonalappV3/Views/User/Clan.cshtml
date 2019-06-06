@@ -7,32 +7,36 @@
 <h2>Clan</h2>
 
 <div>
-    <h4>UserIngame</h4>
+   
     <hr />
-    <div class="container">
-        
-        <form asp-controller="User" asp-action="InvoerenClan" method="post" class="form-horizontal" role="form">
+  
+    <form asp-controller="User" asp-action="InvoerenClan" method="post" class="form-horizontal" role="form">
+        <div class="container">
 
+            <div class="row col-md-auto">
 
-            <label asp-for="ClanLijst" class="control-label">Clans</label>
-            <select name="Clan" id="Clan" class="form-control form-control-warning" required>
-                <option value="0" disabled selected hidden>Kies een Clan:</option>
-                @{
-                    foreach (var Item in Model.ClanLijst)
-                    {
+                <label asp-for="ClanLijst" class="control-label">Clans</label>
+                <select name="Clan" id="Clan" class="form-control form-control-warning" required>
+                    <option value="0" disabled selected hidden>Kies een Clan:</option>
+                    @{
+                        foreach (var Item in Model.ClanLijst)
+                        {
 
-                        <option value="@Item.Clan_id">
-                            @Item.Clan_naam
-                        </option>
+                            <option value="@Item.Clan_id">
+                                @Item.Clan_naam
+                            </option>
+                        }
                     }
-                }
-            </select>
-            <span asp-validation-for="ClanLijst" class="text-danger"></span>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-light" asp-controller="User" asp-action="InvoerenClan" asp-route-id="Clan" />
+                </select>
+                <span asp-validation-for="ClanLijst" class="text-danger"></span>
+                <div class="row col-md-auto">
+                    <div class="form-group">
+                        <input type="submit" value="Deelnemen" class="btn btn-primary" asp-controller="User" asp-action="InvoerenClan" asp-route-id="Clan" />
+                    </div>
+                </div>
             </div>
-        </form>
-    
-            
         </div>
-    </div>
+    </form>
+
+        </div>
+    

@@ -24,8 +24,9 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("insert into UserInlog (username, email_user,hash_ww,DagelijkseInlog) Values(@username, @email, @hash_ww, @tijd)", connectie))
@@ -81,8 +82,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Delete from userInlog where User_id=@user_id", connectie))
@@ -102,8 +103,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select user_id from UserInlog where username= @username", connectie))
@@ -127,8 +128,8 @@ namespace DAL.Context
             try
             {
                 Krijgen_id(userIngame);
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select *from UserGegevens where user_id= @user_id", connectie))
@@ -161,8 +162,8 @@ namespace DAL.Context
             userIngame.itemlist = new List<Item>();
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * from UserAankopen inner join Item on UserAankopen.item_id = item.item_id and user_id = @user_id", connectie))
@@ -197,8 +198,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username", connectie))
@@ -229,8 +230,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select hash_ww from UserInlog where Username= @Username", connectie))
@@ -268,7 +269,7 @@ namespace DAL.Context
         {
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -312,7 +313,7 @@ namespace DAL.Context
             double tijdverschil;
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select DagelijkseInlog from UserInlog where User_id= @id", connectie))
@@ -345,8 +346,8 @@ namespace DAL.Context
             clanLijst = new List<Clan>();
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * from clan", connectie))
@@ -377,8 +378,8 @@ namespace DAL.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Update UserGegevens Set clan_id=@clan_id Where user_id = @user_id ", connectie))
@@ -400,8 +401,8 @@ namespace DAL.Context
             var Berichten = new List<Bericht>();
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select * from Berichtenbord Where clan_id=@clan_id ", connectie))
@@ -437,8 +438,8 @@ namespace DAL.Context
             int leden = 0;
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("SELECT COUNT(clan_id)FROM UserGegevens WHERE clan_id = @clan_id ", connectie))
@@ -461,8 +462,8 @@ namespace DAL.Context
             {
                 DateTime tijdnu = DateTime.Now;
 
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("insert into Berichtenbord Values(@berichtTitel,@berichtInhoud,@Status,@tijd,@user_id,@clan_id) ", connectie))

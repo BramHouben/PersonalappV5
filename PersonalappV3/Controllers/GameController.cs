@@ -126,9 +126,19 @@ namespace PersonalappV3.Controllers
             kerklogic.GetInfoVoorKerk(user_id, kerk);
             DateTime tijdnu = DateTime.Now;
             var result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
-            KerkVW.Kerk_tijd = result;
-            KerkVW.Levens_user = kerk.User_levens;
-            KerkVW.Kerk_id = kerk.Kerk_id;
+            //if (kerk.Kerk_id == 0)
+            //{
+            //    KerkVW.Kerk_tijd = result;
+            //    KerkVW.Levens_user = kerklogic.KrijgLevensInfo(user_id) ;
+              
+            //}
+            //else
+            //{
+                KerkVW.Kerk_tijd = result;
+                KerkVW.Levens_user = kerk.User_levens;
+                KerkVW.Kerk_id = kerk.Kerk_id;
+            //}
+
             return View(KerkVW);
         }
 

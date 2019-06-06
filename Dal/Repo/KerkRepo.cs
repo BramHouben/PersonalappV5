@@ -20,5 +20,7 @@ namespace Dal.Repo
         public void LevensToevoegen(int kerkid, int user_id) => InKerk.LevensToevoegen(kerkid, user_id);
 
         public DateTime KrijgTijd(int kerkid) => InKerk.KrijgTijd(kerkid);
+
+        public int KrijgLevensInfo(int user_id) => InKerk.KrijgLevensInfo(user_id);
     }
 }

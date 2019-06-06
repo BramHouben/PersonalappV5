@@ -40,5 +40,10 @@ namespace Logic
                 return false;
             }
         }
+
+        public int KrijgLevensInfo(int user_id)
+        {
+          return  KerkRepo.KrijgLevensInfo(user_id);
+        }
     }
 }

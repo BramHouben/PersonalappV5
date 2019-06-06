@@ -42,14 +42,16 @@ namespace PersonalappV3
             //    options.LoginPath = "/User/Login"; // auth redirect
             //    options.ExpireTimeSpan = new TimeSpan(1, 0, 0, 0);
             //});
+            services.AddTransient(_ => new DbConn(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IGevangenis, GevangenisContext>();
             services.AddScoped<IAanpassenGegevensUser, AdminContext>();
             services.AddScoped<IKerk, KerkContext>();
             services.AddScoped<IMisdaad, MisdaadContext>();
             services.AddScoped<InUser, UserSqlContext>();
+            services.AddScoped<IWinkel, WinkelSqlContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient(_ => new DbConn(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

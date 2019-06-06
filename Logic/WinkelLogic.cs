@@ -13,9 +13,9 @@ namespace Logic
         //private ItemSqlContext itemSql = new ItemSqlContext();
         private ItemRepo itemRepo;
 
-        public WinkelLogic(IWinkel inWinkel)
+        public WinkelLogic(IWinkel inWinkel/*, InItem inItem*/)
         {
-            itemRepo = new ItemRepo(inWinkel);
+            itemRepo = new ItemRepo(inWinkel/*, inItem*/);
         }
 
         public List<Item> Vullist()

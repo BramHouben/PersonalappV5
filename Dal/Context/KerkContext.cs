@@ -19,10 +19,10 @@ namespace Dal.Context
         private SqlConnection conn;
         public void GeefInfoVoorKerk(int user_id, Kerk kerk)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -37,6 +37,18 @@ namespace Dal.Context
                                 kerk.Kerk_tijd = (DateTime)reader["kerk_tijd"];
                                 kerk.User_levens = (int)reader["user_leven"];
                             }
+                         
+                        }
+                    }
+                    if (kerk.Kerk_id == 0)
+                    {
+                        kerk.Kerk_id = 0;
+                        kerk.Kerk_tijd = DateTime.Now;
+                        using (SqlCommand command = new SqlCommand("Insert into Kerk (user_id, kerk_tijd) Values(@user_id, @kerk_tijd)", connectie))
+                        {
+                            command.Parameters.AddWithValue("@user_id", user_id);
+                            command.Parameters.AddWithValue("@kerk_tijd", kerk.Kerk_tijd);
+                            command.ExecuteNonQuery();
                         }
                     }
                 }
@@ -50,10 +62,10 @@ namespace Dal.Context
         public DateTime KrijgTijd(int kerkid)
         {
             DateTime TijdUser = DateTime.Now;
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -73,11 +85,11 @@ namespace Dal.Context
 
         public void LevensToevoegen(int kerkid, int user_id)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
                 int user_leven;
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("select user_leven from UserGegevens where user_id=@user_id ", connectie))
@@ -117,6 +129,30 @@ namespace Dal.Context
             {
                 Console.WriteLine(error.Message);
             }
+        }
+
+        public int KrijgLevensInfo(int user_id)
+        {
+            int Levens;
+            try
+            {
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("Select user_leven from UserGegevens where user_id=@user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        Levens = (int)command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException error)
+            {
+                Levens = 0;
+                Console.WriteLine(error.Message);
+            }
+            return Levens;
         }
     }
 }

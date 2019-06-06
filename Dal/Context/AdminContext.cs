@@ -53,10 +53,10 @@ namespace Dal.Context
 
         public bool IsAdmin2(int user_id)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     try
                     {
@@ -77,10 +77,10 @@ namespace Dal.Context
 
         public void IsAdmin(Admin admin)
         {
-            conn = db.returnconn();
+            //conn = db.returnconn();
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select * from Admin where User_id= @user_id", connectie))
@@ -111,7 +111,7 @@ namespace Dal.Context
         {
             try
             {
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Select * from Admin where User_id= @user_id", connectie))
@@ -140,8 +140,8 @@ namespace Dal.Context
             var Users = new List<UserIngame>();
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection con = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection con = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     con.Open();
                     using (SqlCommand cmd =
@@ -180,8 +180,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("delete from Userinlog where user_id = @user_id", connectie))
@@ -201,8 +201,8 @@ namespace Dal.Context
         {
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
                     using (SqlCommand command = new SqlCommand("Update UserGegevens set user_geld = @geld ,user_leven = @leven, user_xp= @xp where user_id=@user_id", connectie))
@@ -227,8 +227,8 @@ namespace Dal.Context
 
             try
             {
-                conn = db.returnconn();
-                using (SqlConnection con = new SqlConnection(conn.ConnectionString))
+                //conn = db.returnconn();
+                using (SqlConnection con = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     con.Open();
                     using (SqlCommand cmd =

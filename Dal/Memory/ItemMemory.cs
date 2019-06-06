@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dal.Context
 {
-    class ItemMemory : InItem
+    class ItemMemory : IWinkel
     {
 
         private static List<Item> items = new List<Item>();
@@ -23,6 +23,16 @@ namespace Dal.Context
         public List<Item> Itemsophalen()
         {
             return items;
+        }
+
+        public bool KanItemKopen(int item_id, int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void KoopItem(int item_id, int user_id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
