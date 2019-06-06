@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dal.Interfaces;
 using Dal.Repo;
 using Models;
 
@@ -8,7 +9,12 @@ namespace Logic
 {
     public class KerkLogic
     {
-        private KerkRepo KerkRepo = new KerkRepo();
+        private KerkRepo KerkRepo;
+        public KerkLogic(IKerk inkerk)
+        {
+            KerkRepo = new KerkRepo(inkerk);
+        }
+        
         public void GetInfoVoorKerk(int user_id, Kerk kerk)
         {
             KerkRepo.GeefInfoVoorKerk(user_id,kerk);

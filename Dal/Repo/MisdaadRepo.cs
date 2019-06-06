@@ -10,10 +10,16 @@ namespace Dal.Repo
     public class MisdaadRepo
     {
         private readonly IMisdaad iMisdaad;
-        public MisdaadRepo()
+        //public MisdaadRepo()
+        //{
+        //    iMisdaad = new MisdaadContext();
+        //}
+
+        public MisdaadRepo(IMisdaad imisdaad)
         {
-            iMisdaad = new MisdaadContext();
+            iMisdaad = imisdaad;
         }
+
         public List<Misdaad> VulListMisdaden() => iMisdaad.VulListMisdaden();
 
         public int MisdaadPlegen(int id) => iMisdaad.MisdaadPlegen(id);

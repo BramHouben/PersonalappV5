@@ -35,7 +35,7 @@ namespace Unittesten
                 newuser.username = "UserMemory";
                 newuser.ww = "test";
                 usermemory.InsertenUser(newuser);
-                Assert.IsTrue()
+            Assert.IsTrue();
 
 
         }

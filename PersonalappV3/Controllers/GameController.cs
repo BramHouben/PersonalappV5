@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using Dal.Interfaces;
+using Logic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,18 @@ namespace PersonalappV3.Controllers
 
     public class GameController : Controller
     {
-        private   KerkLogic kerklogic = new KerkLogic();
+        private KerkLogic kerklogic;
         private GevangenisView gevangenisVM;
         private WinkelLogic winkelLogic = new WinkelLogic();
         private GevangenisLogic GevangenisLogic = new GevangenisLogic();
         private Gevangenis GevangenisModel = new Gevangenis();
-        private MisdaadLogic misdaadlogic = new MisdaadLogic();
+        private MisdaadLogic misdaadlogic;
+
+        public GameController(IMisdaad inMisdaad, IKerk inKerk)
+        {
+            kerklogic = new KerkLogic(inKerk);
+            misdaadlogic = new MisdaadLogic(inMisdaad);
+        }
 
         public ActionResult Index()
         {

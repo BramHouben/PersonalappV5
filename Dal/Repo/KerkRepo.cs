@@ -10,9 +10,9 @@ namespace Dal.Repo
     public class KerkRepo
     {
         private readonly IKerk InKerk;
-        public KerkRepo()
+        public KerkRepo(IKerk inkerk)
         {
-            InKerk = new KerkContext();
+            InKerk = inkerk;
         }
 
         public void GeefInfoVoorKerk(int user_id, Kerk kerk) => InKerk.GeefInfoVoorKerk(user_id, kerk);

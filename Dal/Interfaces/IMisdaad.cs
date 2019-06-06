@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dal.Interfaces
 {
-    interface IMisdaad
+   public interface IMisdaad
     {
         List<Misdaad> VulListMisdaden();
         void ZetInDatabase(int id, int user_id);

@@ -1,4 +1,5 @@
 ﻿using Dal.Context;
+using Dal.Interfaces;
 using Dal.Repo;
 using Models;
 using System;
@@ -8,7 +9,12 @@ namespace Logic
 {
     public class MisdaadLogic
     {
-        private MisdaadRepo MisdaadRepo = new MisdaadRepo();
+        private MisdaadRepo MisdaadRepo;
+        public MisdaadLogic(IMisdaad imisdaad)
+        {
+            MisdaadRepo = new MisdaadRepo(imisdaad);
+        }
+       
         private MisdaadContext MisdaadContext = new MisdaadContext();
 
         public List<Misdaad> VulList()

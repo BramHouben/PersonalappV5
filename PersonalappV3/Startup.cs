@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dal.Context;
+using Dal.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,7 +40,8 @@ namespace PersonalappV3
             //    options.LoginPath = "/User/Login"; // auth redirect
             //    options.ExpireTimeSpan = new TimeSpan(1, 0, 0, 0);
             //});
-
+            services.AddScoped<IKerk, KerkContext>();
+            services.AddScoped<IMisdaad, MisdaadContext>();
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
