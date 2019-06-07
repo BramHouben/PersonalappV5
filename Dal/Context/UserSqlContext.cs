@@ -141,7 +141,7 @@ namespace DAL.Context
                         {
                             reader.Read();
                             userIngame.ingameGeld = (int)reader["user_geld"];
-                            userIngame.level = (int)reader["user_leven"];
+                            userIngame.level = (int)reader["user_level"];
                             userIngame.xp = (int)reader["user_xp"];
                             userIngame.levens = (int)reader["user_leven"];
                             userIngame.clan_id = (int)reader["clan_id"];

@@ -1,8 +1,10 @@
 using Dal;
 using Dal.Memory;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Model;
 using Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Unittesten
@@ -56,5 +58,27 @@ namespace Unittesten
                 Assert.AreEqual("User bestaat niet", fout.Message);
             }
         }
+        [TestMethod]
+        public void DeleteUserGoed()
+        {
+
+        }
+        [TestMethod]
+        public List<Item> itemlistGebruikergoed()
+        {
+
+        }
+        [TestMethod]
+        public bool FoutWachtwoord()
+        {
+
+        }
+        [TestMethod]
+        public bool GoedeInlog()
+        {
+
+        }
+
+
     }
 }

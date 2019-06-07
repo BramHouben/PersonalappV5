@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dal.Memory
 {
-    class MisdaadMemory : IMisdaad
+   public class MisdaadMemory : IMisdaad
     {
         public void GeefReward(int id, int user_id)
         {

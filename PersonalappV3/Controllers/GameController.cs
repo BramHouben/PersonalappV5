@@ -31,7 +31,7 @@ namespace PersonalappV3.Controllers
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             if (GevangenisLogic.MagUserVrij(user_id) == false)
             {
-                return View("Gevangenis");
+                return RedirectToAction("Gevangenis", "Game");
             }
             else { 
             return View();
