@@ -26,13 +26,15 @@ namespace Unittesten
                 Item_schade = 15,
                 Item_naam = "Luchtbux",
                 Item_Soort = "Geweer",
-                Item_reputatie = "Luchtbux",
+                Item_reputatie = "Algemeen",
+                Item_beschrijving = "Een geweer",
+                
                 
             };
             UserIngame User = new UserIngame()
             {
                 user_id = 2025,
-                ingameGeld = 200,
+                ingameGeld = 800,
                 itemlist = new List<Item>(),
             };
 

@@ -29,6 +29,7 @@ namespace Logic
             if(itemRepo.KanItemKopen(item_id, user_id) == true)
             {
                 itemRepo.KoopItem(item_id, user_id);
+
                 return true;
             }
             else

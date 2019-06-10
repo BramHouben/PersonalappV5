@@ -28,6 +28,8 @@ namespace Dal.Context
 
         public bool KanItemKopen(int item_id, int user_id)
         {
+            int Kosten;
+            int ResultGeld;
             try
             {
                 //conn = db.returnconn();
@@ -35,15 +37,34 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    var UserGeld = connectie.CreateCommand();
-                    UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + user_id + "'";
-                    int ResultGeld = (int)UserGeld.ExecuteScalar();
-                    var ItemKosten = connectie.CreateCommand();
-                    ItemKosten.CommandText = "SELECT item_prijs FROM itemshop WHERE item_id = '" + item_id + "'";
-                    int Kosten = (int)ItemKosten.ExecuteScalar();
+                    using (SqlCommand cmd = new SqlCommand("SELECT user_geld FROM UserGegevens WHERE user_id = @user_id)", connectie))
+                    {
+
+                        cmd.Parameters.AddWithValue("@user_id", user_id);
+                        ResultGeld = (int)cmd.ExecuteScalar();
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT item_prijs FROM itemshop WHERE item_id = @item_id)", connectie))
+                    {
+
+                        cmd.Parameters.AddWithValue("@item_id", item_id);
+                        Kosten = (int)cmd.ExecuteScalar();
+                    }
+
+
+
 
                     if (Kosten <= ResultGeld)
                     {
+
+                        using (SqlCommand cmd = new SqlCommand("Update UserGevevens Set Usergeld = @User_geld where user_id = @user_id", connectie))
+                        {
+
+                            cmd.Parameters.AddWithValue("@user_id", user_id);
+                            cmd.Parameters.AddWithValue("@User_geld", ResultGeld);
+                            cmd.ExecuteNonQuery();
+                        }
+
                         return true;
                     }
                 }

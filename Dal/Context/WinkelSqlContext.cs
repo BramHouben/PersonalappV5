@@ -64,23 +64,45 @@ namespace Dal.Context
         }
         public bool KanItemKopen(int item_id, int user_id)
         {
+            int Kosten;
+            int ResultGeld;
+            int NieweRekening;
             try
             {
                 //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT user_geld FROM UserGegevens WHERE user_id = @user_id", connectie))
+                    {
+
+                        cmd.Parameters.AddWithValue("@user_id", user_id);
+                         ResultGeld = (int)cmd.ExecuteScalar();
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT item_prijs FROM itemshop WHERE item_id = @item_id", connectie))
+                    {
+
+                        cmd.Parameters.AddWithValue("@item_id", item_id);
+                         Kosten = (int)cmd.ExecuteScalar();
+                    }
+         
                    
-                    var UserGeld = connectie.CreateCommand();
-                    UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + user_id + "'";
-                    int ResultGeld = (int)UserGeld.ExecuteScalar();
-                    var ItemKosten = connectie.CreateCommand();
-                    ItemKosten.CommandText = "SELECT item_prijs FROM itemshop WHERE item_id = '" + item_id + "'";
-                    int Kosten = (int)ItemKosten.ExecuteScalar();
+                    
 
                     if(Kosten <= ResultGeld)
                     {
-                       return true;
+                        NieweRekening = ResultGeld - Kosten;
+                        using (SqlCommand cmd = new SqlCommand("Update UserGegevens Set user_geld = @User_geld where user_id = @user_id", connectie))
+                        {
+
+                            cmd.Parameters.AddWithValue("@user_id", user_id);
+                            cmd.Parameters.AddWithValue("@User_geld", NieweRekening);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        return true;
                     }
                 }
             }
@@ -93,11 +115,11 @@ namespace Dal.Context
 
         public void KoopItem(int item_id, int user_id)
         {
+            
+
             try
             {
-                //conn = db.returnconn();
-
-                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+               using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
@@ -109,10 +131,7 @@ namespace Dal.Context
                         cmd.Parameters.AddWithValue("@datum", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
-
-
-
-
+                               
                 }
             }catch(SqlException fout)
             {
