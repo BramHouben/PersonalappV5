@@ -78,6 +78,11 @@ namespace Unittesten
         {
 
         }
+        [TestMethod]
+        public List<UserInlog> lijstMetUsers()
+        {
+
+        }
 
 
     }

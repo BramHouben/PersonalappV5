@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using Dal.Interfaces;
 using Dal.Repo;
 using DAL.Context;
@@ -47,8 +48,32 @@ namespace Logic
             else
             {
                 UserRepo.InsertenUser(User);
+                verstuurMail(User.email, User.username);
             }
             return true;
+        }
+
+        private void verstuurMail(string email, string Username)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress("limbofunfontys@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "Registratie LimboFun";
+                mail.Body = "Beste "+Username+" Bedankt voor het registreren bij LimboFun!";
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("limbofunfontys@gmail.com", "Fontys123!");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+            }catch(Exception fout)
+            {
+               Console.WriteLine(fout.Message);
+            }
         }
 
         public bool Inloggen(UserInlog User)
