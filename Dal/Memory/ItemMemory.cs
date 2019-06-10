@@ -37,14 +37,14 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    using (SqlCommand cmd = new SqlCommand("SELECT user_geld FROM UserGegevens WHERE user_id = @user_id)", connectie))
+                    using (SqlCommand cmd = new SqlCommand("SELECT user_geld FROM UserGegevens WHERE user_id = @user_id", connectie))
                     {
 
                         cmd.Parameters.AddWithValue("@user_id", user_id);
                         ResultGeld = (int)cmd.ExecuteScalar();
                     }
 
-                    using (SqlCommand cmd = new SqlCommand("SELECT item_prijs FROM itemshop WHERE item_id = @item_id)", connectie))
+                    using (SqlCommand cmd = new SqlCommand("SELECT item_prijs FROM itemshop WHERE item_id = @item_id", connectie))
                     {
 
                         cmd.Parameters.AddWithValue("@item_id", item_id);
@@ -57,7 +57,7 @@ namespace Dal.Context
                     if (Kosten <= ResultGeld)
                     {
 
-                        using (SqlCommand cmd = new SqlCommand("Update UserGevevens Set Usergeld = @User_geld where user_id = @user_id", connectie))
+                        using (SqlCommand cmd = new SqlCommand("Update UserGegevens Set User_geld = @User_geld where user_id = @user_id", connectie))
                         {
 
                             cmd.Parameters.AddWithValue("@user_id", user_id);
@@ -67,13 +67,18 @@ namespace Dal.Context
 
                         return true;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
+                return false;
             }
-            return false;
+           
         }
 
         public void KoopItem(int item_id, int user_id)

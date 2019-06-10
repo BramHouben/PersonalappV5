@@ -109,6 +109,7 @@ namespace Dal.Context
             catch (SqlException fout)
             {
                 Console.WriteLine(fout.Message);
+                return false;
             }
             return false;
         }

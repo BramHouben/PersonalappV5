@@ -13,13 +13,13 @@ namespace Unittesten
     [TestClass]
    public class integrationTest
     {
-
+        WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
+        UserLogic userlogic = new UserLogic(new UserMemory());
         [TestMethod]
         public void ToevoegenItemaanuser()
         {
             // Arrange
-            WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
-            UserLogic userlogic = new UserLogic(new UserMemory());
+     
             Item item = new Item
             {
                 Item_id = 1,               
@@ -27,7 +27,7 @@ namespace Unittesten
                 Item_naam = "Luchtbux",
                 Item_Soort = "Geweer",
                 Item_reputatie = "Algemeen",
-                Item_beschrijving = "Een geweer",
+              
                 
                 
             };
@@ -44,5 +44,55 @@ namespace Unittesten
             // Assert
             CollectionAssert.Contains(User.itemlist, item);
         }
+        [TestMethod]
+        public void KanItemKopen()
+        {
+            Item item = new Item
+            {
+                Item_id = 1,
+                Item_schade = 15,
+                Item_naam = "Luchtbux",
+                Item_Soort = "Geweer",
+                Item_reputatie = "Algemeen",
+
+
+
+            };
+            UserIngame User = new UserIngame()
+            {
+                user_id = 2025,
+              
+                itemlist = new List<Item>(),
+            };
+            bool KanItemKopen = winkelLogic.KanItemKopen(item.Item_id, User.user_id);
+
+
+            Assert.IsTrue(KanItemKopen);  
+        }
+        [TestMethod]
+        public void KanItemNietKopen()
+        {
+            Item item = new Item
+            {
+                Item_id = 1,
+                Item_schade = 15,
+                Item_naam = "Luchtbux",
+                Item_Soort = "Geweer",
+                Item_reputatie = "Algemeen",
+
+
+
+            };
+            UserIngame User = new UserIngame()
+            {
+                user_id = 2026,
+
+                itemlist = new List<Item>(),
+            };
+            bool KanItemKopen = winkelLogic.KanItemKopen(item.Item_id, User.user_id);
+
+
+            Assert.IsFalse(KanItemKopen);
+        }
     }
-}
+    }
