@@ -1,5 +1,6 @@
 ﻿using Dal.Interfaces;
 using DAL.Context;
+using Model;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -172,7 +173,72 @@ namespace Dal.Memory
 
         public void KrijgenData(UserIngame userIngame)
         {
-            throw new NotImplementedException();
+            try
+            {
+                
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select *from UserGegevens where user_id= @user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", userIngame.user_id);
+
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            userIngame.ingameGeld = (int)reader["user_geld"];
+                            userIngame.level = (int)reader["user_level"];
+                            userIngame.xp = (int)reader["user_xp"];
+                            userIngame.levens = (int)reader["user_leven"];
+                            userIngame.clan_id = (int)reader["clan_id"];
+
+                            KijkvoorItems(userIngame);
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+        }
+        private List<Item> KijkvoorItems(UserIngame userIngame)
+        {
+            userIngame.itemlist = new List<Item>();
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select * from UserAankopen inner join Item on UserAankopen.item_id = item.item_id and user_id = @user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", userIngame.user_id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var Item = new Item
+                                {
+                                    Item_id = (int)reader["item_id"],
+                                    Item_naam = (string)reader["item_naam"],
+                                    Item_reputatie = (string)reader["item_reputatie"],
+                                    Item_schade = (int)reader["item_schade"],
+                                    Item_Soort = (string)reader["item_soort"],
+                                };
+                                userIngame.itemlist.Add(Item);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return userIngame.itemlist;
         }
 
         public int Krijgen_id(UserIngame User)

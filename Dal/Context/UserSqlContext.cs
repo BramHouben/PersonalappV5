@@ -177,7 +177,7 @@ namespace DAL.Context
                                 {
                                     Item_id = (int)reader["item_id"],
                                     Item_naam = (string)reader["item_naam"],
-                                    Item_reputatie = (string)reader["item_naam"],
+                                    Item_reputatie = (string)reader["item_reputatie"],
                                     Item_schade = (int)reader["item_schade"],
                                     Item_Soort = (string)reader["item_soort"],
                                 };
