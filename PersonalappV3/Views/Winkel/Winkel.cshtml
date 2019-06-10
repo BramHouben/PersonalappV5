@@ -13,9 +13,38 @@
 <h4>De winkel voor iedereen!</h4>
 <hr />
 
-<div>
+<div class="container">
     <div class="row">
-      
+        @if (TempData["ItemNietKopen"] != null)
+        {
+            <div id="message">
+                <div style="        padding: 5px;">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <p>@TempData["ItemNietKopen"]</p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            TempData.Remove("ItemNietKopen");
+        }
+        else if (TempData["ItemWelBetalen"] != null)
+        {
+            <div id="message">
+                <div style="        padding: 5px;">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <p>@TempData["ItemWelBetalen"]</p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+
+
         @foreach (var item in Model.ItemList)
         {
             <div class="col-sm-3">
@@ -25,7 +54,7 @@
                     <figcaption>
                         <h3> @Html.DisplayFor(model => item.Item_naam)</h3>
                         <p> @Html.DisplayFor(model => item.Item_beschrijving)</p>
-                        <p>@Html.DisplayFor(model =>item.Item_prijs)</p>
+                        <p>@Html.DisplayFor(model => item.Item_prijs)</p>
                     </figcaption>
                     @Html.ActionLink("Kopen", "ItemKopen", "Winkel", new { item_id = item.Item_id }, new { onclick = "return confirm('Weet u zeker dat je dit item wilt kopen?');" })
                 </figure>

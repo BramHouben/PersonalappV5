@@ -35,11 +35,13 @@ namespace PersonalappV3.Controllers
 
             if (winkelLogic.KanItemKopen(item_id, user_id) == true)
             {
+                TempData["ItemWelBetalen"] = "Je hebt het item gekocht!";
                 //winkelLogic.KoopItem(item_id);
                 return RedirectToAction("Winkel");
             }
             else
             {
+                TempData["ItemNietKopen"] = "Je kunt het item niet betalen!";
                 return RedirectToAction("Winkel");
             }
         }
