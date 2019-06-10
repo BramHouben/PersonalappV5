@@ -71,12 +71,24 @@ namespace Unittesten
         [TestMethod]
         public bool FoutWachtwoord()
         {
-
+            UserInlog foutWW = new UserInlog();
+            foutWW.email = "UserMemory@test.com";
+            foutWW.username = "UserMemory";
+            foutWW.ww = "testfout";
+          bool inloggenfout=  usermemory.Inloggen(foutWW.username, foutWW.ww);
+            Assert.IsFalse(inloggenfout);
+            return inloggenfout;
         }
         [TestMethod]
         public bool GoedeInlog()
         {
-
+            UserInlog goedInlog = new UserInlog();
+            goedInlog.email = "UserMemory@test.com";
+            goedInlog.username = "UserMemory";
+            goedInlog.ww = "test";
+            bool inloggengoed = usermemory.Inloggen(goedInlog.username, goedInlog.ww);
+            Assert.IsTrue(inloggengoed);
+            return inloggengoed;
         }
         [TestMethod]
         public List<UserInlog> lijstMetUsers()
