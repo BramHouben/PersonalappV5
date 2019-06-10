@@ -12,16 +12,18 @@ namespace Unittesten
     [TestClass]
     public class GebruikerUnit
     {
+        private Admin admin = new Admin();
         private UserInlog newuser = new UserInlog();
         private UserMemory usermemory = new UserMemory();
+        private AdminMemory adminMemory = new AdminMemory();
 
         [TestMethod]
         public void aanmakenUserFout()
         {
             try
             {
-                newuser.email = "";
-                newuser.username = "UserMemory";
+                
+                newuser.username = "";
                 newuser.user_id = 0;
                 newuser.ww = "test";
                 usermemory.InsertenUser(newuser);
@@ -34,11 +36,13 @@ namespace Unittesten
         [TestMethod]
         public void aanmakenUsergoed()
         {
-            
+            // Dit is een goede manier van registreren
                 newuser.email = "UserMemory@test.com";
                 newuser.username = "UserMemory";
                 newuser.ww = "test";
-                usermemory.InsertenUser(newuser);
+           
+            
+            usermemory.InsertenUser(newuser);
             Assert.IsTrue(true);
 
 
@@ -58,44 +62,46 @@ namespace Unittesten
                 Assert.AreEqual("User bestaat niet", fout.Message);
             }
         }
+
         [TestMethod]
-        public void DeleteUserGoed()
+        public void isAdmin()
         {
+            admin.username = "Admin";
+            admin.email = "admin@admin.nl";
+            admin.admin_id = 1;
+            admin.user_id = 2035;
+            bool Isadmin = adminMemory.IsAdmin2(admin.user_id);
+            Assert.IsTrue(Isadmin);
+          
 
         }
-        [TestMethod]
-        public List<Item> itemlistGebruikergoed()
-        {
+    
 
-        }
         [TestMethod]
-        public bool FoutWachtwoord()
+        public void FoutWachtwoord()
         {
             UserInlog foutWW = new UserInlog();
             foutWW.email = "UserMemory@test.com";
             foutWW.username = "UserMemory";
             foutWW.ww = "testfout";
+            
           bool inloggenfout=  usermemory.Inloggen(foutWW.username, foutWW.ww);
             Assert.IsFalse(inloggenfout);
-            return inloggenfout;
+            
         }
         [TestMethod]
-        public bool GoedeInlog()
+        public void GoedeInlog()
         {
             UserInlog goedInlog = new UserInlog();
             goedInlog.email = "UserMemory@test.com";
             goedInlog.username = "UserMemory";
             goedInlog.ww = "test";
+            
             bool inloggengoed = usermemory.Inloggen(goedInlog.username, goedInlog.ww);
-            Assert.IsTrue(inloggengoed);
-            return inloggengoed;
-        }
-        [TestMethod]
-        public List<UserInlog> lijstMetUsers()
-        {
+            Assert.IsFalse(inloggengoed);
 
         }
-
+   
 
     }
 }

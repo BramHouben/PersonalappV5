@@ -14,32 +14,32 @@ namespace Unittesten
         private UserInlog newuser = new UserInlog();
         private MisdaadMemory misdaadMemory = new MisdaadMemory();
 
-        [TestMethod]
-        public bool MisdaadMislukt()
-        {
+        //[TestMethod]
+        //public bool MisdaadMislukt()
+        //{
 
-        }
-        [TestMethod]
+        //}
+        //[TestMethod]
 
-        public bool MisdaadGelukt()
-        {
+        //public bool MisdaadGelukt()
+        //{
 
-        }
-        [TestMethod]
-        public int GeldGeven()
-        {
+        //}
+        //[TestMethod]
+        //public int GeldGeven()
+        //{
 
-        }
-        [TestMethod]
-        public List<Misdaad> VulListMisdaden()
-        {
+        //}
+        //[TestMethod]
+        //public List<Misdaad> VulListMisdaden()
+        //{
 
-        }
-        [TestMethod]
-        public int XpGeven()
-        {
+        //}
+        //[TestMethod]
+        //public int XpGeven()
+        //{
 
-        }
+        //}
 
     }
 }

@@ -13,7 +13,7 @@ namespace Dal.Memory
     {
         //SqlConnection conn;
         DbConn db = new DbConn("Data Source=mssql.fhict.local;User ID=dbi410994_limbofun;Password=mtbRqAp9rB3L27bfcW5g;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-
+        string hash;
 
         //private DbConn db = new DbConn();
         //private SqlConnection conn = "";
@@ -67,12 +67,58 @@ namespace Dal.Memory
 
         public string GetHash(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select hash_ww from UserInlog where Username= @Username", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+
+                        hash = (string)command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+
+            return hash;
         }
 
         public bool Inloggen(string username, string ww)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+
+                        int result = (int)command.ExecuteScalar();
+                        if (result > 0)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+
+            return Inloggen(username, ww);
         }
 
         public void InsertenUser(UserInlog User)
