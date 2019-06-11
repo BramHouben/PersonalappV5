@@ -20,17 +20,17 @@ namespace Logic
             KerkRepo.GeefInfoVoorKerk(user_id,kerk);
         }
 
-        public void LevensToevoegen(int kerkid, int user_id)
+        public void LevensToevoegen(int user_id)
         {
-            KerkRepo.LevensToevoegen(kerkid, user_id);
+            KerkRepo.LevensToevoegen(user_id);
         }
 
 
 
-        public bool MagLevensToevoegen(int kerkid)
+        public bool MagLevensToevoegen(/*int kerkid*/ int user_id)
         {
             DateTime tijdnu = DateTime.Now;
-          DateTime tijdVast = KerkRepo.KrijgTijd(kerkid);
+          DateTime tijdVast = KerkRepo.KrijgTijd(user_id);
             if(tijdVast <= tijdnu)
             {
                 return true;

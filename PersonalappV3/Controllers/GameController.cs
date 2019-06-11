@@ -142,12 +142,12 @@ namespace PersonalappV3.Controllers
             return View(KerkVW);
         }
 
-        public IActionResult LevensToevoegen(int kerkid)
+        public IActionResult LevensToevoegen(/*int kerkid*/)
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            if(kerklogic.MagLevensToevoegen(kerkid) == true)
+            if(kerklogic.MagLevensToevoegen(user_id) == true)
             {
-                kerklogic.LevensToevoegen(kerkid, user_id);
+                kerklogic.LevensToevoegen(user_id);
                 TempData.Remove("GeentijdZiekenhuis");
                 return RedirectToAction("Kerk", "Game");
                 

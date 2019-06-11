@@ -17,9 +17,9 @@ namespace Dal.Repo
 
         public void GeefInfoVoorKerk(int user_id, Kerk kerk) => InKerk.GeefInfoVoorKerk(user_id, kerk);
 
-        public void LevensToevoegen(int kerkid, int user_id) => InKerk.LevensToevoegen(kerkid, user_id);
+        public void LevensToevoegen(int user_id) => InKerk.LevensToevoegen(user_id);
 
-        public DateTime KrijgTijd(int kerkid) => InKerk.KrijgTijd(kerkid);
+        public DateTime KrijgTijd(int user_id) => InKerk.KrijgTijd(user_id);
 
         public int KrijgLevensInfo(int user_id) => InKerk.KrijgLevensInfo(user_id);
     }

@@ -59,7 +59,7 @@ namespace Dal.Context
             }
         }
 
-        public DateTime KrijgTijd(int kerkid)
+        public DateTime KrijgTijd(int user_id)
         {
             DateTime TijdUser = DateTime.Now;
             //conn = db.returnconn();
@@ -69,9 +69,9 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    using (SqlCommand command = new SqlCommand("Select kerk_tijd from Kerk where kerk_id=@kerk_id", connectie))
+                    using (SqlCommand command = new SqlCommand("Select kerk_tijd from Kerk where user_id=@user_id", connectie))
                     {
-                        command.Parameters.AddWithValue("@kerk_id", kerkid);
+                        command.Parameters.AddWithValue("@user_id", user_id);
                         TijdUser = (DateTime)command.ExecuteScalar();
                     }
                 }
@@ -83,7 +83,7 @@ namespace Dal.Context
             return TijdUser;
         }
 
-        public void LevensToevoegen(int kerkid, int user_id)
+        public void LevensToevoegen(int user_id)
         {
             //conn = db.returnconn();
             try
