@@ -32,7 +32,7 @@ namespace Logic
 
         public bool IsAdmin2(int userid)
         {
-            return AdminRepo.IsAdmin2(userid);
+            return adminContext.IsAdmin2(userid);
         }
 
         public List<UserIngame> KrijgAlleUsers()
@@ -42,17 +42,17 @@ namespace Logic
 
         public List<UserIngame> KrijgAlleUsersItems()
         {
-            return AdminRepo.KrijgAlleUsersItems();
+            return adminContext.KrijgAlleUsersItems();
         }
 
         public void InloggenAdmin(Admin admin)
         {
-          AdminRepo.IsAdmin(admin);
+            adminContext.IsAdmin(admin);
         }
 
         public void VerwijderUser(int user_id)
         {
-        AdminRepo.VerwijderUser(user_id);
+            adminContext.VerwijderUser(user_id);
         }
 
         //public UserIngame AanpassenUser(int id)
@@ -62,7 +62,7 @@ namespace Logic
 
         public void EditUser(UserIngame user)
         {
-            AdminRepo.EditUser(user);
+            adminContext.EditUser(user);
         }
     }
 }
