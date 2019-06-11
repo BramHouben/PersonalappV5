@@ -15,6 +15,8 @@ namespace Unittesten
     {
         WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
         UserLogic userlogic = new UserLogic(new UserMemory());
+
+
         [TestMethod]
         public void ToevoegenItemaanuser()
         {
@@ -101,14 +103,43 @@ namespace Unittesten
             UserInlog User = new UserInlog()
             {
                 user_id = 2026,
-                username = "Brommo",
-                email = "bram_houben@msn.com",
-                ww = "Test123",
+                username = "Unit",
+                email = "testVoorUnit@test.com",
+                ww = "Unit",
             };
 
             bool Inloggengoed = userlogic.Inloggen(User);
             Assert.IsTrue(Inloggengoed);
 
         }
+
+        [TestMethod]
+        public void InloggenFout()
+        {
+            UserInlog User = new UserInlog()
+            {
+                user_id = 2026,
+                username = "Unit",
+                email = "testVoorUnit@test.com",
+                ww = "FoutWachtwoord",
+            };
+
+            bool Inloggengoed = userlogic.Inloggen(User);
+            Assert.IsFalse(Inloggengoed);
+
+        }
+
+        [TestMethod]
+        public void registratieGoed()
+        {
+
+        }
+
+        [TestMethod]
+        public void RegistratieFout()
+        {
+
+        }
+        
     }
     }
