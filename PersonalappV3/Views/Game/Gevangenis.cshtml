@@ -22,7 +22,7 @@
                     <th scope="row"></th>
                     <td>@Model.Borg</td>
                     <td>@Model.Tijd_vast</td>
-                    <td>@Html.ActionLink("Betaal de borg", "BetaalBorg", "Game", new { geld = Model.Borg }, new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
+                    <td>@Html.ActionLink("Betaal de borg", "BetaalBorg", "Game",@*, new { geld = Model.Borg }*@ new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
                 </tr>
             </table>
 

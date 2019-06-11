@@ -18,12 +18,14 @@ namespace PersonalappV3.Controllers
         private GevangenisLogic GevangenisLogic;
         private Gevangenis GevangenisModel = new Gevangenis();
         private MisdaadLogic misdaadlogic;
+        private UserLogic userlogic;
 
-        public GameController(IMisdaad inMisdaad, IKerk inKerk ,IGevangenis inGevangenis)
+        public GameController(IMisdaad inMisdaad, IKerk inKerk ,IGevangenis inGevangenis, InUser inUser)
         {
             GevangenisLogic = new GevangenisLogic(inGevangenis);
             kerklogic = new KerkLogic(inKerk);
             misdaadlogic = new MisdaadLogic(inMisdaad);
+            userlogic = new UserLogic(inUser);
         }
 
         public ActionResult Index()
@@ -79,16 +81,17 @@ namespace PersonalappV3.Controllers
             }
             else
             {
+                userlogic.HaalLevensEraf(user_id);
                 misdaadlogic.ZetInGevangenis(id, user_id);
                 return RedirectToAction("Gevangenis", "Game");
             }
         }
 
-        public ActionResult BetaalBorg(int geld)
+        public ActionResult BetaalBorg()
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-
-            if (GevangenisLogic.BetalenBorg(user_id, geld) == true)
+            
+            if (GevangenisLogic.BetalenBorg(user_id/*, geld*/) == true)
             {
                 TempData["BorgBetaald"] = "Borg betaald!";
                 ModelState.AddModelError("BorgBetaald", "Je hebt de borg betaald!");
@@ -126,15 +129,15 @@ namespace PersonalappV3.Controllers
             kerklogic.GetInfoVoorKerk(user_id, kerk);
             DateTime tijdnu = DateTime.Now;
             var result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
-            //if (kerk.Kerk_id == 0)
-            //{
-            //    KerkVW.Kerk_tijd = result;
-            //    KerkVW.Levens_user = kerklogic.KrijgLevensInfo(user_id) ;
-              
-            //}
+            if (kerk.Kerk_id == 0)
+            {
+                //opnieuw gegevens vragen 
+                kerklogic.GetInfoVoorKerk(user_id, kerk);
+
+            }
             //else
             //{
-                KerkVW.Kerk_tijd = result;
+            KerkVW.Kerk_tijd = result;
                 KerkVW.Levens_user = kerk.User_levens;
                 KerkVW.Kerk_id = kerk.Kerk_id;
             //}

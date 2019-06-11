@@ -24,5 +24,7 @@ namespace Dal.Repo
         public int CheckGeldUser(int user_id) => iGevangenis.CheckGeldUser(user_id);
 
         public void BetalenBorg(int bedragOver, int user_id) => iGevangenis.BetalenBorg(bedragOver, user_id);
+
+        public int KrijgBorg(int user_id) => iGevangenis.KrijgenBorg(user_id);
     }
 }

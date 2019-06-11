@@ -94,5 +94,21 @@ namespace Unittesten
 
             Assert.IsFalse(KanItemKopen);
         }
+
+        [TestMethod]
+        public void Inloggen()
+        {
+            UserInlog User = new UserInlog()
+            {
+                user_id = 2026,
+                username = "Brommo",
+                email = "bram_houben@msn.com",
+                ww = "Test123",
+            };
+
+            bool Inloggengoed = userlogic.Inloggen(User);
+            Assert.IsTrue(Inloggengoed);
+
+        }
     }
     }

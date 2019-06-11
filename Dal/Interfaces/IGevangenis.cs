@@ -12,5 +12,6 @@ namespace Dal.Interfaces
         bool MagUserVrij(int user_id);
         int CheckGeldUser(int user_id);
         void BetalenBorg(int bedragOver, int user_id);
+        int KrijgenBorg(int user_id);
     }
 }
