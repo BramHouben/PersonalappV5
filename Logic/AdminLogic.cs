@@ -1,4 +1,5 @@
-﻿using Dal.Interfaces;
+﻿using Dal.Context;
+using Dal.Interfaces;
 using Dal.Repo;
 using Models;
 using System;
@@ -11,11 +12,17 @@ namespace Logic
     {
         //private UserInlog UserInlog;
         private AdminRepo AdminRepo;
+        private IAanpassenGegevensUser adminContext;
       
+
+        //public AdminLogic(IAanpassenGegevensUser iuser)
+        //{
+        //    AdminRepo = new AdminRepo(iuser);
+        //}
 
         public AdminLogic(IAanpassenGegevensUser iuser)
         {
-            AdminRepo = new AdminRepo(iuser);
+            adminContext = iuser ;
         }
 
         //public bool IsAdmin(int user_id, Admin admin)

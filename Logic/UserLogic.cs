@@ -108,6 +108,18 @@ namespace Logic
             }
         }
 
+        public void HaalLevensEraf(int user_id)
+        {
+            int Levens = UserRepo.KrijgLevens(user_id);
+            int Erafhalen = 10;
+            if (Levens >= 11)
+            {
+                Levens -= Erafhalen;
+                UserRepo.HaalLevensEraf(user_id, Levens);
+            }
+            
+        }
+
         public void Krijgendata(UserIngame IngameUser)
         {
             UserRepo.KrijgenData(IngameUser);

@@ -203,6 +203,36 @@ namespace Dal.Context
             }
         }
 
+        public int KrijgenBorg(int user_id)
+        {
+            int borg=0;
+            try
+            {
+                //conn = db.returnconn();
+
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("select borg from gevangenis where user_id=@user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@User_id", user_id);
+                        borg = (int)command.ExecuteScalar();
+                    }
+                }
+                //var command2 = conn.CreateCommand();
+                //command2.Parameters.AddWithValue("@User_id", user_id);
+                //command2.CommandText = "Delete from Gevangenis where user_id= @user_id";
+                //command2.ExecuteNonQuery();
+            }
+            catch (SqlException fout)
+            {
+                
+                Console.WriteLine(fout.Message);
+            }
+            return borg;
+        }
+
         //public List<Gevangenis> VulLijststMisdaden()
         //{
         //    List<Gevangenis> Gevangenis = new List<Gevangenis>();

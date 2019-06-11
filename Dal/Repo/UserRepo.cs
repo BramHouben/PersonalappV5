@@ -44,5 +44,9 @@ namespace Dal.Repo
         public void DeleteUser(int id) => inUser.DeleteUser(id);
 
         public bool Inloggen(string username, string ww) => inUser.Inloggen(username, ww);
+
+        public void HaalLevensEraf(int user_id, int erafhalen) => inUser.HaalLevensEraf(user_id, erafhalen);
+
+        public int KrijgLevens(int user_id) => inUser.KrijgLevens(user_id);
     }
 }

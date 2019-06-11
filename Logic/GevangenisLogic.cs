@@ -24,8 +24,11 @@ namespace Logic
             gevangenisRepo.KrijgGegevens(gevangenis);
         }
 
-        public bool BetalenBorg(int user_id, int borg)
+        public bool BetalenBorg(int user_id/*, int borg*/)
         {
+          int borg=  gevangenisRepo.KrijgBorg(user_id);
+
+
             int geld = gevangenisRepo.CheckGeldUser(user_id);
             int BedragOver = geld - borg;
             if(geld >= borg)

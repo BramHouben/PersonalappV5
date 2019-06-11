@@ -255,6 +255,16 @@ namespace Dal.Memory
         {
             throw new NotImplementedException();
         }
+
+        public void HaalLevensEraf(int user_id, int erafhalen)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int KrijgLevens(int user_id)
+        {
+            throw new NotImplementedException();
+        }
         //UserInlog inlog;
 
 

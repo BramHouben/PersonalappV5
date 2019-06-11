@@ -484,5 +484,55 @@ namespace DAL.Context
                 Console.WriteLine(fout.Message);
             }
         }
+
+        public void HaalLevensEraf(int user_id, int erafhalen)
+        {
+           
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+
+              
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens Set user_leven =@Levens Where user_id = @user_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+                        command.Parameters.AddWithValue("@levens", erafhalen);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+        }
+
+        public int KrijgLevens(int user_id)
+        {
+            int huidigelevens =0;
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select user_leven from UserGegevens Where user_id = @user_id ", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+
+                        huidigelevens = (int)command.ExecuteScalar();
+                    }
+
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+            return huidigelevens;
+        }
     }
 }

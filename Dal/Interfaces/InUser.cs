@@ -26,5 +26,7 @@ namespace Dal.Interfaces
         int AantalClanLeden(int clan_id);
         void BerichtPosten(int clan_id, int user_id, Bericht bericht);
         void GeefRewardDagelijksInloggen(int user_id);
+        void HaalLevensEraf(int user_id, int erafhalen);
+        int KrijgLevens(int user_id);
     }
 }
