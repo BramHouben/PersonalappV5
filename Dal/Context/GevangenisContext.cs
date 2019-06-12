@@ -233,6 +233,29 @@ namespace Dal.Context
             return borg;
         }
 
+        public bool GenoegLevens(int user_id)
+        {
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+
+                    using (SqlCommand command = new SqlCommand("Select user_leven from User_gegegevens where User_id = @user_id", connectie))
+                    {
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
+                        command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException error)
+            {
+                Console.WriteLine(error.Message);
+            }
+            return CheckUserVast(user_id);
+        }
+
         //public List<Gevangenis> VulLijststMisdaden()
         //{
         //    List<Gevangenis> Gevangenis = new List<Gevangenis>();

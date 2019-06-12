@@ -108,7 +108,7 @@ namespace PersonalappV3.Controllers
         public ActionResult MisdaadPlegen()
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            if (GevangenisLogic.CheckUserVast(user_id) == true)
+            if (GevangenisLogic.CheckUserVast(user_id) == true && GevangenisLogic.GenoegLevens(user_id) == true)
             {
                 return RedirectToAction("Gevangenis");
             }

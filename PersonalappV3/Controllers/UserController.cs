@@ -58,6 +58,7 @@ namespace PersonalappV3.Controllers
                 userlogic.Krijgendata(IngameUser);
                 HttpContext.Session.SetInt32("user_id", IngameUser.user_id);
                 HttpContext.Session.SetString("Username", User.username);
+                HttpContext.Session.SetInt32("user_geld", IngameUser.ingameGeld);
 
                 if (AdminLogic.IsAdmin2(IngameUser.user_id))
                 {

@@ -13,5 +13,6 @@ namespace Dal.Interfaces
         int CheckGeldUser(int user_id);
         void BetalenBorg(int bedragOver, int user_id);
         int KrijgenBorg(int user_id);
+        bool GenoegLevens(int user_id);
     }
 }

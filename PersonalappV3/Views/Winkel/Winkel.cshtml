@@ -1,10 +1,10 @@
 ﻿@model PersonalappV3.Models.WinkelView
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Winkel";
 }
 <head>
-
+    <link href="#" rel="stylesheet" />>
     <link href="/css/imagehover.min.css" rel="stylesheet" />
 </head>
 
@@ -14,35 +14,38 @@
 <hr />
 
 <div class="container">
-    <div class="row">
-        @if (TempData["ItemNietKopen"] != null)
-        {
-            <div id="message">
-                <div style="        padding: 5px;">
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <p>@TempData["ItemNietKopen"]</p>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            TempData.Remove("ItemNietKopen");
-        }
-        else if (TempData["ItemWelBetalen"] != null)
-        {
-            <div id="message">
-                <div style="        padding: 5px;">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <p>@TempData["ItemWelBetalen"]</p>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+    @Context.Session.GetInt32("user_geld")
+    @if (TempData["ItemNietKopen"] != null)
+    {
+        <div id="message">
+            <div style="        padding: 5px;">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <p>@TempData["ItemNietKopen"]</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
-        }
+        </div>
+
+        TempData.Remove("ItemNietKopen");
+    }
+    else if (TempData["ItemWelBetalen"] != null)
+    {
+        <div id="message">
+            <div style="        padding: 5px;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p>@TempData["ItemWelBetalen"]</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
 
 
         @foreach (var item in Model.ItemList)
