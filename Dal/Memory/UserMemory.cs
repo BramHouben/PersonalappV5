@@ -38,7 +38,34 @@ namespace Dal.Memory
 
         public bool bestaatuser(UserInlog User)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Select count(*) from UserInlog where Username= @Username or email_user = @email", connectie))
+                    {
+                        command.Parameters.AddWithValue("@username", User.username);
+                        command.Parameters.AddWithValue("@email", User.email);
+                        int result = (int)command.ExecuteScalar();
+                        if (result > 0)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
+
+            return bestaatuser(User);
         }
 
         public void DeleteUser(int id)

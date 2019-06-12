@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Dal.Interfaces;
-using Dal.Repo;
 using Models;
 
 namespace Logic

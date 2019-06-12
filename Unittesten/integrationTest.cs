@@ -132,14 +132,45 @@ namespace Unittesten
         [TestMethod]
         public void registratieGoed()
         {
+            UserInlog User = new UserInlog()
+            {
+               
+                username = "NewGebruiker",
+                email = "NewGebruiker@test.com",
+                ww = "NewGebruiker",
+            };
 
+            bool RegistratieGoed = userlogic.InsertenUser(User);
+            Assert.IsTrue(RegistratieGoed);
         }
 
         [TestMethod]
-        public void RegistratieFout()
+        public void RegistratieFoutZelfdeUsername()
         {
-
+            // unit gebruikersnaam bestaat al
+            UserInlog User = new UserInlog()
+            {
+                user_id = 2026,
+                username = "Unit",
+                email = "testVoorUnit@test.com",
+                ww = "FoutWachtwoord",
+            };
+            bool RegistratieFout = userlogic.InsertenUser(User);
+            Assert.IsFalse(RegistratieFout);
         }
-        
+        [TestMethod]
+        public void RegistratieFoutZelfdeEmail()
+        {
+            // unit gebruikersnaam bestaat al
+            UserInlog User = new UserInlog()
+            {
+                user_id = 2026,
+                username = "NietUnit",
+                email = "testVoorUnit@test.com",
+                ww = "FoutWachtwoord",
+            };
+            bool RegistratieFout = userlogic.InsertenUser(User);
+            Assert.IsFalse(RegistratieFout);
+        }
     }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Dal.Context;
 using Dal.Interfaces;
-using Dal.Repo;
 using Model;
 
 namespace Logic

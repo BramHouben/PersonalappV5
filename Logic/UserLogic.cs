@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 using Dal.Interfaces;
-using Dal.Repo;
 using DAL.Context;
 using Models;
 
