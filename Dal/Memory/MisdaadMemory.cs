@@ -13,7 +13,17 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
+        public int KrijgXP(int user_id)
+        {
+            throw new NotImplementedException();
+        }
+
         public int MisdaadPlegen(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateLevel(int XP, int user_id)
         {
             throw new NotImplementedException();
         }

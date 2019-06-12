@@ -12,5 +12,8 @@ namespace Dal.Interfaces
         void GeefReward(int id, int user_id);
         void ZetInGevangenis(int id, int user_id);
         int MisdaadPlegen(int id);
+        int KrijgXP(int user_id);
+        
+        void UpdateLevel(int XP, int user_id);
     }
 }

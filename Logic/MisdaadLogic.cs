@@ -9,22 +9,23 @@ namespace Logic
 {
     public class MisdaadLogic
     {
-        private MisdaadRepo MisdaadRepo;
+        //private MisdaadRepo MisdaadRepo;
+        private IMisdaad InMisdaad;
         public MisdaadLogic(IMisdaad imisdaad)
         {
-            MisdaadRepo = new MisdaadRepo(imisdaad);
+            InMisdaad = imisdaad;
         }
        
         //private MisdaadContext MisdaadContext = new MisdaadContext();
 
         public List<Misdaad> VulList()
         {
-            return MisdaadRepo.VulListMisdaden();
+            return InMisdaad.VulListMisdaden();
         }
 
         public bool PlegenMisdaad(int id)
         {
-            int kans = MisdaadRepo.MisdaadPlegen(id);
+            int kans = InMisdaad.MisdaadPlegen(id);
             if (KansBerekenen(kans) == true)
             {
                 return true;
@@ -53,17 +54,23 @@ namespace Logic
 
         public void ZetInGevangenis(int id, int user_id)
         {
-            MisdaadRepo.ZetInGevangenis(id, user_id);
+            InMisdaad.ZetInGevangenis(id, user_id);
         }
 
         public void GeefReward(int id, int user_id)
         {
-            MisdaadRepo.GeefReward(id, user_id);
+            InMisdaad.GeefReward(id, user_id);
+            int XP=  InMisdaad.KrijgXP(user_id);
+            double Level = XP /= 100;
+
+            
+            int XPInt = (int)Math.Round(Level);
+            InMisdaad.UpdateLevel(XPInt, user_id);
         }
 
         public void ZetInDatabase(int id, int user_id)
         {
-            MisdaadRepo.ZetInDatabase(id, user_id);
+            InMisdaad.ZetInDatabase(id, user_id);
         }
     }
 }

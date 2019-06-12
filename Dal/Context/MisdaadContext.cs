@@ -17,8 +17,10 @@ namespace Dal.Context
         {
             this.db = connection;
         }
+
         //private DbConn db = new DbConn();
         private SqlConnection conn;
+
         public List<Misdaad> VulListMisdaden()
         {
             List<Misdaad> misdaad = new List<Misdaad>();
@@ -67,9 +69,8 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    using (SqlCommand command = new SqlCommand("insert into UserMisdaadGeschiedenis values(@misdaad, @user_id, @tijd)",connectie))
+                    using (SqlCommand command = new SqlCommand("insert into UserMisdaadGeschiedenis values(@misdaad, @user_id, @tijd)", connectie))
                     {
-                     
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
                         command.Parameters.Add(new SqlParameter("misdaad", id));
                         command.Parameters.Add(new SqlParameter("tijd", DateTime.Now));
@@ -85,31 +86,40 @@ namespace Dal.Context
 
         public void GeefReward(int id, int user_id)
         {
+            int ResultGeld = 0;
+            int ResultXp = 0;
+            int Misdaad_id = 0;
             //conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
-
-                    var UserGeld = connectie.CreateCommand();
-                    UserGeld.CommandText = "SELECT user_geld FROM UserGegevens WHERE user_id = '" + user_id + "'";
-                    var ResultGeld = UserGeld.ExecuteScalar();
-
-                    var UserXp = connectie.CreateCommand();
-                    UserXp.CommandText = "SELECT user_xp FROM UserGegevens WHERE user_id = '" + user_id + "'";
-                    var ResultXp = UserXp.ExecuteScalar();
-
-                    var KrijgMisdaad_info = connectie.CreateCommand();
-                    KrijgMisdaad_info.CommandText = "SELECT reward_id FROM Misdaad WHERE misdaad_id = '" + id + "'";
-                    var MisdaadResult = KrijgMisdaad_info.ExecuteScalar();
-
-                    int geld = (int)ResultGeld + (int)MisdaadResult * 100;
-                    int xp = (int)ResultXp + (int)MisdaadResult * 10;
-
-                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_xp =@xp, user_geld= @geld where user_id = @user_id",connectie))
+                    using (SqlCommand command = new SqlCommand("SELECT user_geld FROM UserGegevens WHERE user_id= @user_id", connectie))
                     {
-                      
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
+
+                        ResultGeld = (int)command.ExecuteScalar();
+                    }
+                    using (SqlCommand command = new SqlCommand("SELECT user_xp FROM UserGegevens WHERE user_id= @user_id", connectie))
+                    {
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
+
+                        ResultXp = (int)command.ExecuteScalar();
+                    }
+
+                    using (SqlCommand command = new SqlCommand("SELECT reward_id FROM Misdaad WHERE misdaad_id= @misdaad_id", connectie))
+                    {
+                        command.Parameters.Add(new SqlParameter("misdaad_id", id));
+
+                        Misdaad_id = (int)command.ExecuteScalar();
+                    }
+
+                    int geld = (int)ResultGeld + (int)Misdaad_id * 100;
+                    int xp = (int)ResultXp + (int)Misdaad_id * 10;
+
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_xp =@xp, user_geld= @geld where user_id = @user_id", connectie))
+                    {
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
                         command.Parameters.Add(new SqlParameter("xp", xp));
                         command.Parameters.Add(new SqlParameter("geld", geld));
@@ -134,9 +144,8 @@ namespace Dal.Context
 
                 connectie.Open();
 
-                using (SqlCommand command = new SqlCommand("Insert into Gevangenis Values (@tijd_gevangen, @Uid, @borg, @id)",connectie))
+                using (SqlCommand command = new SqlCommand("Insert into Gevangenis Values (@tijd_gevangen, @Uid, @borg, @id)", connectie))
                 {
-             
                     command.Parameters.Add(new SqlParameter("tijd_gevangen", TijdGevangen));
                     command.Parameters.Add(new SqlParameter("Uid", user_id));
                     command.Parameters.Add(new SqlParameter("borg", 500));
@@ -154,7 +163,7 @@ namespace Dal.Context
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
-                    using (SqlCommand command = new SqlCommand("select misdaad_moeilijkheidsgraad from Misdaad where misdaad_id=  @id",connectie))
+                    using (SqlCommand command = new SqlCommand("select misdaad_moeilijkheidsgraad from Misdaad where misdaad_id=  @id", connectie))
                     {
                         command.Parameters.AddWithValue("@id", id);
 
@@ -168,6 +177,52 @@ namespace Dal.Context
             }
 
             return id;
+        }
+
+        public int KrijgXP(int user_id)
+        {
+            int xp = 0;
+            try
+            {
+                //conn = db.returnconn();
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("select user_xp from UserGegevens where user_id=  @user_id", connectie))
+                    {
+                        command.Parameters.AddWithValue("@user_id", user_id);
+
+                        xp = (int)command.ExecuteScalar();
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout);
+            }
+
+            return xp;
+        }
+
+        public void UpdateLevel(int XP, int user_id)
+        {
+            try
+            {
+                using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
+                {
+                    connectie.Open();
+                    using (SqlCommand command = new SqlCommand("Update UserGegevens set user_level =@level where user_id = @user_id", connectie))
+                    {
+                        command.Parameters.Add(new SqlParameter("user_id", user_id));
+                        command.Parameters.Add(new SqlParameter("level", XP));
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException fout)
+            {
+                Console.WriteLine(fout.Message);
+            }
         }
     }
 }
