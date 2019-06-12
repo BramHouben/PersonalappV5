@@ -54,8 +54,17 @@ namespace Logic
 
         public bool GenoegLevens(int user_id)
         {
-            if
-            return InGevangenis.GenoegLevens(user_id);
+
+            int levens = InGevangenis.GenoegLevens(user_id);
+            if (levens <= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
         //public List<Gevangenis> VullenLijst()
         //{

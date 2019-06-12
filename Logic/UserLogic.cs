@@ -112,9 +112,13 @@ namespace Logic
         {
             int Levens = UserRepo.KrijgLevens(user_id);
             int Erafhalen = 10;
-            if (Levens >= 11)
+            if (Levens > 1)
             {
                 Levens -= Erafhalen;
+                if(Levens <= 0)
+                {
+                    Levens = 1;
+                }
                 UserRepo.HaalLevensEraf(user_id, Levens);
             }
             

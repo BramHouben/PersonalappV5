@@ -233,8 +233,9 @@ namespace Dal.Context
             return borg;
         }
 
-        public bool GenoegLevens(int user_id)
+        public int GenoegLevens(int user_id)
         {
+            int levens=0;
             try
             {
                 //conn = db.returnconn();
@@ -242,18 +243,20 @@ namespace Dal.Context
                 {
                     connectie.Open();
 
-                    using (SqlCommand command = new SqlCommand("Select user_leven from User_gegegevens where User_id = @user_id", connectie))
+                    using (SqlCommand command = new SqlCommand("Select user_leven from UserGegevens where User_id = @user_id", connectie))
                     {
+                      
                         command.Parameters.Add(new SqlParameter("user_id", user_id));
-                        command.ExecuteScalar();
+                        levens= (int)command.ExecuteScalar();
                     }
                 }
             }
             catch (SqlException error)
             {
                 Console.WriteLine(error.Message);
+            
             }
-            return CheckUserVast(user_id);
+            return levens;
         }
 
         //public List<Gevangenis> VulLijststMisdaden()

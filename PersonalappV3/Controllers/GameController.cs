@@ -108,9 +108,15 @@ namespace PersonalappV3.Controllers
         public ActionResult MisdaadPlegen()
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            if (GevangenisLogic.CheckUserVast(user_id) == true && GevangenisLogic.GenoegLevens(user_id) == true)
+            if (GevangenisLogic.CheckUserVast(user_id) == true)
             {
                 return RedirectToAction("Gevangenis");
+            }
+            else if (GevangenisLogic.GenoegLevens(user_id) == true)
+            {
+                TempData["WeinigLevens"] = "Je hebt te weinig levens om een misdaad te plegen. Ga naar het ziekenhuis!";
+                return RedirectToAction("Index");
+
             }
             else
             {
@@ -128,19 +134,22 @@ namespace PersonalappV3.Controllers
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             kerklogic.GetInfoVoorKerk(user_id, kerk);
             DateTime tijdnu = DateTime.Now;
-            var result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
+            int result = (int)kerk.Kerk_tijd.Subtract(tijdnu).TotalMinutes;
+            if (result < 0)
+            {
+                result = 0;
+            }
             if (kerk.Kerk_id == 0)
             {
-                //opnieuw gegevens vragen 
+                //  opnieuw gegevens vragen fixt het 0 probleem
                 kerklogic.GetInfoVoorKerk(user_id, kerk);
 
             }
-            //else
-            //{
-            KerkVW.Kerk_tijd = result;
+       
+                KerkVW.Kerk_tijd = result;
                 KerkVW.Levens_user = kerk.User_levens;
                 KerkVW.Kerk_id = kerk.Kerk_id;
-            //}
+       
 
             return View(KerkVW);
         }
