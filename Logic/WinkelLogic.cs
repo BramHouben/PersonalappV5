@@ -11,24 +11,24 @@ namespace Logic
    public class WinkelLogic
     {
         //private ItemSqlContext itemSql = new ItemSqlContext();
-        private ItemRepo itemRepo;
-
+        //private ItemRepo itemRepo;
+        private IWinkel InWinkel;
         public WinkelLogic(IWinkel inWinkel/*, InItem inItem*/)
         {
-            itemRepo = new ItemRepo(inWinkel/*, inItem*/);
+            InWinkel = inWinkel/*, inItem*/;
         }
 
         public List<Item> Vullist()
         {
-            return itemRepo.Itemsophalen();
+            return InWinkel.Itemsophalen();
         }
 
         public bool KanItemKopen(int item_id, int user_id)
         {
 
-            if(itemRepo.KanItemKopen(item_id, user_id) == true)
+            if(InWinkel.KanItemKopen(item_id, user_id) == true)
             {
-                itemRepo.KoopItem(item_id, user_id);
+                InWinkel.KoopItem(item_id, user_id);
 
                 return true;
             }

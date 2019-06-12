@@ -11,11 +11,11 @@ namespace Logic
     public class UserLogic
     {
         //private UserSqlContext UserSqlContext = new UserSqlContext();
-        private UserRepo UserRepo;
-
+        //private UserRepo UserRepo;
+        private InUser IntUser;
         public UserLogic(InUser inUser)
         {
-            UserRepo = new UserRepo(inUser);
+            IntUser= inUser;
         }
         private string Krijgensalt()
         {
@@ -35,19 +35,19 @@ namespace Logic
         public string gethash(string username)
         {
             string hash;
-            hash = UserRepo.GetHash(username);
+            hash = IntUser.GetHash(username);
             return hash;
         }
 
         public bool InsertenUser(UserInlog User)
         {
-            if (UserRepo.bestaatuser(User) == false)
+            if (IntUser.bestaatuser(User) == false)
             {
                 return false;
             }
             else
             {
-                UserRepo.InsertenUser(User);
+                IntUser.InsertenUser(User);
                 verstuurMail(User.email, User.username);
             }
             return true;
@@ -78,7 +78,7 @@ namespace Logic
 
         public bool Inloggen(UserInlog User)
         {
-            if (UserRepo.Inloggen(User.username, User.ww) == true)
+            if (IntUser.Inloggen(User.username, User.ww) == true)
             {
                 return false;
             }
@@ -98,9 +98,9 @@ namespace Logic
 
         public void KijkVoorDagelijkseReward(int user_id)
         {
-           if(UserRepo.DagGeleden(user_id) == true)
+           if(IntUser.DagGeleden(user_id) == true)
             {
-                UserRepo.GeefRewardDagelijksInloggen(user_id);
+                IntUser.GeefRewardDagelijksInloggen(user_id);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace Logic
 
         public void HaalLevensEraf(int user_id)
         {
-            int Levens = UserRepo.KrijgLevens(user_id);
+            int Levens = IntUser.KrijgLevens(user_id);
             int Erafhalen = 10;
             if (Levens > 1)
             {
@@ -119,44 +119,44 @@ namespace Logic
                 {
                     Levens = 1;
                 }
-                UserRepo.HaalLevensEraf(user_id, Levens);
+                IntUser.HaalLevensEraf(user_id, Levens);
             }
             
         }
 
         public void Krijgendata(UserIngame IngameUser)
         {
-            UserRepo.KrijgenData(IngameUser);
+            IntUser.KrijgenData(IngameUser);
         }
 
         public void DeleteUser(int id)
         {
-            UserRepo.DeleteUser(id);
+            IntUser.DeleteUser(id);
         }
 
         public List<Clan> KrijgenClans(List<Clan> clanLijst)
         {
-         return   UserRepo.KrijgenClans(clanLijst);
+         return IntUser.KrijgenClans(clanLijst);
         }
 
         public void InvoerenClan(int clan_id, int user_id)
         {
-            UserRepo.InvoerenClan(clan_id, user_id);
+            IntUser.InvoerenClan(clan_id, user_id);
         }
 
         public List<Bericht> KrijgenBerichten(int clan_id)
         {
-          return  UserRepo.KrijgenBerichten(clan_id);
+          return IntUser.KrijgenBerichten(clan_id);
         }
 
         public int AantalClanLeden(int clan_id)
         {
-            return UserRepo.AantalClanLeden(clan_id);
+            return IntUser.AantalClanLeden(clan_id);
         }
 
         public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
         {
-            UserRepo.BerichtPosten(clan_id, user_id, bericht);
+            IntUser.BerichtPosten(clan_id, user_id, bericht);
         }
     }
 }

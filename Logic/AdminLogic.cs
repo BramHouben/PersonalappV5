@@ -37,7 +37,7 @@ namespace Logic
 
         public List<UserIngame> KrijgAlleUsers()
         {
-            return AdminRepo.KrijgAlleUsers;
+            return adminContext.KrijgAlleUsers();
         }
 
         public List<UserIngame> KrijgAlleUsersItems()

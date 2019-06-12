@@ -10,7 +10,7 @@ namespace Logic
 {
   public  class GevangenisLogic
     {
-        GevangenisRepo gevangenisRepo;
+        //GevangenisRepo gevangenisRepo;
         //GevangenisContext GevangenisContext = new GevangenisContext();
         private IGevangenis InGevangenis;
 
@@ -66,10 +66,5 @@ namespace Logic
             }
             
         }
-        //public List<Gevangenis> VullenLijst()
-        //{
-
-        //    return GevangenisContext.VulLijststMisdaden();
-        //}
     }
 }
