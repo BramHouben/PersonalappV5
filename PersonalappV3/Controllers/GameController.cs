@@ -1,6 +1,5 @@
 ﻿using Dal.Interfaces;
 using Logic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -9,7 +8,6 @@ using System;
 
 namespace PersonalappV3.Controllers
 {
-
     public class GameController : Controller
     {
         private KerkLogic kerklogic;
@@ -20,26 +18,45 @@ namespace PersonalappV3.Controllers
         private MisdaadLogic misdaadlogic;
         private UserLogic userlogic;
 
-        public GameController(IMisdaad inMisdaad, IKerk inKerk ,IGevangenis inGevangenis, InUser inUser)
+        public GameController(IMisdaad inMisdaad, IKerk inKerk, IGevangenis inGevangenis, InUser inUser)
         {
             GevangenisLogic = new GevangenisLogic(inGevangenis);
             kerklogic = new KerkLogic(inKerk);
             misdaadlogic = new MisdaadLogic(inMisdaad);
             userlogic = new UserLogic(inUser);
         }
+        //  user terugstruren niet ingelogd
+        public bool CheckInlog()
+        {
+            bool user_id = HttpContext.Session.GetInt32("user_id").HasValue;
+            if ( user_id == false)
+            {
+                return false;
+            }
+            else
+            {
+              return true;
+            }
+        }
+
 
         public ActionResult Index()
         {
+            if (CheckInlog() == false)
+            {
+                return RedirectToAction("Login", "User");
+            }
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             if (GevangenisLogic.MagUserVrij(user_id) == false)
             {
                 return RedirectToAction("Gevangenis", "Game");
             }
-            else { 
-            return View();
+            else
+            {
+                return View();
+            }
         }
-        }
-
+        
         //public ActionResult Gevangenis()
         //{
         //    return View();
@@ -48,6 +65,10 @@ namespace PersonalappV3.Controllers
         [HttpGet]
         public ActionResult Gevangenis()
         {
+            if (CheckInlog() == false)
+            {
+                return RedirectToAction("Login", "User");
+            }
             gevangenisVM = new GevangenisView();
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
 
@@ -90,7 +111,7 @@ namespace PersonalappV3.Controllers
         public ActionResult BetaalBorg()
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            
+
             if (GevangenisLogic.BetalenBorg(user_id/*, geld*/) == true)
             {
                 TempData["BorgBetaald"] = "Borg betaald!";
@@ -107,6 +128,10 @@ namespace PersonalappV3.Controllers
 
         public ActionResult MisdaadPlegen()
         {
+            if (CheckInlog() == false)
+            {
+                return RedirectToAction("Login", "User");
+            }
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             if (GevangenisLogic.CheckUserVast(user_id) == true)
             {
@@ -116,7 +141,6 @@ namespace PersonalappV3.Controllers
             {
                 TempData["WeinigLevens"] = "Je hebt te weinig levens om een misdaad te plegen. Ga naar het ziekenhuis!";
                 return RedirectToAction("Index");
-
             }
             else
             {
@@ -129,6 +153,10 @@ namespace PersonalappV3.Controllers
 
         public IActionResult Kerk()
         {
+            if (CheckInlog() == false)
+            {
+                return RedirectToAction("Login", "User");
+            }
             KerkView KerkVW = new KerkView();
             Kerk kerk = new Kerk();
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
@@ -143,13 +171,11 @@ namespace PersonalappV3.Controllers
             {
                 //  opnieuw gegevens vragen fixt het 0 probleem
                 kerklogic.GetInfoVoorKerk(user_id, kerk);
-
             }
-       
-                KerkVW.Kerk_tijd = result;
-                KerkVW.Levens_user = kerk.User_levens;
-                KerkVW.Kerk_id = kerk.Kerk_id;
-       
+
+            KerkVW.Kerk_tijd = result;
+            KerkVW.Levens_user = kerk.User_levens;
+            KerkVW.Kerk_id = kerk.Kerk_id;
 
             return View(KerkVW);
         }
@@ -157,26 +183,25 @@ namespace PersonalappV3.Controllers
         public IActionResult LevensToevoegen(/*int kerkid*/)
         {
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
-            if(kerklogic.MagLevensToevoegen(user_id) == true)
+            if (kerklogic.MagLevensToevoegen(user_id) == true)
             {
                 kerklogic.LevensToevoegen(user_id);
                 TempData.Remove("GeentijdZiekenhuis");
                 return RedirectToAction("Kerk", "Game");
-                
             }
             else
             {
                 TempData["GeentijdZiekenhuis"] = "Wacht tot de timer is afgelopen!";
                 return RedirectToAction("Kerk", "Game");
             }
-            
         }
+
         //public IActionResult Winkel()
         //{
         //    WinkelView winkel = new WinkelView();
         //    winkel.ItemList = winkelLogic.Vullist();
         //    winkel.Geld = 500;
-       
+
         //    return View(winkel);
         //}
 
@@ -194,6 +219,5 @@ namespace PersonalappV3.Controllers
         //        return RedirectToAction("Winkel");
         //    }
         //}
-    
     }
 }

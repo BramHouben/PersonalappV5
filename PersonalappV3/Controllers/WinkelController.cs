@@ -17,12 +17,29 @@ namespace PersonalappV3.Controllers
         {
             winkelLogic = new WinkelLogic(inWinkel/*, inItem*/);
         }
-        public IActionResult Index()
+
+        public bool CheckInlog()
         {
-            return View();
+            bool user_id = HttpContext.Session.GetInt32("user_id").HasValue;
+            if (user_id == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
         public IActionResult Winkel()
         {
+            if (CheckInlog() == false)
+            {
+                return RedirectToAction("Login", "User");
+            }
             WinkelView winkel = new WinkelView();
             winkel.ItemList = winkelLogic.Vullist();
 
