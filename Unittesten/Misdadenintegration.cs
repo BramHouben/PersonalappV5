@@ -5,16 +5,14 @@ using Model;
 using Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Unittesten
 {
     [TestClass]
-   public class Misdadenintegration
+    public class Misdadenintegration
     {
-       private MisdaadLogic misdaadLogic = new MisdaadLogic(new MisdaadMemory());
+        private MisdaadLogic misdaadLogic = new MisdaadLogic(new MisdaadMemory());
         private UserIngame newuser = new UserIngame();
-      
 
         [TestMethod]
         public void MisdaadGelukt()
@@ -23,11 +21,11 @@ namespace Unittesten
             newuser.xp = 100;
             newuser.ingameGeld = 500;
             newuser.itemlist = new List<Item>();
-            newuser.itemlist.Add(new  Item(1, "Luchtbux", 15, "Een Luchtbux om duiven neer te schieten", "Geweer", "Bekend", 100, 1, DateTime.Now, true));
-          Assert.IsTrue(  misdaadLogic.PlegenMisdaad(1, newuser));         
+            newuser.itemlist.Add(new Item(1, "Luchtbux", 15, "Een Luchtbux om duiven neer te schieten", "Geweer", "Bekend", 100, 1, DateTime.Now, true));
+            Assert.IsTrue(misdaadLogic.PlegenMisdaad(1, newuser));
         }
-        [TestMethod]
 
+        [TestMethod]
         public void MisdaadMislukt()
         {
             newuser.level = 1;
@@ -37,7 +35,5 @@ namespace Unittesten
             // 0 procent kans
             Assert.IsFalse(misdaadLogic.KansBerekenen(0, newuser));
         }
-       
-
     }
 }

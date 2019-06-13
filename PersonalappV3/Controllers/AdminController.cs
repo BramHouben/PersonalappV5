@@ -17,6 +17,7 @@ namespace PersonalappV3.Controllers
         {
             adminlogic = new AdminLogic(Iuser);
         }
+
         public IActionResult AdminIndex()
         {
             return View(adminlogic.KrijgAlleUsers());
@@ -26,6 +27,7 @@ namespace PersonalappV3.Controllers
         {
             return View(adminlogic.KrijgAlleUsersItems());
         }
+
         public IActionResult InloggenAdmin(UserIngame user)
         {
             admin.user_id = user.user_id;
@@ -53,6 +55,7 @@ namespace PersonalappV3.Controllers
             UserIngame User = alledata().Where(s => s.user_id == id).FirstOrDefault();
             return View(User);
         }
+
         [HttpPost]
         public IActionResult EditUser(UserIngame User)
         {

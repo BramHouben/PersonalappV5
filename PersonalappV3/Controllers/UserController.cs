@@ -1,6 +1,5 @@
 ﻿using Dal.Interfaces;
 using Logic;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -8,7 +7,6 @@ using PersonalappV3.Models;
 
 namespace PersonalappV3.Controllers
 {
-  
     public class UserController : Controller
     {
         private UserLogic userlogic;
@@ -17,11 +15,13 @@ namespace PersonalappV3.Controllers
         private UserIngame IngameUser = new UserIngame();
 
         private AdminLogic AdminLogic;
+
         public UserController(InUser inuser, IAanpassenGegevensUser Iadmin)
         {
             AdminLogic = new AdminLogic(Iadmin);
             userlogic = new UserLogic(inuser);
         }
+
         // GET: User
         [HttpGet]
         public ActionResult Registratie()

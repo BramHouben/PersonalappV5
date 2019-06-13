@@ -2,37 +2,30 @@
 using Dal.Memory;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model;
 using Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Unittesten
 {
     [TestClass]
     public class integrationTest
     {
-        WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
-        UserLogic userlogic = new UserLogic(new UserMemory());
-        KerkLogic KerkLogic = new KerkLogic(new KerkMemory());
-
+        private WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
+        private UserLogic userlogic = new UserLogic(new UserMemory());
+        private KerkLogic KerkLogic = new KerkLogic(new KerkMemory());
 
         [TestMethod]
         public void KanItemKopen()
         {
-
             bool KanItemKopen = winkelLogic.KanItemKopen(1, 1);
-
 
             Assert.IsTrue(KanItemKopen);
         }
+
         [TestMethod]
         public void KanItemNietKopen()
         {
-
             bool KanItemKopen = winkelLogic.KanItemKopen(1, 2);
-
 
             Assert.IsFalse(KanItemKopen);
         }
@@ -49,9 +42,8 @@ namespace Unittesten
             };
 
             bool Inloggengoed = userlogic.Inloggen(User);
-            // geeft false terug want er 
+            // geeft false terug want er
             Assert.IsTrue(Inloggengoed);
-
         }
 
         [TestMethod]
@@ -67,7 +59,6 @@ namespace Unittesten
 
             bool InloggenFout = userlogic.Inloggen(User);
             Assert.IsFalse(InloggenFout);
-
         }
 
         [TestMethod]
@@ -75,7 +66,6 @@ namespace Unittesten
         {
             UserInlog User = new UserInlog()
             {
-
                 username = "NewGebruiker",
                 email = "NewGebruiker@test.com",
                 ww = "NewGebruiker",
@@ -99,6 +89,7 @@ namespace Unittesten
             bool RegistratieFout = userlogic.InsertenUser(User);
             Assert.IsFalse(RegistratieFout);
         }
+
         [TestMethod]
         public void RegistratieFoutZelfdeEmail()
         {
@@ -113,6 +104,7 @@ namespace Unittesten
             bool RegistratieFout = userlogic.InsertenUser(User);
             Assert.IsFalse(RegistratieFout);
         }
+
         [TestMethod]
         public void DagelijkseInlogGoed()
         {
@@ -120,8 +112,8 @@ namespace Unittesten
             goedInlog.user_id = 1;
 
             userlogic.KijkVoorDagelijkseReward(1);
-
         }
+
         [TestMethod]
         public void DagelijkseInlogFout()
         {
@@ -130,7 +122,6 @@ namespace Unittesten
             goedInlog.user_id = 2;
 
             userlogic.KijkVoorDagelijkseReward(1);
-
         }
 
         [TestMethod]
@@ -141,8 +132,8 @@ namespace Unittesten
             goedInlog.user_id = 1;
 
             Assert.IsTrue(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
-
         }
+
         [TestMethod]
         public void GeefNietlevens()
         {
@@ -151,14 +142,13 @@ namespace Unittesten
             goedInlog.user_id = 2;
 
             Assert.IsFalse(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
-
         }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
          "Er mag geen dubbele string username of email de database in")]
         public void BerichtPostenFout()
         {
-            
             UserIngame goedInlog = new UserIngame();
             goedInlog.user_id = 2;
 
@@ -170,7 +160,6 @@ namespace Unittesten
             bericht.Bericht_titel = "";
             bericht.Clan_id = 2;
             userlogic.BerichtPosten(1, goedInlog.user_id, bericht);
-
         }
     }
 }

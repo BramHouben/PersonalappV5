@@ -1,21 +1,15 @@
-﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dal.Context;
-using Dal.Interfaces;
+﻿using Dal.Interfaces;
+using Models;
 
 namespace Logic
 {
-  public  class GevangenisLogic
+    public class GevangenisLogic
     {
-        //GevangenisRepo gevangenisRepo;
-        //GevangenisContext GevangenisContext = new GevangenisContext();
         private IGevangenis InGevangenis;
 
         public GevangenisLogic(IGevangenis inGevangenis)
         {
-            InGevangenis =inGevangenis;
+            InGevangenis = inGevangenis;
         }
 
         public void KrijgenGegevens(Gevangenis gevangenis)
@@ -25,14 +19,13 @@ namespace Logic
 
         public bool BetalenBorg(int user_id/*, int borg*/)
         {
-          int borg= InGevangenis.KrijgenBorg(user_id);
-
+            int borg = InGevangenis.KrijgenBorg(user_id);
 
             int geld = InGevangenis.CheckGeldUser(user_id);
             int BedragOver = geld - borg;
-            if(geld >= borg)
+            if (geld >= borg)
             {
-                InGevangenis.BetalenBorg(BedragOver ,user_id);
+                InGevangenis.BetalenBorg(BedragOver, user_id);
                 return true;
             }
             else
@@ -48,12 +41,11 @@ namespace Logic
 
         public bool CheckUserVast(int user_id)
         {
-          return InGevangenis.CheckUserVast(user_id);
+            return InGevangenis.CheckUserVast(user_id);
         }
 
         public bool GenoegLevens(int user_id)
         {
-
             int levens = InGevangenis.GenoegLevens(user_id);
             if (levens <= 1)
             {
@@ -63,7 +55,6 @@ namespace Logic
             {
                 return false;
             }
-            
         }
     }
 }

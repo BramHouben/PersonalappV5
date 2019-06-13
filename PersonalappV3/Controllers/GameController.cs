@@ -12,7 +12,7 @@ namespace PersonalappV3.Controllers
     {
         private KerkLogic kerklogic;
         private GevangenisView gevangenisVM;
-  
+
         private GevangenisLogic GevangenisLogic;
         private Gevangenis GevangenisModel = new Gevangenis();
         private MisdaadLogic misdaadlogic;
@@ -25,20 +25,20 @@ namespace PersonalappV3.Controllers
             misdaadlogic = new MisdaadLogic(inMisdaad);
             userlogic = new UserLogic(inUser);
         }
+
         //  user terugstruren niet ingelogd
         public bool CheckInlog()
         {
             bool user_id = HttpContext.Session.GetInt32("user_id").HasValue;
-            if ( user_id == false)
+            if (user_id == false)
             {
                 return false;
             }
             else
             {
-              return true;
+                return true;
             }
         }
-
 
         public ActionResult Index()
         {
@@ -56,8 +56,7 @@ namespace PersonalappV3.Controllers
                 return View();
             }
         }
-        
-      
+
         [HttpGet]
         public ActionResult Gevangenis()
         {
@@ -135,7 +134,6 @@ namespace PersonalappV3.Controllers
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             if (GevangenisLogic.CheckUserVast(user_id) == true)
             {
-             
                 return RedirectToAction("Gevangenis");
             }
             else if (GevangenisLogic.GenoegLevens(user_id) == true)
@@ -196,6 +194,5 @@ namespace PersonalappV3.Controllers
                 return RedirectToAction("Kerk", "Game");
             }
         }
-
     }
 }

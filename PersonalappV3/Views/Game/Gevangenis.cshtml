@@ -22,23 +22,9 @@
                     <th scope="row"></th>
                     <td>@Model.Borg</td>
                     <td>@Model.Tijd_vast</td>
-                    <td>@Html.ActionLink("Betaal de borg", "BetaalBorg", "Game" , new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
+                    <td>@Html.ActionLink("Betaal de borg", "BetaalBorg", "Game", new { onclick = "return confirm('Weet u zeker dat de borg betaald moet worden ?');" })</td>
                 </tr>
             </table>
-
-            @*<script>
-                var timer = new Timer();
-                timer.start({ countdown: true, startValues: { seconds: 30 } });
-                $('#countdownExample .values').html(timer.getTimeValues().toString());
-                timer.addEventListener('secondsUpdated', function (e) {
-                    $('#countdownExample .values').html(timer.getTimeValues().toString());
-                });
-                timer.addEventListener('targetAchieved', function (e) {
-                    $('#countdownExample .values').html('KABOOM!!');
-                });</script>
-            <div id="countdownExample">
-                <div class="values"></div>
-            </div>*@
 
             @if (TempData["Borg"] != null)
             {

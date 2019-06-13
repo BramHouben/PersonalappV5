@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dal.Context;
-using Dal.Interfaces;
+﻿using Dal.Interfaces;
 using Model;
+using System.Collections.Generic;
 
 namespace Logic
 {
-   public class WinkelLogic
+    public class WinkelLogic
     {
-        //private ItemSqlContext itemSql = new ItemSqlContext();
-        //private ItemRepo itemRepo;
         private IWinkel InWinkel;
-        public WinkelLogic(IWinkel inWinkel/*, InItem inItem*/)
+
+        public WinkelLogic(IWinkel inWinkel)
         {
-            InWinkel = inWinkel/*, inItem*/;
+            InWinkel = inWinkel;
         }
 
         public List<Item> Vullist()
@@ -24,8 +20,7 @@ namespace Logic
 
         public bool KanItemKopen(int item_id, int user_id)
         {
-
-            if(InWinkel.KanItemKopen(item_id, user_id) == true)
+            if (InWinkel.KanItemKopen(item_id, user_id) == true)
             {
                 InWinkel.KoopItem(item_id, user_id);
 
@@ -36,10 +31,5 @@ namespace Logic
                 return false;
             }
         }
-
-        //public void KoopItem(int item_id)
-        //{
-        //    return itemRepo.KoopItem(item_id);
-        //}
     }
 }

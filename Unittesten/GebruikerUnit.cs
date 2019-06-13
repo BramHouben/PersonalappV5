@@ -77,10 +77,10 @@ namespace Unittesten
             bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
             Assert.IsTrue(Isadmin);
         }
+
         [TestMethod]
         public void isGeenAdmin()
         {
-           
             admin.user_id = 3;
             bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
             Assert.IsFalse(Isadmin);
@@ -109,6 +109,5 @@ namespace Unittesten
             bool inloggengoed = usermemory.Inloggen(goedInlog.username, goedInlog.ww);
             Assert.IsFalse(inloggengoed);
         }
- 
     }
 }

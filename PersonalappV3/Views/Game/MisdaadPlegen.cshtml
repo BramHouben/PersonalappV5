@@ -53,10 +53,10 @@
             var GeselecteerdeItem = $("#misdaden option:selected").attr("data-desc");
             var GeselecteerdeItem2 = $("#misdaden option:selected").attr("data-moeilijk");
             var Kans = parseInt(GeselecteerdeItem2 * 16);
-       
+
             $("#Info").text(GeselecteerdeItem);
             $("#Info2").text(Kans + " % kans");
-            $('#progressbar').attr('aria-valuenow', Kans+ "%").css('width', Kans + "%");
+            $('#progressbar').attr('aria-valuenow', Kans + "%").css('width', Kans + "%");
         });
 
     });

@@ -1,27 +1,17 @@
-﻿using Dal.Context;
-using Dal.Interfaces;
+﻿using Dal.Interfaces;
 using Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Logic
 {
     public class AdminLogic
     {
-     
-     
         private IAanpassenGegevensUser adminContext;
-      
-
-   
 
         public AdminLogic(IAanpassenGegevensUser iuser)
         {
-            adminContext = iuser ;
+            adminContext = iuser;
         }
-
-   
 
         public bool IsAdminCheck(int userid)
         {
@@ -47,11 +37,6 @@ namespace Logic
         {
             adminContext.VerwijderUser(user_id);
         }
-
-        //public UserIngame AanpassenUser(int id)
-        //{
-        //  return AdminRepo.AanpassenUser(id);
-        //}
 
         public void EditUser(UserIngame user)
         {

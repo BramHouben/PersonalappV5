@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dal.Interfaces;
+﻿using Dal.Interfaces;
 using Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +9,7 @@ namespace PersonalappV3.Controllers
     public class WinkelController : Controller
     {
         private WinkelLogic winkelLogic;
+
         public WinkelController(IWinkel inWinkel/*, InItem inItem*/)
         {
             winkelLogic = new WinkelLogic(inWinkel/*, inItem*/);
@@ -30,6 +27,7 @@ namespace PersonalappV3.Controllers
                 return true;
             }
         }
+
         //public IActionResult Index()
         //{
         //    return View();

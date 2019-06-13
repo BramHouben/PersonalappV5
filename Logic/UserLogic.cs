@@ -1,21 +1,20 @@
-﻿using System;
+﻿using Dal.Interfaces;
+using Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using Dal.Interfaces;
-using DAL.Context;
-using Models;
 
 namespace Logic
 {
     public class UserLogic
     {
-        //private UserSqlContext UserSqlContext = new UserSqlContext();
-        //private UserRepo UserRepo;
         private InUser IntUser;
+
         public UserLogic(InUser inUser)
         {
-            IntUser= inUser;
+            IntUser = inUser;
         }
+
         private string Krijgensalt()
         {
             return BCrypt.Net.BCrypt.GenerateSalt(12);
@@ -62,16 +61,17 @@ namespace Logic
                 mail.From = new MailAddress("limbofunfontys@gmail.com");
                 mail.To.Add(email);
                 mail.Subject = "Registratie LimboFun";
-                mail.Body = "Beste "+Username+" Bedankt voor het registreren bij LimboFun!";
+                mail.Body = "Beste " + Username + " Bedankt voor het registreren bij LimboFun!";
 
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("limbofunfontys@gmail.com", "Fontys123!");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
-            }catch(Exception fout)
+            }
+            catch (Exception fout)
             {
-               Console.WriteLine(fout.Message);
+                Console.WriteLine(fout.Message);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Logic
 
         public void KijkVoorDagelijkseReward(int user_id)
         {
-           if(IntUser.DagGeleden(user_id) == true)
+            if (IntUser.DagGeleden(user_id) == true)
             {
                 IntUser.GeefRewardDagelijksInloggen(user_id);
             }
@@ -114,13 +114,12 @@ namespace Logic
             if (Levens > 1)
             {
                 Levens -= Erafhalen;
-                if(Levens <= 0)
+                if (Levens <= 0)
                 {
                     Levens = 1;
                 }
                 IntUser.HaalLevensEraf(user_id, Levens);
             }
-            
         }
 
         public void Krijgendata(UserIngame IngameUser)
@@ -135,7 +134,7 @@ namespace Logic
 
         public List<Clan> KrijgenClans(List<Clan> clanLijst)
         {
-         return IntUser.KrijgenClans(clanLijst);
+            return IntUser.KrijgenClans(clanLijst);
         }
 
         public void InvoerenClan(int clan_id, int user_id)
@@ -145,7 +144,7 @@ namespace Logic
 
         public List<Bericht> KrijgenBerichten(int clan_id)
         {
-          return IntUser.KrijgenBerichten(clan_id);
+            return IntUser.KrijgenBerichten(clan_id);
         }
 
         public int AantalClanLeden(int clan_id)
