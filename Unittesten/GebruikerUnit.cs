@@ -1,8 +1,11 @@
 using Dal;
+using Dal.Interfaces;
 using Dal.Memory;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Models;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -20,6 +23,7 @@ namespace Unittesten
         [TestMethod]
         public void aanmakenUserFout()
         {
+
             try
             {
                 
