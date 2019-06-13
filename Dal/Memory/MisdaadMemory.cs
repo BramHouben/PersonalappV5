@@ -8,6 +8,11 @@ namespace Dal.Memory
 {
    public class MisdaadMemory : IMisdaad
     {
+        public MisdaadMemory()
+        {
+
+        }
+
         public void GeefReward(int id, int user_id)
         {
             throw new NotImplementedException();

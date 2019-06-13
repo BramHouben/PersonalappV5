@@ -5,6 +5,7 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace DAL.Context
 {
@@ -16,16 +17,13 @@ namespace DAL.Context
         {
             this.db = connection;
         }
-        //private DbConn db = new DbConn();
-        private SqlConnection conn;
+
         private string hash;
 
         public void InsertenUser(UserInlog User)
         {
             try
             {
-
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -42,7 +40,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -50,7 +48,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -72,7 +69,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return bestaatuser(User);
@@ -82,7 +79,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -95,7 +91,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -103,7 +99,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -117,7 +112,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return User.user_id;
@@ -128,7 +123,7 @@ namespace DAL.Context
             try
             {
                 Krijgen_id(userIngame);
-                //conn = db.returnconn();
+
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -153,7 +148,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -162,7 +157,6 @@ namespace DAL.Context
             userIngame.itemlist = new List<Item>();
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -189,7 +183,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return userIngame.itemlist;
         }
@@ -198,7 +192,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -220,7 +213,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return Inloggen(username, ww);
@@ -230,7 +223,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -244,26 +236,11 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return hash;
         }
-
-        //public void DagGeleden(int user_id)
-        //{
-        //    try
-        //    {
-        //        if (DagGeleden(user_id) == true)
-        //        {
-        //            GeefRewardDagelijksInloggen(user_id);
-        //        }
-        //    }
-        //    catch (SqlException fout)
-        //    {
-        //        Console.WriteLine(fout.Message);
-        //    }
-        //}
 
         public void GeefRewardDagelijksInloggen(int user_id)
         {
@@ -302,7 +279,7 @@ namespace DAL.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
         }
 
@@ -336,7 +313,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return DagGeleden(user_id);
         }
@@ -346,7 +323,6 @@ namespace DAL.Context
             clanLijst = new List<Clan>();
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -369,7 +345,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return clanLijst;
         }
@@ -378,7 +354,6 @@ namespace DAL.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -392,7 +367,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -401,7 +376,6 @@ namespace DAL.Context
             var Berichten = new List<Bericht>();
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -428,7 +402,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return Berichten;
         }
@@ -438,7 +412,6 @@ namespace DAL.Context
             int leden = 0;
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -451,7 +424,7 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return leden;
         }
@@ -462,7 +435,6 @@ namespace DAL.Context
             {
                 DateTime tijdnu = DateTime.Now;
 
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -481,21 +453,18 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
         public void HaalLevensEraf(int user_id, int erafhalen)
         {
-           
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
 
-              
                     using (SqlCommand command = new SqlCommand("Update UserGegevens Set user_leven =@Levens Where user_id = @user_id ", connectie))
                     {
                         command.Parameters.AddWithValue("@user_id", user_id);
@@ -506,16 +475,15 @@ namespace DAL.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
         public int KrijgLevens(int user_id)
         {
-            int huidigelevens =0;
+            int huidigelevens = 0;
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -525,12 +493,11 @@ namespace DAL.Context
 
                         huidigelevens = (int)command.ExecuteScalar();
                     }
-
                 }
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
             return huidigelevens;
         }

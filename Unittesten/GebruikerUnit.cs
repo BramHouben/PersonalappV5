@@ -1,14 +1,7 @@
-using Dal;
-using Dal.Interfaces;
 using Dal.Memory;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model;
 using Models;
-using Moq;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace Unittesten
 {
@@ -21,91 +14,100 @@ namespace Unittesten
         private AdminMemory adminMemory = new AdminMemory();
 
         [TestMethod]
-        public void aanmakenUserFout()
+        [ExpectedException(typeof(ArgumentException),
+    "Je mag geen lege strings doorsturen")]
+        public void aanmakenUserFoutLegenVelden()
         {
-
-            try
-            {
-                
-                newuser.username = "";
-                newuser.user_id = 0;
-                newuser.ww = "test";
-                usermemory.InsertenUser(newuser);
-            }
-            catch (ArgumentException fout)
-            {
-                Assert.AreEqual("lege value mag niet", fout.Message);
-            }
+            newuser.username = "";
+            newuser.user_id = 4;
+            newuser.ww = "test";
+            usermemory.InsertenUser(newuser);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+    "Er mag geen dubbele string username of email de database in")]
+        public void aanmakenUserFoutDubbeleEmail()
+        {
+            // email bestaat al
+            newuser.username = "test2";
+            newuser.email = "test1@test.com";
+            usermemory.InsertenUser(newuser);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+ "Er mag geen dubbele string username of email de database in")]
+        public void aanmakenUserFoutDubbeleUsername()
+        {
+            // Username bestaat al
+            newuser.username = "test1";
+            newuser.email = "nieuwe email@test.com";
+            usermemory.InsertenUser(newuser);
+        }
+
         [TestMethod]
         public void aanmakenUsergoed()
         {
             // Dit is een goede manier van registreren
-                newuser.email = "UserMemory@test.com";
-                newuser.username = "UserMemory";
-                newuser.ww = "test";
-           
-            
+            newuser.email = "UserMemory@test.com";
+            newuser.username = "UserMemory";
+            newuser.ww = "test";
+
             usermemory.InsertenUser(newuser);
-            Assert.IsTrue(true);
-
-
+            Assert.IsTrue(usermemory.userlist.Count == 4);
         }
+
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+            "Username bestaat niet en kan deze dus niet deleten")]
         public void DeleteUserfout()
         {
-            try
-            {
-         
-               newuser.user_id = 0;
-      
-                usermemory.DeleteUser(newuser.user_id);
-            }
-            catch (ArgumentException fout)
-            {
-                Assert.AreEqual("User bestaat niet", fout.Message);
-            }
+            //username id bestaat niet en daarom kan deze user niet verwijderd worden
+            newuser.user_id = 0;
+
+            usermemory.DeleteUser(newuser.user_id);
         }
 
         [TestMethod]
         public void isAdmin()
         {
-            admin.username = "Admin";
-            admin.email = "admin@admin.nl";
             admin.admin_id = 1;
-            admin.user_id = 2035;
-            bool Isadmin = adminMemory.IsAdmin2(admin.user_id);
+            admin.user_id = 5;
+            bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
             Assert.IsTrue(Isadmin);
-          
-
         }
-    
+        [TestMethod]
+        public void isGeenAdmin()
+        {
+           
+            admin.user_id = 3;
+            bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
+            Assert.IsFalse(Isadmin);
+        }
 
         [TestMethod]
         public void FoutWachtwoord()
         {
             UserInlog foutWW = new UserInlog();
-            foutWW.email = "UserMemory@test.com";
-            foutWW.username = "UserMemory";
+            foutWW.email = "test1@test.com";
+            foutWW.username = "test1";
             foutWW.ww = "testfout";
-            
-          bool inloggenfout=  usermemory.Inloggen(foutWW.username, foutWW.ww);
-            Assert.IsFalse(inloggenfout);
-            
+
+            bool inloggenfout = usermemory.Inloggen(foutWW.username, foutWW.ww);
+            Assert.IsTrue(inloggenfout);
         }
+
         [TestMethod]
         public void GoedeInlog()
         {
             UserInlog goedInlog = new UserInlog();
-            goedInlog.email = "UserMemory@test.com";
-            goedInlog.username = "UserMemory";
-            goedInlog.ww = "test";
-            
+            goedInlog.email = "test1@test.com";
+            goedInlog.username = "test1";
+            goedInlog.ww = "Test123!";
+
             bool inloggengoed = usermemory.Inloggen(goedInlog.username, goedInlog.ww);
             Assert.IsFalse(inloggengoed);
-
         }
-   
-
     }
 }

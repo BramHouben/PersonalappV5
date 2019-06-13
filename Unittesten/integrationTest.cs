@@ -17,56 +17,12 @@ namespace Unittesten
         UserLogic userlogic = new UserLogic(new UserMemory());
 
 
-        [TestMethod]
-        public void ToevoegenItemaanuser()
-        {
-            // Arrange
-     
-            Item item = new Item
-            {
-                Item_id = 1,               
-                Item_schade = 15,
-                Item_naam = "Luchtbux",
-                Item_Soort = "Geweer",
-                Item_reputatie = "Algemeen",
-              
-                
-                
-            };
-            UserIngame User = new UserIngame()
-            {
-                user_id = 2025,
-                ingameGeld = 800,
-                itemlist = new List<Item>(),
-            };
-
-            // Act
-            winkelLogic.KanItemKopen(item.Item_id, User.user_id);
-            userlogic.Krijgendata(User);
-            // Assert
-            CollectionAssert.Contains(User.itemlist, item);
-        }
+        
         [TestMethod]
         public void KanItemKopen()
         {
-            Item item = new Item
-            {
-                Item_id = 1,
-                Item_schade = 15,
-                Item_naam = "Luchtbux",
-                Item_Soort = "Geweer",
-                Item_reputatie = "Algemeen",
-
-
-
-            };
-            UserIngame User = new UserIngame()
-            {
-                user_id = 2025,
-              
-                itemlist = new List<Item>(),
-            };
-            bool KanItemKopen = winkelLogic.KanItemKopen(item.Item_id, User.user_id);
+  
+            bool KanItemKopen = winkelLogic.KanItemKopen(1, 1);
 
 
             Assert.IsTrue(KanItemKopen);  
@@ -74,24 +30,8 @@ namespace Unittesten
         [TestMethod]
         public void KanItemNietKopen()
         {
-            Item item = new Item
-            {
-                Item_id = 1,
-                Item_schade = 15,
-                Item_naam = "Luchtbux",
-                Item_Soort = "Geweer",
-                Item_reputatie = "Algemeen",
-
-
-
-            };
-            UserIngame User = new UserIngame()
-            {
-                user_id = 2026,
-
-                itemlist = new List<Item>(),
-            };
-            bool KanItemKopen = winkelLogic.KanItemKopen(item.Item_id, User.user_id);
+  
+            bool KanItemKopen = winkelLogic.KanItemKopen(1, 2);
 
 
             Assert.IsFalse(KanItemKopen);
@@ -102,13 +42,14 @@ namespace Unittesten
         {
             UserInlog User = new UserInlog()
             {
-                user_id = 2026,
-                username = "Unit",
-                email = "testVoorUnit@test.com",
-                ww = "Unit",
+                user_id = 1,
+                username = "test1",
+                email = "test1@test.com",
+                ww = "Test123!",
             };
 
             bool Inloggengoed = userlogic.Inloggen(User);
+            // geeft false terug want er 
             Assert.IsTrue(Inloggengoed);
 
         }
@@ -118,14 +59,14 @@ namespace Unittesten
         {
             UserInlog User = new UserInlog()
             {
-                user_id = 2026,
-                username = "Unit",
-                email = "testVoorUnit@test.com",
+                user_id = 1,
+                username = "test1",
+                email = "test1@test.com",
                 ww = "FoutWachtwoord",
             };
 
-            bool Inloggengoed = userlogic.Inloggen(User);
-            Assert.IsFalse(Inloggengoed);
+            bool InloggenFout = userlogic.Inloggen(User);
+            Assert.IsFalse(InloggenFout);
 
         }
 
@@ -150,10 +91,10 @@ namespace Unittesten
             // unit gebruikersnaam bestaat al
             UserInlog User = new UserInlog()
             {
-                user_id = 2026,
-                username = "Unit",
-                email = "testVoorUnit@test.com",
-                ww = "FoutWachtwoord",
+                user_id = 2,
+                username = "test1",
+                email = "test2@test.com",
+                ww = "Test123!",
             };
             bool RegistratieFout = userlogic.InsertenUser(User);
             Assert.IsFalse(RegistratieFout);
@@ -164,10 +105,10 @@ namespace Unittesten
             // unit gebruikersnaam bestaat al
             UserInlog User = new UserInlog()
             {
-                user_id = 2026,
-                username = "NietUnit",
-                email = "testVoorUnit@test.com",
-                ww = "FoutWachtwoord",
+                user_id = 2,
+                username = "test2",
+                email = "test1@test.com",
+                ww = "Test123!",
             };
             bool RegistratieFout = userlogic.InsertenUser(User);
             Assert.IsFalse(RegistratieFout);

@@ -8,7 +8,7 @@ namespace Dal.Interfaces
     public interface IAanpassenGegevensUser
     {
         void IsAdmin(Admin admin);
-        bool IsAdmin2(int userid);
+        bool IsAdminCheck(int userid);
         List<UserIngame> KrijgAlleUsers();
         void VerwijderUser(int user_id);
         //UserIngame AanpassenUser(int id);

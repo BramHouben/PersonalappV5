@@ -2,24 +2,21 @@
 using Models;
 using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Dal.Context
 {
     public class KerkContext : IKerk
     {
-        //private DbConn db = new DbConn();
-        //private SqlConnection conn;
         private readonly DbConn db;
 
         public KerkContext(DbConn connection)
         {
             this.db = connection;
         }
-        //private DbConn db = new DbConn();
-        private SqlConnection conn;
+
         public void GeefInfoVoorKerk(int user_id, Kerk kerk)
         {
-            //conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -37,7 +34,6 @@ namespace Dal.Context
                                 kerk.Kerk_tijd = (DateTime)reader["kerk_tijd"];
                                 kerk.User_levens = (int)reader["user_leven"];
                             }
-                         
                         }
                     }
                     if (kerk.Kerk_id == 0)
@@ -55,14 +51,14 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
         }
 
         public DateTime KrijgTijd(int user_id)
         {
             DateTime TijdUser = DateTime.Now;
-            //conn = db.returnconn();
+
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -78,14 +74,13 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
             return TijdUser;
         }
 
         public void LevensToevoegen(int user_id)
         {
-            //conn = db.returnconn();
             try
             {
                 int user_leven;
@@ -127,7 +122,7 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
         }
 
@@ -150,7 +145,7 @@ namespace Dal.Context
             catch (SqlException error)
             {
                 Levens = 0;
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
             return Levens;
         }

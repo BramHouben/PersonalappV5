@@ -1,25 +1,22 @@
 ﻿using Dal.Interfaces;
-using DAL.Context;
 using Model;
 using Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
-
+using System.Linq;
 
 namespace Dal.Memory
 {
-   public class UserMemory : InUser
+    public class UserMemory : InUser
     {
-        //SqlConnection conn;
-        //DbConn db = new DbConn("Data Source=mssql.fhict.local;User ID=dbi410994_limbofun;Password=mtbRqAp9rB3L27bfcW5g;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-       
+        public List<UserInlog> userlist = new List<UserInlog>();
 
-        //private DbConn db = new DbConn();
-        //private SqlConnection conn = "";
-
-        //UserSqlContext usersqlcontext = new UserSqlContext();
+        public UserMemory()
+        {
+            userlist.Add(new UserInlog(1, "test1@test.com", "test1", "Test123!"));
+            userlist.Add(new UserInlog(2, "test2@test.com", "test2", "Test123!"));
+            userlist.Add(new UserInlog(3, "test3@test.com", "test3", "Test123!"));
+        }
 
         public int AantalClanLeden(int clan_id)
         {
@@ -38,35 +35,67 @@ namespace Dal.Memory
 
         public bool bestaatuser(UserInlog User)
         {
-
-
-            throw new NotImplementedException();
-
+         
+           if (userlist.Any(x => x.email == User.email || x.username == User.username))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            if (userlist.Any(x => x.user_id == id))
+            {
+                userlist.RemoveAt(id);
 
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
 
         public string GetHash(string username)
         {
-            throw new NotImplementedException();
+            string hash = "$2y$12$bQlO8ExWuxtLByZW9j5J.uDip8is24.7t7D1pnTENZtcQjyDXoeqK";
+
+            return hash;
 
         }
 
         public bool Inloggen(string username, string ww)
         {
-            throw new NotImplementedException();
+            UserInlog User = userlist.Find(item => item.username == username);
 
+            if(User.ww== ww)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void InsertenUser(UserInlog User)
         {
-            List<UserInlog> userlist = new List<UserInlog>();
-            throw new NotImplementedException();
-
+            if (User.email == "" || User.username == "" || User.ww == "")
+            {
+                throw new ArgumentException();
+            }
+            else if (userlist.Any(x => x.email == User.email|| x.username==User.username))
+            {
+                //fout
+                throw new ArgumentException();
+            }
+            else
+            {
+                userlist.Add(User);
+            }
         }
 
         public void InvoerenClan(int clan_id, int user_id)
@@ -91,7 +120,8 @@ namespace Dal.Memory
 
         public void KrijgenData(UserIngame userIngame)
         {
-           }
+        }
+
         private List<Item> KijkvoorItems(UserIngame userIngame)
         {
             throw new NotImplementedException();
@@ -121,8 +151,8 @@ namespace Dal.Memory
         {
             throw new NotImplementedException();
         }
-        //UserInlog inlog;
 
+        //UserInlog inlog;
 
         //public void InsertenUser(UserInlog inlog)
         //{
@@ -137,9 +167,6 @@ namespace Dal.Memory
         //public void DeleteUser(int id)
         //{
         //                id = 0;
-
-
-
 
         //}
     }

@@ -57,11 +57,7 @@ namespace PersonalappV3.Controllers
             }
         }
         
-        //public ActionResult Gevangenis()
-        //{
-        //    return View();
-        //}
-
+      
         [HttpGet]
         public ActionResult Gevangenis()
         {

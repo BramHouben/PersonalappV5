@@ -62,7 +62,7 @@ namespace PersonalappV3.Controllers
                 HttpContext.Session.SetString("Username", User.username);
                 HttpContext.Session.SetInt32("user_geld", IngameUser.ingameGeld);
 
-                if (AdminLogic.IsAdmin2(IngameUser.user_id))
+                if (AdminLogic.IsAdminCheck(IngameUser.user_id))
                 {
                     return RedirectToAction("InloggenAdmin", "Admin", new { IngameUser.user_id });
                 }

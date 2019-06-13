@@ -4,56 +4,21 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Dal.Context
 {
     public class AdminContext : IAanpassenGegevensUser
     {
-        //private DbConn db = new DbConn();
-        //private SqlConnection conn;
         private readonly DbConn db;
 
         public AdminContext(DbConn connection)
         {
             this.db = connection;
         }
-        //private DbConn db = new DbConn();
-        //private SqlConnection conn;
-        //public bool IsAdmin(int user_id, Admin admin)
-        //{
-        //    conn = db.returnconn();
-        //    int aantal;
-        //    try
-        //    {
-        //        using (SqlConnection connectie = new SqlConnection(conn.ConnectionString))
-        //        {
-        //            connectie.Open();
-        //            using (SqlCommand command = new SqlCommand("Select count(*) from Admin where User_id= @user_id", connectie))
-        //            {
-        //                command.Parameters.AddWithValue("@user_id", user_id);
-        //                aantal = (int)command.ExecuteScalar();
-        //                if (aantal >= 1)
-        //                {
-        //                    GetAdminInfo(user_id, admin);
-        //                    return true;
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException fout)
-        //    {
-        //        Console.WriteLine(fout.Message);
-        //    }
-        //    return IsAdmin(user_id, admin);
-        //}
 
-        public bool IsAdmin2(int user_id)
+        public bool IsAdminCheck(int user_id)
         {
-            //conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -70,14 +35,13 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
                 return false;
             }
         }
 
         public void IsAdmin(Admin admin)
         {
-            //conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -103,7 +67,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -130,7 +94,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
                 return false;
             }
         }
@@ -140,7 +104,6 @@ namespace Dal.Context
             var Users = new List<UserIngame>();
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection con = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     con.Open();
@@ -170,7 +133,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return Users;
@@ -180,7 +143,6 @@ namespace Dal.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -193,7 +155,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -201,7 +163,6 @@ namespace Dal.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -217,7 +178,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
 
@@ -227,7 +188,6 @@ namespace Dal.Context
 
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection con = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     con.Open();
@@ -271,7 +231,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
 
             return Users;

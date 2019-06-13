@@ -9,29 +9,23 @@ namespace Logic
 {
     public class AdminLogic
     {
-        //private UserInlog UserInlog;
+     
      
         private IAanpassenGegevensUser adminContext;
       
 
-        //public AdminLogic(IAanpassenGegevensUser iuser)
-        //{
-        //    AdminRepo = new AdminRepo(iuser);
-        //}
+   
 
         public AdminLogic(IAanpassenGegevensUser iuser)
         {
             adminContext = iuser ;
         }
 
-        //public bool IsAdmin(int user_id, Admin admin)
-        //{
-        //    return AdminRepo.IsAdmin(user_id,  admin);
-        //}
+   
 
-        public bool IsAdmin2(int userid)
+        public bool IsAdminCheck(int userid)
         {
-            return adminContext.IsAdmin2(userid);
+            return adminContext.IsAdminCheck(userid);
         }
 
         public List<UserIngame> KrijgAlleUsers()

@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Dal.Context
 {
     public class MisdaadContext : IMisdaad
     {
-        //private DbConn db = new DbConn();
-        //private SqlConnection conn;
         private readonly DbConn db;
 
         public MisdaadContext(DbConn connection)
@@ -18,14 +17,9 @@ namespace Dal.Context
             this.db = connection;
         }
 
-        //private DbConn db = new DbConn();
-        private SqlConnection conn;
-
         public List<Misdaad> VulListMisdaden()
         {
             List<Misdaad> misdaad = new List<Misdaad>();
-
-            //conn = db.returnconn();
 
             try
             {
@@ -55,14 +49,13 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
             return misdaad;
         }
 
         public void ZetInDatabase(int id, int user_id)
         {
-            //conn = db.returnconn();
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -80,7 +73,7 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
         }
 
@@ -89,7 +82,7 @@ namespace Dal.Context
             int ResultGeld = 0;
             int ResultXp = 0;
             int Misdaad_id = 0;
-            //conn = db.returnconn();
+
             try
             {
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
@@ -129,14 +122,12 @@ namespace Dal.Context
             }
             catch (SqlException error)
             {
-                Console.WriteLine(error.Message);
+                Debug.WriteLine(error.Message);
             }
         }
 
         public void ZetInGevangenis(int id, int user_id)
         {
-            //conn = db.returnconn();
-            //string Connstring = db.returnconn().ToString();
             using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
             {
                 DateTime tijdnu = DateTime.Now;
@@ -159,7 +150,6 @@ namespace Dal.Context
         {
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -173,7 +163,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout);
+                Debug.WriteLine(fout);
             }
 
             return id;
@@ -184,7 +174,6 @@ namespace Dal.Context
             int xp = 0;
             try
             {
-                //conn = db.returnconn();
                 using (SqlConnection connectie = new SqlConnection(db.SqlConnection.ConnectionString))
                 {
                     connectie.Open();
@@ -198,7 +187,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout);
+                Debug.WriteLine(fout);
             }
 
             return xp;
@@ -221,7 +210,7 @@ namespace Dal.Context
             }
             catch (SqlException fout)
             {
-                Console.WriteLine(fout.Message);
+                Debug.WriteLine(fout.Message);
             }
         }
     }
