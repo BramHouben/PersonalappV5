@@ -12,7 +12,7 @@ namespace PersonalappV3.Controllers
     {
         private KerkLogic kerklogic;
         private GevangenisView gevangenisVM;
-        //private WinkelLogic winkelLogic = new WinkelLogic();
+  
         private GevangenisLogic GevangenisLogic;
         private Gevangenis GevangenisModel = new Gevangenis();
         private MisdaadLogic misdaadlogic;
@@ -75,6 +75,7 @@ namespace PersonalappV3.Controllers
             gevangenisVM.Gevangenis_id = GevangenisModel.Gevangenis_id;
             if (gevangenisVM.Gevangenis_id == 0)
             {
+                TempData["ZitNietInGevangenis"] = "Je zit momenteel niet in de gevangenis!";
                 return RedirectToAction("index");
             }
             else
@@ -86,20 +87,23 @@ namespace PersonalappV3.Controllers
         [HttpPost]
         public IActionResult PlegenMisdaad(MisdaadView misdaad, IFormCollection form)
         {
-            int user_id = (int)HttpContext.Session.GetInt32("user_id");
+            UserIngame userIngame = new UserIngame();
+            userIngame.username = HttpContext.Session.GetString("Username");
+            userIngame.user_id = (int)HttpContext.Session.GetInt32("user_id");
             string Stringid = form["misdaden"];
             int id = Convert.ToInt32(Stringid);
-            if (misdaadlogic.PlegenMisdaad(id) == true)
+            userlogic.Krijgendata(userIngame);
+            if (misdaadlogic.PlegenMisdaad(id, userIngame) == true)
             {
-                misdaadlogic.GeefReward(id, user_id);
-                misdaadlogic.ZetInDatabase(id, user_id);
+                misdaadlogic.GeefReward(id, userIngame.user_id);
+                misdaadlogic.ZetInDatabase(id, userIngame.user_id);
                 TempData["MisdaadGelukt"] = "De misdaad is gelukt!";
                 return RedirectToAction("Index", "Game");
             }
             else
             {
-                userlogic.HaalLevensEraf(user_id);
-                misdaadlogic.ZetInGevangenis(id, user_id);
+                userlogic.HaalLevensEraf(userIngame.user_id);
+                misdaadlogic.ZetInGevangenis(id, userIngame.user_id);
                 return RedirectToAction("Gevangenis", "Game");
             }
         }
@@ -131,6 +135,7 @@ namespace PersonalappV3.Controllers
             int user_id = (int)HttpContext.Session.GetInt32("user_id");
             if (GevangenisLogic.CheckUserVast(user_id) == true)
             {
+             
                 return RedirectToAction("Gevangenis");
             }
             else if (GevangenisLogic.GenoegLevens(user_id) == true)
@@ -192,28 +197,5 @@ namespace PersonalappV3.Controllers
             }
         }
 
-        //public IActionResult Winkel()
-        //{
-        //    WinkelView winkel = new WinkelView();
-        //    winkel.ItemList = winkelLogic.Vullist();
-        //    winkel.Geld = 500;
-
-        //    return View(winkel);
-        //}
-
-        //public IActionResult ItemKopen(int item_id)
-        //{
-        //    int user_id = (int)HttpContext.Session.GetInt32("user_id");
-
-        //    if (winkelLogic.KanItemKopen(item_id, user_id) == true)
-        //    {
-        //        //winkelLogic.KoopItem(item_id);
-        //        return RedirectToAction("Winkel");
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Winkel");
-        //    }
-        //}
     }
 }

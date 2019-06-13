@@ -23,14 +23,17 @@ namespace Dal.Memory
             throw new NotImplementedException();
         }
 
-        public void BerichtPosten(int clan_id, int user_id)
-        {
-            throw new NotImplementedException();
-        }
-
+ 
         public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
         {
-            throw new NotImplementedException();
+            if (bericht.Bericht_inhoud==""||bericht.Bericht_titel=="")
+            {
+                throw new ArgumentException();
+            }
+
+
+            List<Bericht> berichts = new List<Bericht>();
+            berichts.Add(bericht);
         }
 
         public bool bestaatuser(UserInlog User)
@@ -134,12 +137,21 @@ namespace Dal.Memory
 
         bool InUser.DagGeleden(int user_id)
         {
-            throw new NotImplementedException();
+            //user 1 is meer als een dag geleden voor het laatst ingelogd
+            if (user_id==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void GeefRewardDagelijksInloggen(int user_id)
         {
-            throw new NotImplementedException();
+             UserIngame userIngame = new UserIngame();
+            userIngame.ingameGeld += 50;
         }
 
         public void HaalLevensEraf(int user_id, int erafhalen)

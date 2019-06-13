@@ -11,26 +11,26 @@ using System.Text;
 namespace Unittesten
 {
     [TestClass]
-   public class integrationTest
+    public class integrationTest
     {
         WinkelLogic winkelLogic = new WinkelLogic(new ItemMemory());
         UserLogic userlogic = new UserLogic(new UserMemory());
+        KerkLogic KerkLogic = new KerkLogic(new KerkMemory());
 
 
-        
         [TestMethod]
         public void KanItemKopen()
         {
-  
+
             bool KanItemKopen = winkelLogic.KanItemKopen(1, 1);
 
 
-            Assert.IsTrue(KanItemKopen);  
+            Assert.IsTrue(KanItemKopen);
         }
         [TestMethod]
         public void KanItemNietKopen()
         {
-  
+
             bool KanItemKopen = winkelLogic.KanItemKopen(1, 2);
 
 
@@ -75,7 +75,7 @@ namespace Unittesten
         {
             UserInlog User = new UserInlog()
             {
-               
+
                 username = "NewGebruiker",
                 email = "NewGebruiker@test.com",
                 ww = "NewGebruiker",
@@ -113,5 +113,64 @@ namespace Unittesten
             bool RegistratieFout = userlogic.InsertenUser(User);
             Assert.IsFalse(RegistratieFout);
         }
+        [TestMethod]
+        public void DagelijkseInlogGoed()
+        {
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 1;
+
+            userlogic.KijkVoorDagelijkseReward(1);
+
+        }
+        [TestMethod]
+        public void DagelijkseInlogFout()
+        {
+            //
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 2;
+
+            userlogic.KijkVoorDagelijkseReward(1);
+
+        }
+
+        [TestMethod]
+        public void Geeflevens()
+        {
+            //
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 1;
+
+            Assert.IsTrue(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
+
+        }
+        [TestMethod]
+        public void GeefNietlevens()
+        {
+            //
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 2;
+
+            Assert.IsFalse(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
+
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+         "Er mag geen dubbele string username of email de database in")]
+        public void BerichtPostenFout()
+        {
+            
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 2;
+
+            Bericht bericht = new Bericht();
+            bericht.Bericht_id = 1;
+            bericht.Belangrijk_bericht = false;
+            bericht.Bericht_inhoud = "";
+            bericht.Bericht_tijd = DateTime.Now;
+            bericht.Bericht_titel = "";
+            bericht.Clan_id = 2;
+            userlogic.BerichtPosten(1, goedInlog.user_id, bericht);
+
+        }
     }
-    }
+}

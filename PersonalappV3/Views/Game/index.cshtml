@@ -76,6 +76,21 @@
         </div>
         TempData.Remove("WeinigLevens");
     }
+    else if (TempData["ZitNietInGevangenis"] != null)
+    {
+
+        <div id="message">
+            <div style="        padding: 5px;">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <p>@TempData["ZitNietInGevangenis"]</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        TempData.Remove("ZitNietInGevangenis");
+    }
     <div class="image-container container-fluid">
         <img id="Image-Maps-Com-image-maps-2019-04-09-035729" src="~/images/map.png" usemap="#image-maps-2019-04-09-035729" alt="Map" class="mapding" />
         <map name="image-maps-2019-04-09-035729" id="ImageMapsCom-image-maps-2019-04-09-035729">

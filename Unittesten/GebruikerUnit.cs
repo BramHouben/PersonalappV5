@@ -109,5 +109,6 @@ namespace Unittesten
             bool inloggengoed = usermemory.Inloggen(goedInlog.username, goedInlog.ww);
             Assert.IsFalse(inloggengoed);
         }
+ 
     }
 }
