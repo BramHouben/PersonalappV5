@@ -38,30 +38,35 @@ namespace Dal.Memory
 
         public bool bestaatuser(UserInlog User)
         {
-           
 
+
+            throw new NotImplementedException();
 
         }
 
         public void DeleteUser(int id)
         {
-       
+            throw new NotImplementedException();
+
         }
 
         public string GetHash(string username)
         {
-        
+            throw new NotImplementedException();
+
         }
 
         public bool Inloggen(string username, string ww)
         {
-   
+            throw new NotImplementedException();
+
         }
 
         public void InsertenUser(UserInlog User)
         {
             List<UserInlog> userlist = new List<UserInlog>();
-            userlist.Add()
+            throw new NotImplementedException();
+
         }
 
         public void InvoerenClan(int clan_id, int user_id)
@@ -88,7 +93,9 @@ namespace Dal.Memory
         {
            }
         private List<Item> KijkvoorItems(UserIngame userIngame)
-            { }
+        {
+            throw new NotImplementedException();
+        }
 
         public int Krijgen_id(UserIngame User)
         {

@@ -28,13 +28,15 @@ namespace Dal.Context
 
         public bool KanItemKopen(int item_id, int user_id)
         {
-            
-           
+            throw new NotImplementedException();
+
+
         }
 
         public void KoopItem(int item_id, int user_id)
         {
-  
+            throw new NotImplementedException();
+
         }
     }
 }

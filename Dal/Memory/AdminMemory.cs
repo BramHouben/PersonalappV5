@@ -23,11 +23,13 @@ namespace Dal.Memory
 
         public bool IsAdmin2(int userid)
         {
-           
+            throw new NotImplementedException();
+
         }
         private bool GetAdminInfo2(int user_id)
         {
-          
+            throw new NotImplementedException();
+
         }
         public List<UserIngame> KrijgAlleUsers()
         {
