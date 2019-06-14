@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dal.Context
+namespace Dal.Memory
 {
     public class ItemMemory : IWinkel
     {

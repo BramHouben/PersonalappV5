@@ -10,12 +10,13 @@ namespace Dal.Memory
     public class UserMemory : InUser
     {
         public List<UserInlog> userlist = new List<UserInlog>();
-
+      public  List<Bericht> berichten = new List<Bericht>();
         public UserMemory()
         {
             userlist.Add(new UserInlog(1, "test1@test.com", "test1", "Test123!"));
             userlist.Add(new UserInlog(2, "test2@test.com", "test2", "Test123!"));
             userlist.Add(new UserInlog(3, "test3@test.com", "test3", "Test123!"));
+
         }
 
         public int AantalClanLeden(int clan_id)
@@ -32,8 +33,8 @@ namespace Dal.Memory
             }
 
 
-            List<Bericht> berichts = new List<Bericht>();
-            berichts.Add(bericht);
+         
+            berichten.Add(bericht);
         }
 
         public bool bestaatuser(UserInlog User)
