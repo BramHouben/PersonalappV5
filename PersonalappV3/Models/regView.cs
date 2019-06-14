@@ -17,6 +17,7 @@ namespace PersonalappV3.Models
         public string Username { get; set; }
         [Required(ErrorMessage = "Vul een wachtwoord in")]
         [DataType(DataType.Password)]
+        [MinLength(5,ErrorMessage ="Uw wachtwoord moet minimaal 5 letters zijn")]
         [Display(Name = "Wachtwoord")]
         public string WW { get; set; }
     }
