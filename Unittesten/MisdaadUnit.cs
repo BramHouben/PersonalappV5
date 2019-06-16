@@ -1,4 +1,5 @@
-﻿using Dal.Memory;
+﻿using Autofac.Extras.Moq;
+using Dal.Memory;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
@@ -11,9 +12,9 @@ namespace Unittesten
     [TestClass]
     public class MisdaadUnit
     {
-        private MisdaadMemory misdaadmemory = new MisdaadMemory();
+       
         private MisdaadLogic misdaadLogic = new MisdaadLogic(new MisdaadMemory());
-
+        public List<Misdaad> misdaden = new List<Misdaad>();
         [TestMethod]
         public void KansberekenIsGroot()
         {
@@ -32,5 +33,8 @@ namespace Unittesten
             
             Assert.IsFalse(misdaadLogic.KansBerekenen(0, user));
         }
+
+
+           
     }
 }

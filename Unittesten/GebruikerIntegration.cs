@@ -4,13 +4,14 @@ using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using System;
+using System.Collections.Generic;
 
 namespace Unittesten
 {
     [TestClass]
-    public class GebruikerUnit
+    public class GebruikerIntergration
     {
-        public GebruikerUnit()
+        public GebruikerIntergration()
         {
 
         }
@@ -79,22 +80,7 @@ namespace Unittesten
             userLogic.DeleteUser(newuser.user_id);
         }
 
-        [TestMethod]
-        public void isAdmin()
-        {
-            admin.admin_id = 1;
-            admin.user_id = 5;
-            bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
-            Assert.IsTrue(Isadmin);
-        }
-
-        [TestMethod]
-        public void isGeenAdmin()
-        {
-            admin.user_id = 3;
-            bool Isadmin = adminMemory.IsAdminCheck(admin.user_id);
-            Assert.IsFalse(Isadmin);
-        }
+   
 
         [TestMethod]
         public void FoutWachtwoord()
@@ -119,23 +105,23 @@ namespace Unittesten
             bool inloggengoed = userLogic.Inloggen(goedInlog);
             Assert.IsTrue(inloggengoed);
         }
-        [TestMethod]
+        //[TestMethod]
 
-        public void BerichtPostengoed()
-        {
-            UserIngame goedInlog = new UserIngame();
-            goedInlog.user_id = 2;
-
-            Bericht bericht = new Bericht();
-            bericht.Bericht_id = 1;
-            bericht.Belangrijk_bericht = false;
-            bericht.Bericht_inhoud = "test";
-            bericht.Bericht_tijd = DateTime.Now;
-            bericht.Bericht_titel = "test";
-            bericht.Clan_id = 2;
-            userLogic.BerichtPosten(1, goedInlog.user_id, bericht);
-            Assert.AreEqual( 1, usermemory.berichten.Count);
-        }
+        //public void BerichtPostengoed()
+        //{
+        //    UserIngame goedInlog = new UserIngame();
+        //    goedInlog.user_id = 2;
+          
+        //    Bericht bericht = new Bericht();
+        //    bericht.Bericht_id = 1;
+        //    bericht.Belangrijk_bericht = false;
+        //    bericht.Bericht_inhoud = "test";
+        //    bericht.Bericht_tijd = DateTime.Now;
+        //    bericht.Bericht_titel = "test";
+        //    bericht.Clan_id = 2;
+        //    userLogic.BerichtPosten(1, goedInlog.user_id, bericht);
+        //    Assert.AreEqual( 1, usermemory.berichten.Count);
+        //}
         [TestMethod]
         public void KanItemKopen()
         {
