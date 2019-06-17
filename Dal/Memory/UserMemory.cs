@@ -16,7 +16,7 @@ namespace Dal.Memory
             userlist.Add(new UserInlog(1, "test1@test.com", "test1", "Test123!"));
             userlist.Add(new UserInlog(2, "test2@test.com", "test2", "Test123!"));
             userlist.Add(new UserInlog(3, "test3@test.com", "test3", "Test123!"));
-
+            berichten.Add(new Bericht());
         }
 
         public int AantalClanLeden(int clan_id)
@@ -27,6 +27,7 @@ namespace Dal.Memory
  
         public void BerichtPosten(int clan_id, int user_id, Bericht bericht)
         {
+         
             if (bericht.Bericht_inhoud==""||bericht.Bericht_titel=="")
             {
                 throw new ArgumentException();

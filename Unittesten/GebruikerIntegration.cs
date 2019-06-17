@@ -105,23 +105,23 @@ namespace Unittesten
             bool inloggengoed = userLogic.Inloggen(goedInlog);
             Assert.IsTrue(inloggengoed);
         }
-        //[TestMethod]
+        [TestMethod]
 
-        //public void BerichtPostengoed()
-        //{
-        //    UserIngame goedInlog = new UserIngame();
-        //    goedInlog.user_id = 2;
-          
-        //    Bericht bericht = new Bericht();
-        //    bericht.Bericht_id = 1;
-        //    bericht.Belangrijk_bericht = false;
-        //    bericht.Bericht_inhoud = "test";
-        //    bericht.Bericht_tijd = DateTime.Now;
-        //    bericht.Bericht_titel = "test";
-        //    bericht.Clan_id = 2;
-        //    userLogic.BerichtPosten(1, goedInlog.user_id, bericht);
-        //    Assert.AreEqual( 1, usermemory.berichten.Count);
-        //}
+        public void BerichtPostengoed()
+        {
+            UserIngame goedInlog = new UserIngame();
+            goedInlog.user_id = 2;
+
+            Bericht bericht = new Bericht();
+            bericht.Bericht_id = 1;
+            bericht.Belangrijk_bericht = false;
+            bericht.Bericht_inhoud = "test";
+            bericht.Bericht_tijd = DateTime.Now;
+            bericht.Bericht_titel = "test";
+            bericht.Clan_id = 2;
+            userLogic.BerichtPosten(1, goedInlog.user_id, bericht);
+            Assert.AreEqual(1, usermemory.berichten.Count);
+        }
         [TestMethod]
         public void KanItemKopen()
         {
@@ -232,25 +232,25 @@ namespace Unittesten
             userLogic.KijkVoorDagelijkseReward(1);
         }
 
-        [TestMethod]
-        public void Geeflevens()
-        {
-            //
-            UserIngame goedInlog = new UserIngame();
-            goedInlog.user_id = 1;
+        //[TestMethod]
+        //public void Geeflevens()
+        //{
+        //    //
+        //    UserIngame goedInlog = new UserIngame();
+        //    goedInlog.user_id = 1;
 
-            Assert.IsTrue(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
-        }
+        //    Assert.IsTrue(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
+        //}
 
-        [TestMethod]
-        public void GeefNietlevens()
-        {
-            //
-            UserIngame goedInlog = new UserIngame();
-            goedInlog.user_id = 2;
+        //[TestMethod]
+        //public void GeefNietlevens()
+        //{
+        //    //
+        //    UserIngame goedInlog = new UserIngame();
+        //    goedInlog.user_id = 2;
 
-            Assert.IsFalse(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
-        }
+        //    Assert.IsFalse(KerkLogic.MagLevensToevoegen(goedInlog.user_id));
+        //}
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),

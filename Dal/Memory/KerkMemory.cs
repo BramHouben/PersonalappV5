@@ -10,7 +10,19 @@ namespace Dal.Memory
     {
         public void GeefInfoVoorKerk(int user_id, Kerk kerk)
         {
-            throw new NotImplementedException();
+            if (user_id == 1)
+            {
+                kerk.User_levens = 100;
+                kerk.Kerk_id = 1;
+                kerk.Kerk_tijd = DateTime.Now;
+            }
+            else
+            {
+                kerk.User_levens = 50;
+                kerk.Kerk_id = 2;
+                kerk.Kerk_tijd = DateTime.Now;
+            }
+          
         }
 
         public int KrijgLevensInfo(int user_id)
